@@ -5,6 +5,8 @@ Imports DevExpress.XtraEditors
 Imports DevExpress.XtraGrid.Views.Tile
 
 Public Class Form1
+    Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
+
     Public Sub New()
 
         ' This call is required by the designer.
@@ -22,22 +24,21 @@ Public Class Form1
     End Sub
 
     Private Sub SimpleButton1_Click(sender As Object, e As EventArgs) Handles SimpleButton1.Click
-        Dim element2 As SkinElement = SkinManager.GetSkinElement(SkinProductId.Ribbon, DevExpress.LookAndFeel.UserLookAndFeel.Default, "TabPanel")
-        'PanelControl2.LookAndFeel.UseDefaultLookAndFeel=False
-        PanelControl2.BackgroundImageLayout = ImageLayout.Stretch
-        PanelControl2.BackgroundImage = element2.Image.Image
-
-        'PanelControl2.Appearance.Options.UseImage=True
-        LookAndFeelHelper.ForceDefaultLookAndFeelChanged()
-        Debug.Print("Click")
+        Dim x As DevExpress.Utils.ContextButton = TileView1.ContextButtons(0)
+        'Debug.Print(x.Glyph.Height)
+        'x.Glyph 
+        x.Glyph = New Bitmap(CType(resources.GetObject("ContextButton2.Glyph"),System.Drawing.Image), New Size(x.Width*0.6666, x.Height * 0.6666))
     End Sub
 
+    '//attempt to customize button
     Private Sub TileView1_ContextButtonCustomize(sender As Object, e As TileViewContextButtonCustomizeEventArgs) Handles TileView1.ContextButtonCustomize
         Dim row As DataRowView = TryCast(TileView1.GetRow(e.RowHandle), DataRowView)
         Dim check As Boolean = CBool(row.Row("Check"))
         e.Item.Visibility = If(check, DevExpress.Utils.ContextItemVisibility.Visible, DevExpress.Utils.ContextItemVisibility.Hidden)
+        
     End Sub
 
+    '// dummy data
     Private Function GetData(rows As Integer) As DataTable
         Dim dt As New DataTable()
         dt.Columns.Add("ID", GetType(Integer))
@@ -49,6 +50,7 @@ Public Class Form1
         Return dt
     End Function
 
+    '// attempt to customize column fake button
     Private Sub SimpleButton2_Click(sender As Object, e As EventArgs) Handles SimpleButton2.Click
         Dim x As ContextItem = TileView1.ContextButtons(0)
         
@@ -63,6 +65,7 @@ Public Class Form1
         LookAndFeelHelper.ForceDefaultLookAndFeelChanged()
     End Sub
 
+    '// utility function
     Private Function GetTileElement(colName As String) As TileViewItemElement
         For each element As TileViewItemElement In TileView1.TileTemplate
             If element.Column.Name = colName Then Return element
@@ -70,6 +73,7 @@ Public Class Form1
         Return Nothing
     End Function
 
+    '// using a dummy image for testing
     Private Sub reSkinButton
         Dim currentSkin As DevExpress.Skins.Skin
         Dim element As DevExpress.Skins.SkinElement
@@ -85,6 +89,7 @@ Public Class Form1
         LookAndFeelHelper.ForceDefaultLookAndFeelChanged()
     End Sub
 
+    
     Private Sub SimpleButton3_Click(sender As Object, e As EventArgs) Handles SimpleButton3.Click
         Dim currentSkin As DevExpress.Skins.Skin
         Dim element As DevExpress.Skins.SkinElement
@@ -119,7 +124,7 @@ Public Class Form1
         Dim t As Integer = tgtRect.Top
         Dim b As Integer = tgtRect.Bottom
         Dim h As Integer = tgtRect.Height
-
+        
         'Dim images As DevExpress.Utils.ImageCollection = element.Image.GetImages()
         'bmp = images.Images(0)
     End Sub
@@ -173,7 +178,6 @@ Public Class Form1
 
         '// body
         g.DrawImage(image, New Rectangle(l+sM.Left, t+sM.Top, w-l-sM.Width, h-t-sM.Height), New Rectangle(sM.Left, sM.Top, image.Width-sM.Width-1, image.Height-sM.Height - 1), GraphicsUnit.Pixel)
- 
     End Sub
 
     Private Sub DrawPanel2(g As Graphics, image As Image, sM As SkinPaddingEdges, panel As PanelControl)
@@ -199,9 +203,6 @@ Public Class Form1
         g.DrawImage(image, New Rectangle(l+sM.Left, t+sM.Top, w-l-sM.Width, h-t-sM.Height), New Rectangle(sM.Left, sM.Top, image.Width-sM.Width-1, image.Height-sM.Height-1), GraphicsUnit.Pixel)
  
     End Sub
-
-
-
 
     Private Sub DrawPanel(g As Graphics, image As Image, sM As SkinPaddingEdges, panel As PanelControl)
         Dim tgtRect = panel.Bounds

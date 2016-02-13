@@ -22,12 +22,12 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim ContextButton1 As DevExpress.Utils.ContextButton = New DevExpress.Utils.ContextButton()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Dim TileViewItemElement1 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
-        Dim TileViewItemElement2 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
-        Dim TileViewItemElement3 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
-        Dim TileViewItemElement4 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
+        Dim ContextButton2 As DevExpress.Utils.ContextButton = New DevExpress.Utils.ContextButton()
+        Dim TileViewItemElement5 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
+        Dim TileViewItemElement6 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
+        Dim TileViewItemElement7 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
+        Dim TileViewItemElement8 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
         Me.colID = New DevExpress.XtraGrid.Columns.TileViewColumn()
         Me.colInfo = New DevExpress.XtraGrid.Columns.TileViewColumn()
         Me.colCheck = New DevExpress.XtraGrid.Columns.TileViewColumn()
@@ -38,12 +38,12 @@ Partial Class Form1
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
         Me.TileView1 = New DevExpress.XtraGrid.Views.Tile.TileView()
+        Me.SimpleButton5 = New DevExpress.XtraEditors.SimpleButton()
         Me.PanelControl2 = New DevExpress.XtraEditors.PanelControl()
         Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
         Me.SimpleButton2 = New DevExpress.XtraEditors.SimpleButton()
         Me.SimpleButton3 = New DevExpress.XtraEditors.SimpleButton()
         Me.SimpleButton4 = New DevExpress.XtraEditors.SimpleButton()
-        Me.SimpleButton5 = New DevExpress.XtraEditors.SimpleButton()
         Me.SimpleButton6 = New DevExpress.XtraEditors.SimpleButton()
         CType(Me.RepositoryItemButtonEdit1,System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.PanelControl1,System.ComponentModel.ISupportInitialize).BeginInit
@@ -82,6 +82,7 @@ Partial Class Form1
         Me.colButton.Caption = "MyButton"
         Me.colButton.ColumnEdit = Me.RepositoryItemButtonEdit1
         Me.colButton.FieldName = "colButton"
+        Me.colButton.Image = CType(resources.GetObject("colButton.Image"),System.Drawing.Image)
         Me.colButton.Name = "colButton"
         Me.colButton.UnboundType = DevExpress.Data.UnboundColumnType.[Object]
         Me.colButton.Visible = true
@@ -92,6 +93,10 @@ Partial Class Form1
         Me.RepositoryItemButtonEdit1.AutoHeight = false
         Me.RepositoryItemButtonEdit1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton()})
         Me.RepositoryItemButtonEdit1.Name = "RepositoryItemButtonEdit1"
+        '
+        'DefaultLookAndFeel1
+        '
+        Me.DefaultLookAndFeel1.LookAndFeel.SkinName = "DevExpress Dark Style"
         '
         'PanelControl1
         '
@@ -119,39 +124,54 @@ Partial Class Form1
         'TileView1
         '
         Me.TileView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colID, Me.colInfo, Me.colCheck, Me.colButton})
-        ContextButton1.Alignment = DevExpress.Utils.ContextItemAlignment.CenterFar
-        ContextButton1.Caption = "Button"
-        ContextButton1.Glyph = CType(resources.GetObject("ContextButton1.Glyph"),System.Drawing.Image)
-        ContextButton1.Height = 32
-        ContextButton1.Id = New System.Guid("b5701d27-0b29-4276-a571-274cf2345073")
-        ContextButton1.MaxHeight = 32
-        ContextButton1.MaxWidth = 32
-        ContextButton1.Name = "ContextButton"
-        ContextButton1.Padding = New System.Windows.Forms.Padding(0, 0, 6, 0)
-        ContextButton1.Visibility = DevExpress.Utils.ContextItemVisibility.Visible
-        ContextButton1.Width = 32
-        Me.TileView1.ContextButtons.Add(ContextButton1)
+        ContextButton2.Alignment = DevExpress.Utils.ContextItemAlignment.CenterFar
+        ContextButton2.Caption = "Button"
+        ContextButton2.Glyph = CType(resources.GetObject("ContextButton2.Glyph"),System.Drawing.Image)
+        ContextButton2.Height = 32
+        ContextButton2.Id = New System.Guid("b5701d27-0b29-4276-a571-274cf2345073")
+        ContextButton2.MaxHeight = 32
+        ContextButton2.MaxWidth = 32
+        ContextButton2.Name = "ContextButton"
+        ContextButton2.Padding = New System.Windows.Forms.Padding(0, 0, 6, 0)
+        ContextButton2.Visibility = DevExpress.Utils.ContextItemVisibility.Visible
+        ContextButton2.Width = 32
+        Me.TileView1.ContextButtons.Add(ContextButton2)
         Me.TileView1.GridControl = Me.GridControl1
         Me.TileView1.Name = "TileView1"
         Me.TileView1.OptionsTiles.Orientation = System.Windows.Forms.Orientation.Vertical
         Me.TileView1.OptionsView.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways
-        TileViewItemElement1.Column = Me.colID
-        TileViewItemElement1.Text = "colID"
-        TileViewItemElement2.Column = Me.colInfo
-        TileViewItemElement2.Text = "colInfo"
-        TileViewItemElement3.Column = Me.colCheck
-        TileViewItemElement3.Text = "colCheck"
-        TileViewItemElement4.Column = Me.colButton
-        TileViewItemElement4.Image = CType(resources.GetObject("TileViewItemElement4.Image"),System.Drawing.Image)
-        TileViewItemElement4.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze
-        TileViewItemElement4.ImageSize = New System.Drawing.Size(32, 32)
-        TileViewItemElement4.StretchHorizontal = true
-        TileViewItemElement4.StretchVertical = true
-        TileViewItemElement4.Text = "colButton"
-        Me.TileView1.TileTemplate.Add(TileViewItemElement1)
-        Me.TileView1.TileTemplate.Add(TileViewItemElement2)
-        Me.TileView1.TileTemplate.Add(TileViewItemElement3)
-        Me.TileView1.TileTemplate.Add(TileViewItemElement4)
+        TileViewItemElement5.Column = Me.colID
+        TileViewItemElement5.Text = "colID"
+        TileViewItemElement6.Column = Me.colInfo
+        TileViewItemElement6.Text = "colInfo"
+        TileViewItemElement7.Column = Me.colCheck
+        TileViewItemElement7.Text = "colCheck"
+        TileViewItemElement8.Appearance.Hovered.ForeColor = System.Drawing.Color.Red
+        TileViewItemElement8.Appearance.Hovered.Options.UseForeColor = true
+        TileViewItemElement8.Appearance.Normal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0,Byte),Integer), CType(CType(192,Byte),Integer), CType(CType(192,Byte),Integer))
+        TileViewItemElement8.Appearance.Normal.Options.UseForeColor = true
+        TileViewItemElement8.Appearance.Pressed.ForeColor = System.Drawing.Color.Fuchsia
+        TileViewItemElement8.Appearance.Pressed.Options.UseForeColor = true
+        TileViewItemElement8.Column = Me.colButton
+        TileViewItemElement8.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze
+        TileViewItemElement8.ImageSize = New System.Drawing.Size(32, 32)
+        TileViewItemElement8.StretchHorizontal = true
+        TileViewItemElement8.StretchVertical = true
+        TileViewItemElement8.Text = "colButton"
+        Me.TileView1.TileTemplate.Add(TileViewItemElement5)
+        Me.TileView1.TileTemplate.Add(TileViewItemElement6)
+        Me.TileView1.TileTemplate.Add(TileViewItemElement7)
+        Me.TileView1.TileTemplate.Add(TileViewItemElement8)
+        '
+        'SimpleButton5
+        '
+        Me.SimpleButton5.Dock = System.Windows.Forms.DockStyle.Top
+        Me.SimpleButton5.Location = New System.Drawing.Point(9, 9)
+        Me.SimpleButton5.Name = "SimpleButton5"
+        Me.SimpleButton5.Padding = New System.Windows.Forms.Padding(2)
+        Me.SimpleButton5.Size = New System.Drawing.Size(606, 67)
+        Me.SimpleButton5.TabIndex = 5
+        Me.SimpleButton5.Text = "SimpleButton5"
         '
         'PanelControl2
         '
@@ -192,16 +212,6 @@ Partial Class Form1
         Me.SimpleButton4.Size = New System.Drawing.Size(618, 67)
         Me.SimpleButton4.TabIndex = 4
         Me.SimpleButton4.Text = "SimpleButton4"
-        '
-        'SimpleButton5
-        '
-        Me.SimpleButton5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.SimpleButton5.Location = New System.Drawing.Point(9, 9)
-        Me.SimpleButton5.Name = "SimpleButton5"
-        Me.SimpleButton5.Padding = New System.Windows.Forms.Padding(2)
-        Me.SimpleButton5.Size = New System.Drawing.Size(606, 67)
-        Me.SimpleButton5.TabIndex = 5
-        Me.SimpleButton5.Text = "SimpleButton5"
         '
         'SimpleButton6
         '
