@@ -22,6 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Dim ContextButton2 As DevExpress.Utils.ContextButton = New DevExpress.Utils.ContextButton()
         Dim TileViewItemElement5 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
@@ -34,7 +35,7 @@ Partial Class Form1
         Me.colButton = New DevExpress.XtraGrid.Columns.TileViewColumn()
         Me.RepositoryItemButtonEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit()
         Me.FormAssistant1 = New DevExpress.XtraBars.FormAssistant()
-        Me.DefaultLookAndFeel1 = New DevExpress.LookAndFeel.DefaultLookAndFeel()
+        Me.DefaultLookAndFeel1 = New DevExpress.LookAndFeel.DefaultLookAndFeel(Me.components)
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
         Me.TileView1 = New DevExpress.XtraGrid.Views.Tile.TileView()
@@ -45,12 +46,18 @@ Partial Class Form1
         Me.SimpleButton3 = New DevExpress.XtraEditors.SimpleButton()
         Me.SimpleButton4 = New DevExpress.XtraEditors.SimpleButton()
         Me.SimpleButton6 = New DevExpress.XtraEditors.SimpleButton()
+        Me.PanelControl3 = New DevExpress.XtraEditors.PanelControl()
+        Me.IC1 = New DevExpress.Utils.ImageCollection(Me.components)
+        Me.PE1 = New DevExpress.XtraEditors.PictureEdit()
         CType(Me.RepositoryItemButtonEdit1,System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.PanelControl1,System.ComponentModel.ISupportInitialize).BeginInit
         Me.PanelControl1.SuspendLayout
         CType(Me.GridControl1,System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.TileView1,System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.PanelControl2,System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.PanelControl3,System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.IC1,System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.PE1.Properties,System.ComponentModel.ISupportInitialize).BeginInit
         Me.SuspendLayout
         '
         'colID
@@ -125,7 +132,6 @@ Partial Class Form1
         '
         Me.TileView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colID, Me.colInfo, Me.colCheck, Me.colButton})
         ContextButton2.Alignment = DevExpress.Utils.ContextItemAlignment.CenterFar
-        ContextButton2.Caption = "Button"
         ContextButton2.Glyph = CType(resources.GetObject("ContextButton2.Glyph"),System.Drawing.Image)
         ContextButton2.Height = 32
         ContextButton2.Id = New System.Guid("b5701d27-0b29-4276-a571-274cf2345073")
@@ -187,7 +193,7 @@ Partial Class Form1
         Me.SimpleButton1.Name = "SimpleButton1"
         Me.SimpleButton1.Size = New System.Drawing.Size(185, 60)
         Me.SimpleButton1.TabIndex = 1
-        Me.SimpleButton1.Text = "Test"
+        Me.SimpleButton1.Text = "Glyph ReSize"
         '
         'SimpleButton2
         '
@@ -195,7 +201,7 @@ Partial Class Form1
         Me.SimpleButton2.Name = "SimpleButton2"
         Me.SimpleButton2.Size = New System.Drawing.Size(185, 58)
         Me.SimpleButton2.TabIndex = 2
-        Me.SimpleButton2.Text = "SimpleButton2"
+        Me.SimpleButton2.Text = "Resize Form"
         '
         'SimpleButton3
         '
@@ -219,13 +225,38 @@ Partial Class Form1
         Me.SimpleButton6.Name = "SimpleButton6"
         Me.SimpleButton6.Size = New System.Drawing.Size(185, 58)
         Me.SimpleButton6.TabIndex = 5
-        Me.SimpleButton6.Text = "SimpleButton6"
+        Me.SimpleButton6.Text = "Reskin Panel BG"
+        '
+        'PanelControl3
+        '
+        Me.PanelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
+        Me.PanelControl3.Location = New System.Drawing.Point(115, 51)
+        Me.PanelControl3.Name = "PanelControl3"
+        Me.PanelControl3.Padding = New System.Windows.Forms.Padding(2)
+        Me.PanelControl3.Size = New System.Drawing.Size(618, 67)
+        Me.PanelControl3.TabIndex = 6
+        '
+        'IC1
+        '
+        Me.IC1.ImageStream = CType(resources.GetObject("IC1.ImageStream"),DevExpress.Utils.ImageCollectionStreamer)
+        Me.IC1.InsertGalleryImage("next_32x32.png", "office2013/navigation/next_32x32.png", DevExpress.Images.ImageResourceCache.Default.GetImage("office2013/navigation/next_32x32.png"), 0)
+        Me.IC1.Images.SetKeyName(0, "next_32x32.png")
+        '
+        'PE1
+        '
+        Me.PE1.Location = New System.Drawing.Point(974, 188)
+        Me.PE1.Name = "PE1"
+        Me.PE1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.[Auto]
+        Me.PE1.Size = New System.Drawing.Size(274, 681)
+        Me.PE1.TabIndex = 7
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(144!, 144!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(1311, 977)
+        Me.Controls.Add(Me.PE1)
+        Me.Controls.Add(Me.PanelControl3)
         Me.Controls.Add(Me.SimpleButton6)
         Me.Controls.Add(Me.SimpleButton4)
         Me.Controls.Add(Me.SimpleButton3)
@@ -241,6 +272,9 @@ Partial Class Form1
         CType(Me.GridControl1,System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.TileView1,System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.PanelControl2,System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.PanelControl3,System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.IC1,System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.PE1.Properties,System.ComponentModel.ISupportInitialize).EndInit
         Me.ResumeLayout(false)
 
 End Sub
@@ -262,4 +296,7 @@ End Sub
     Friend WithEvents SimpleButton4 As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents SimpleButton5 As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents SimpleButton6 As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents PanelControl3 As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents IC1 As DevExpress.Utils.ImageCollection
+    Friend WithEvents PE1 As DevExpress.XtraEditors.PictureEdit
 End Class
