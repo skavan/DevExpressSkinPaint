@@ -34,6 +34,7 @@ Partial Class Form1
         Me.colCheck = New DevExpress.XtraGrid.Columns.TileViewColumn()
         Me.colButton = New DevExpress.XtraGrid.Columns.TileViewColumn()
         Me.RepositoryItemButtonEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit()
+        Me.colArt = New DevExpress.XtraGrid.Columns.TileViewColumn()
         Me.FormAssistant1 = New DevExpress.XtraBars.FormAssistant()
         Me.DefaultLookAndFeel1 = New DevExpress.LookAndFeel.DefaultLookAndFeel(Me.components)
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
@@ -49,6 +50,13 @@ Partial Class Form1
         Me.PanelControl3 = New DevExpress.XtraEditors.PanelControl()
         Me.IC1 = New DevExpress.Utils.ImageCollection(Me.components)
         Me.PE1 = New DevExpress.XtraEditors.PictureEdit()
+        Me.PopupMenu1 = New DevExpress.XtraBars.PopupMenu(Me.components)
+        Me.barListItem1 = New DevExpress.XtraBars.BarListItem()
+        Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
+        Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
+        Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
+        Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
+        Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
         CType(Me.RepositoryItemButtonEdit1,System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.PanelControl1,System.ComponentModel.ISupportInitialize).BeginInit
         Me.PanelControl1.SuspendLayout
@@ -58,6 +66,8 @@ Partial Class Form1
         CType(Me.PanelControl3,System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.IC1,System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.PE1.Properties,System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.PopupMenu1,System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.BarManager1,System.ComponentModel.ISupportInitialize).BeginInit
         Me.SuspendLayout
         '
         'colID
@@ -93,13 +103,20 @@ Partial Class Form1
         Me.colButton.Name = "colButton"
         Me.colButton.UnboundType = DevExpress.Data.UnboundColumnType.[Object]
         Me.colButton.Visible = true
-        Me.colButton.VisibleIndex = 3
+        Me.colButton.VisibleIndex = 4
         '
         'RepositoryItemButtonEdit1
         '
         Me.RepositoryItemButtonEdit1.AutoHeight = false
         Me.RepositoryItemButtonEdit1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton()})
         Me.RepositoryItemButtonEdit1.Name = "RepositoryItemButtonEdit1"
+        '
+        'colArt
+        '
+        Me.colArt.FieldName = "Art"
+        Me.colArt.Name = "colArt"
+        Me.colArt.Visible = true
+        Me.colArt.VisibleIndex = 3
         '
         'DefaultLookAndFeel1
         '
@@ -130,7 +147,9 @@ Partial Class Form1
         '
         'TileView1
         '
-        Me.TileView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colID, Me.colInfo, Me.colCheck, Me.colButton})
+        Me.TileView1.Appearance.ItemNormal.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.TileView1.Appearance.ItemNormal.Options.UseFont = true
+        Me.TileView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colID, Me.colInfo, Me.colCheck, Me.colArt, Me.colButton})
         ContextButton2.Alignment = DevExpress.Utils.ContextItemAlignment.CenterFar
         ContextButton2.Glyph = CType(resources.GetObject("ContextButton2.Glyph"),System.Drawing.Image)
         ContextButton2.Height = 32
@@ -144,26 +163,31 @@ Partial Class Form1
         Me.TileView1.ContextButtons.Add(ContextButton2)
         Me.TileView1.GridControl = Me.GridControl1
         Me.TileView1.Name = "TileView1"
+        Me.TileView1.OptionsTiles.ItemSize = New System.Drawing.Size(260, 100)
         Me.TileView1.OptionsTiles.Orientation = System.Windows.Forms.Orientation.Vertical
         Me.TileView1.OptionsView.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways
+        TileViewItemElement5.AnchorAlignment = DevExpress.Utils.AnchorAlignment.Top
+        TileViewItemElement5.AnchorElementIndex = 1
         TileViewItemElement5.Column = Me.colID
         TileViewItemElement5.Text = "colID"
+        TileViewItemElement5.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopRight
+        TileViewItemElement6.AnchorIndent = 12
+        TileViewItemElement6.Appearance.Normal.Options.UseTextOptions = true
+        TileViewItemElement6.Appearance.Normal.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
         TileViewItemElement6.Column = Me.colInfo
         TileViewItemElement6.Text = "colInfo"
+        TileViewItemElement6.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft
+        TileViewItemElement6.TextLocation = New System.Drawing.Point(60, 0)
+        TileViewItemElement7.AnchorAlignment = DevExpress.Utils.AnchorAlignment.Bottom
+        TileViewItemElement7.AnchorElementIndex = 1
         TileViewItemElement7.Column = Me.colCheck
         TileViewItemElement7.Text = "colCheck"
-        TileViewItemElement8.Appearance.Hovered.ForeColor = System.Drawing.Color.Red
-        TileViewItemElement8.Appearance.Hovered.Options.UseForeColor = true
-        TileViewItemElement8.Appearance.Normal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0,Byte),Integer), CType(CType(192,Byte),Integer), CType(CType(192,Byte),Integer))
-        TileViewItemElement8.Appearance.Normal.Options.UseForeColor = true
-        TileViewItemElement8.Appearance.Pressed.ForeColor = System.Drawing.Color.Fuchsia
-        TileViewItemElement8.Appearance.Pressed.Options.UseForeColor = true
-        TileViewItemElement8.Column = Me.colButton
-        TileViewItemElement8.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze
-        TileViewItemElement8.ImageSize = New System.Drawing.Size(32, 32)
-        TileViewItemElement8.StretchHorizontal = true
-        TileViewItemElement8.StretchVertical = true
-        TileViewItemElement8.Text = "colButton"
+        TileViewItemElement7.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight
+        TileViewItemElement8.AnchorAlignment = DevExpress.Utils.AnchorAlignment.Left
+        TileViewItemElement8.Column = Me.colArt
+        TileViewItemElement8.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft
+        TileViewItemElement8.Text = "colArt"
+        TileViewItemElement8.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft
         Me.TileView1.TileTemplate.Add(TileViewItemElement5)
         Me.TileView1.TileTemplate.Add(TileViewItemElement6)
         Me.TileView1.TileTemplate.Add(TileViewItemElement7)
@@ -241,6 +265,8 @@ Partial Class Form1
         Me.IC1.ImageStream = CType(resources.GetObject("IC1.ImageStream"),DevExpress.Utils.ImageCollectionStreamer)
         Me.IC1.InsertGalleryImage("next_32x32.png", "office2013/navigation/next_32x32.png", DevExpress.Images.ImageResourceCache.Default.GetImage("office2013/navigation/next_32x32.png"), 0)
         Me.IC1.Images.SetKeyName(0, "next_32x32.png")
+        Me.IC1.Images.SetKeyName(1, "Circled Chevron Down-64.png")
+        Me.IC1.Images.SetKeyName(2, "Forward-64.png")
         '
         'PE1
         '
@@ -250,8 +276,65 @@ Partial Class Form1
         Me.PE1.Size = New System.Drawing.Size(274, 681)
         Me.PE1.TabIndex = 7
         '
+        'PopupMenu1
+        '
+        Me.PopupMenu1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.barListItem1, DevExpress.XtraBars.BarItemPaintStyle.Caption)})
+        Me.PopupMenu1.Manager = Me.BarManager1
+        Me.PopupMenu1.Name = "PopupMenu1"
+        '
+        'barListItem1
+        '
+        Me.barListItem1.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right
+        Me.barListItem1.Caption = "barListItem1"
+        Me.barListItem1.ContentHorizontalAlignment = DevExpress.XtraBars.BarItemContentAlignment.Far
+        Me.barListItem1.Id = 10
+        Me.barListItem1.MenuDrawMode = DevExpress.XtraBars.MenuDrawMode.SmallImagesText
+        Me.barListItem1.Name = "barListItem1"
+        Me.barListItem1.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionInMenu
+        Me.barListItem1.ShowMenuCaption = true
+        Me.barListItem1.Strings.AddRange(New Object() {"Play Now", "Play Next", "Add To Queue", "Replace Queue"})
+        '
+        'BarManager1
+        '
+        Me.BarManager1.DockControls.Add(Me.barDockControlTop)
+        Me.BarManager1.DockControls.Add(Me.barDockControlBottom)
+        Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
+        Me.BarManager1.DockControls.Add(Me.barDockControlRight)
+        Me.BarManager1.Form = Me
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.barListItem1})
+        Me.BarManager1.MaxItemId = 11
+        '
+        'barDockControlTop
+        '
+        Me.barDockControlTop.CausesValidation = false
+        Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
+        Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
+        Me.barDockControlTop.Size = New System.Drawing.Size(1311, 0)
+        '
+        'barDockControlBottom
+        '
+        Me.barDockControlBottom.CausesValidation = false
+        Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 977)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1311, 0)
+        '
+        'barDockControlLeft
+        '
+        Me.barDockControlLeft.CausesValidation = false
+        Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 0)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 977)
+        '
+        'barDockControlRight
+        '
+        Me.barDockControlRight.CausesValidation = false
+        Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
+        Me.barDockControlRight.Location = New System.Drawing.Point(1311, 0)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 977)
+        '
         'Form1
         '
+        Me.Appearance.Options.UseFont = true
         Me.AutoScaleDimensions = New System.Drawing.SizeF(144!, 144!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(1311, 977)
@@ -264,6 +347,11 @@ Partial Class Form1
         Me.Controls.Add(Me.SimpleButton1)
         Me.Controls.Add(Me.PanelControl2)
         Me.Controls.Add(Me.PanelControl1)
+        Me.Controls.Add(Me.barDockControlLeft)
+        Me.Controls.Add(Me.barDockControlRight)
+        Me.Controls.Add(Me.barDockControlBottom)
+        Me.Controls.Add(Me.barDockControlTop)
+        Me.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Name = "Form1"
         Me.Text = "Form1"
         CType(Me.RepositoryItemButtonEdit1,System.ComponentModel.ISupportInitialize).EndInit
@@ -275,7 +363,10 @@ Partial Class Form1
         CType(Me.PanelControl3,System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.IC1,System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.PE1.Properties,System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.PopupMenu1,System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.BarManager1,System.ComponentModel.ISupportInitialize).EndInit
         Me.ResumeLayout(false)
+        Me.PerformLayout
 
 End Sub
 
@@ -299,4 +390,12 @@ End Sub
     Friend WithEvents PanelControl3 As DevExpress.XtraEditors.PanelControl
     Friend WithEvents IC1 As DevExpress.Utils.ImageCollection
     Friend WithEvents PE1 As DevExpress.XtraEditors.PictureEdit
+    Friend WithEvents PopupMenu1 As DevExpress.XtraBars.PopupMenu
+    Friend WithEvents BarManager1 As DevExpress.XtraBars.BarManager
+    Friend WithEvents barDockControlTop As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents barDockControlBottom As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents barDockControlLeft As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents barDockControlRight As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents barListItem1 As DevExpress.XtraBars.BarListItem
+    Friend WithEvents colArt As DevExpress.XtraGrid.Columns.TileViewColumn
 End Class

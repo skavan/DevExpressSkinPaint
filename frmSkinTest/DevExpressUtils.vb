@@ -1,6 +1,7 @@
 ﻿Imports DevExpress.LookAndFeel
 Imports DevExpress.Skins
 Imports DevExpress.Utils
+Imports DevExpress.Utils.Design
 Imports DevExpress.Utils.Drawing
 Imports DevExpress.XtraEditors
 Imports DevExpress.XtraEditors.Drawing
@@ -21,7 +22,16 @@ Module DevExpressUtils
         Dim iconImage As Image = DevExpress.Images.ImageResourceCache.Default.GetImage(imageName)
         Return iconImage
     End Function
-
+    Public Function GetRandomDevExpressImage() As Image
+        Dim image As Image
+        Do
+            Dim numImages As Integer = 32 'DevExpress.Images.ImageResourceCache.Default.GetAllResourceKeys.Count
+            Dim X As Integer = CInt(Math.Ceiling(Rnd() * numImages)) + 256
+            Dim key As String = DevExpress.Images.ImageResourceCache.Default.GetAllResourceKeys(X)
+            image =  DevExpress.Images.ImageResourceCache.Default.GetImage(key)
+        Loop Until image.Width=32
+        Return image
+    End Function
     '// three overloads. the first doesn't use a scale factor
     Public Function RescaleImageByScaleFactor(srcImage As Image, targetSize As Size)
         Return RescaleImageByScaleFactor(srcImage, targetSize.Width, targetSize.Height, New SizeF(1, 1))

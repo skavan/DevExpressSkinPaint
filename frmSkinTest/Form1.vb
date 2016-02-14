@@ -12,7 +12,7 @@ Public Class Form1
     Dim commonSkins As New DevExpress.Skins.CommonSkins
     Dim WithEvents skinEditorButtonPainter As SkinEditorButtonPainter
     Dim WithEvents activeContextItem As ContextItem
-
+    Dim WithEvents ContextMenu1 As New ContextMenu
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
         SetActiveSkin(Me)
         GridControl1.DataSource = GetData(10)
@@ -25,7 +25,7 @@ Public Class Form1
         e.Item.Visibility = If(check, DevExpress.Utils.ContextItemVisibility.Visible, DevExpress.Utils.ContextItemVisibility.Hidden)      
         TileView1.ContextButtonOptions.NormalStateOpacity=0.5
         TileView1.ContextButtonOptions.HoverStateOpacity=1
-        Debug.Print("Context Item Update:" & e.RowHandle)
+        'Debug.Print("Context Item Update:" & e.RowHandle)
         
         'e.Item
     End Sub
@@ -37,7 +37,8 @@ Public Class Form1
         'item.EndUpdate
         Dim tileItem As TileItem = e.DataItem
         Debug.Print("Click:" & e.DataItem.RowHandle)
-
+        ContextMenu1.Show(Me, System.Windows.Forms.Cursor.Position)
+        'PopupMenu1.ShowPopup(System.Windows.Forms.Cursor.Position)
     End Sub
 
     '// fill in dummy data
@@ -46,8 +47,9 @@ Public Class Form1
         dt.Columns.Add("ID", GetType(Integer))
         dt.Columns.Add("Info", GetType(String))
         dt.Columns.Add("Check", GetType(Boolean))
+        dt.Columns.Add("Art", GetType(Image))
         For i As Integer = 0 To rows - 1
-            dt.Rows.Add(i, "Info" & i, i Mod 2 = 0)
+            dt.Rows.Add(i, "This is Item #" & i, i Mod 2 = 0, GetRandomDevExpressImage)
         Next
         Return dt
     End Function
@@ -59,7 +61,9 @@ Public Class Form1
         Dim x As DevExpress.Utils.ContextButton = TileView1.ContextButtons(0)       
         '// for speed, consider getting the image from an imagelist
         Dim y As Integer = x.Glyph.Height
-        x.Glyph = RescaleImageByScaleFactor(GetDevExpressImage("office2013/navigation/next_32x32.png"),x.Width, x.Height,scaleFactor)
+        'IC1.Images(2)
+        'x.Glyph = RescaleImageByScaleFactor(GetDevExpressImage("office2013/navigation/next_32x32.png"),x.Width, x.Height,scaleFactor)
+        x.Glyph = RescaleImageByScaleFactor(IC1.Images(1),x.Width, x.Height,scaleFactor)
         x.Width=x.Glyph.Width
         x.Height = x.Glyph.Height
         
@@ -132,11 +136,34 @@ Public Class Form1
         Debug.Print("Panel MouseDown")
     End Sub
 
+    Private Sub PopupMenu1_Popup(sender As Object, e As EventArgs) Handles PopupMenu1.Popup
+        
+    End Sub
+
+    Public Sub AddContextMenu()
+        'Dim mnuContextMenu as New ContextMenu()
+        'Me.ContextMenu = mnuContextMenu
+        Dim mnuItemNew as New MenuItem()
+        Dim mnuItemOpen as New MenuItem()
+        mnuItemNew.Text = "&New"
+        mnuItemOpen.Text = "&Open"
+        ContextMenu1.MenuItems.Add(mnuItemNew)
+        ContextMenu1.MenuItems.Add(mnuItemOpen)
+        ContextMenu1.MenuItems.Add("&Close")
+
+    End Sub
+
+    Private Sub PanelControl2_Click(sender As Object, e As EventArgs) Handles PanelControl2.Click
+        Dim image As Image = GetRandomDevExpressImage
+    End Sub
 
 
 
 #End Region
+
 #Region "WIP"
+
+
     '   Protected Overrides Sub SkinEditorButtonPainter.UpdateButtonInfo(e As ObjectInfoArgs)
     'Dim ee As EditorButtonObjectInfoArgs = TryCast(e, EditorButtonObjectInfoArgs)
     '       If Not ee.BuiltIn Then
