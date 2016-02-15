@@ -24,17 +24,17 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Dim ContextButton2 As DevExpress.Utils.ContextButton = New DevExpress.Utils.ContextButton()
-        Dim TileViewItemElement5 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
-        Dim TileViewItemElement6 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
-        Dim TileViewItemElement7 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
-        Dim TileViewItemElement8 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
+        Dim ContextButton1 As DevExpress.Utils.ContextButton = New DevExpress.Utils.ContextButton()
+        Dim TileViewItemElement1 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
+        Dim TileViewItemElement2 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
+        Dim TileViewItemElement3 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
+        Dim TileViewItemElement4 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
         Me.colID = New DevExpress.XtraGrid.Columns.TileViewColumn()
         Me.colInfo = New DevExpress.XtraGrid.Columns.TileViewColumn()
         Me.colCheck = New DevExpress.XtraGrid.Columns.TileViewColumn()
+        Me.colArt = New DevExpress.XtraGrid.Columns.TileViewColumn()
         Me.colButton = New DevExpress.XtraGrid.Columns.TileViewColumn()
         Me.RepositoryItemButtonEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit()
-        Me.colArt = New DevExpress.XtraGrid.Columns.TileViewColumn()
         Me.FormAssistant1 = New DevExpress.XtraBars.FormAssistant()
         Me.DefaultLookAndFeel1 = New DevExpress.LookAndFeel.DefaultLookAndFeel(Me.components)
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
@@ -94,6 +94,13 @@ Partial Class Form1
         Me.colCheck.Visible = true
         Me.colCheck.VisibleIndex = 2
         '
+        'colArt
+        '
+        Me.colArt.FieldName = "Art"
+        Me.colArt.Name = "colArt"
+        Me.colArt.Visible = true
+        Me.colArt.VisibleIndex = 3
+        '
         'colButton
         '
         Me.colButton.Caption = "MyButton"
@@ -110,13 +117,6 @@ Partial Class Form1
         Me.RepositoryItemButtonEdit1.AutoHeight = false
         Me.RepositoryItemButtonEdit1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton()})
         Me.RepositoryItemButtonEdit1.Name = "RepositoryItemButtonEdit1"
-        '
-        'colArt
-        '
-        Me.colArt.FieldName = "Art"
-        Me.colArt.Name = "colArt"
-        Me.colArt.Visible = true
-        Me.colArt.VisibleIndex = 3
         '
         'DefaultLookAndFeel1
         '
@@ -150,48 +150,48 @@ Partial Class Form1
         Me.TileView1.Appearance.ItemNormal.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.TileView1.Appearance.ItemNormal.Options.UseFont = true
         Me.TileView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colID, Me.colInfo, Me.colCheck, Me.colArt, Me.colButton})
-        ContextButton2.Alignment = DevExpress.Utils.ContextItemAlignment.CenterFar
-        ContextButton2.Glyph = CType(resources.GetObject("ContextButton2.Glyph"),System.Drawing.Image)
-        ContextButton2.Height = 32
-        ContextButton2.Id = New System.Guid("b5701d27-0b29-4276-a571-274cf2345073")
-        ContextButton2.MaxHeight = 32
-        ContextButton2.MaxWidth = 32
-        ContextButton2.Name = "ContextButton"
-        ContextButton2.Padding = New System.Windows.Forms.Padding(0, 0, 6, 0)
-        ContextButton2.Visibility = DevExpress.Utils.ContextItemVisibility.Visible
-        ContextButton2.Width = 32
-        Me.TileView1.ContextButtons.Add(ContextButton2)
+        ContextButton1.Alignment = DevExpress.Utils.ContextItemAlignment.CenterFar
+        ContextButton1.Glyph = CType(resources.GetObject("ContextButton1.Glyph"),System.Drawing.Image)
+        ContextButton1.Height = 32
+        ContextButton1.Id = New System.Guid("b5701d27-0b29-4276-a571-274cf2345073")
+        ContextButton1.MaxHeight = 32
+        ContextButton1.MaxWidth = 32
+        ContextButton1.Name = "ContextButton"
+        ContextButton1.Padding = New System.Windows.Forms.Padding(0, 0, 6, 0)
+        ContextButton1.Visibility = DevExpress.Utils.ContextItemVisibility.Visible
+        ContextButton1.Width = 32
+        Me.TileView1.ContextButtons.Add(ContextButton1)
         Me.TileView1.GridControl = Me.GridControl1
         Me.TileView1.Name = "TileView1"
         Me.TileView1.OptionsTiles.ItemSize = New System.Drawing.Size(260, 100)
         Me.TileView1.OptionsTiles.Orientation = System.Windows.Forms.Orientation.Vertical
         Me.TileView1.OptionsView.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways
-        TileViewItemElement5.AnchorAlignment = DevExpress.Utils.AnchorAlignment.Top
-        TileViewItemElement5.AnchorElementIndex = 1
-        TileViewItemElement5.Column = Me.colID
-        TileViewItemElement5.Text = "colID"
-        TileViewItemElement5.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopRight
-        TileViewItemElement6.AnchorIndent = 12
-        TileViewItemElement6.Appearance.Normal.Options.UseTextOptions = true
-        TileViewItemElement6.Appearance.Normal.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
-        TileViewItemElement6.Column = Me.colInfo
-        TileViewItemElement6.Text = "colInfo"
-        TileViewItemElement6.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft
-        TileViewItemElement6.TextLocation = New System.Drawing.Point(60, 0)
-        TileViewItemElement7.AnchorAlignment = DevExpress.Utils.AnchorAlignment.Bottom
-        TileViewItemElement7.AnchorElementIndex = 1
-        TileViewItemElement7.Column = Me.colCheck
-        TileViewItemElement7.Text = "colCheck"
-        TileViewItemElement7.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight
-        TileViewItemElement8.AnchorAlignment = DevExpress.Utils.AnchorAlignment.Left
-        TileViewItemElement8.Column = Me.colArt
-        TileViewItemElement8.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft
-        TileViewItemElement8.Text = "colArt"
-        TileViewItemElement8.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft
-        Me.TileView1.TileTemplate.Add(TileViewItemElement5)
-        Me.TileView1.TileTemplate.Add(TileViewItemElement6)
-        Me.TileView1.TileTemplate.Add(TileViewItemElement7)
-        Me.TileView1.TileTemplate.Add(TileViewItemElement8)
+        TileViewItemElement1.AnchorAlignment = DevExpress.Utils.AnchorAlignment.Top
+        TileViewItemElement1.AnchorElementIndex = 1
+        TileViewItemElement1.Column = Me.colID
+        TileViewItemElement1.Text = "colID"
+        TileViewItemElement1.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopRight
+        TileViewItemElement2.AnchorIndent = 12
+        TileViewItemElement2.Appearance.Normal.Options.UseTextOptions = true
+        TileViewItemElement2.Appearance.Normal.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
+        TileViewItemElement2.Column = Me.colInfo
+        TileViewItemElement2.Text = "colInfo"
+        TileViewItemElement2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft
+        TileViewItemElement2.TextLocation = New System.Drawing.Point(60, 0)
+        TileViewItemElement3.AnchorAlignment = DevExpress.Utils.AnchorAlignment.Bottom
+        TileViewItemElement3.AnchorElementIndex = 1
+        TileViewItemElement3.Column = Me.colCheck
+        TileViewItemElement3.Text = "colCheck"
+        TileViewItemElement3.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomRight
+        TileViewItemElement4.AnchorAlignment = DevExpress.Utils.AnchorAlignment.Left
+        TileViewItemElement4.Column = Me.colArt
+        TileViewItemElement4.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft
+        TileViewItemElement4.Text = "colArt"
+        TileViewItemElement4.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft
+        Me.TileView1.TileTemplate.Add(TileViewItemElement1)
+        Me.TileView1.TileTemplate.Add(TileViewItemElement2)
+        Me.TileView1.TileTemplate.Add(TileViewItemElement3)
+        Me.TileView1.TileTemplate.Add(TileViewItemElement4)
         '
         'SimpleButton5
         '

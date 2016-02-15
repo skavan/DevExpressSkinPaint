@@ -1,4 +1,5 @@
-﻿Imports DevExpress.LookAndFeel
+﻿Imports System.ComponentModel
+Imports DevExpress.LookAndFeel
 Imports DevExpress.Skins
 Imports DevExpress.Utils
 Imports DevExpress.Utils.Design
@@ -10,7 +11,22 @@ Imports DevExpress.XtraGrid.Views.Tile
 Module DevExpressUtils
     Public activeLookAndFeel As UserLookAndFeel
     
-
+    '// add handlers to selected buttons
+    Public Sub SetButtonResizing(form As XtraForm, ByRef Func As EventHandler, Optional TagMatch As String="")
+        Dim ctl As Control = Nothing
+        Do
+            ctl = form.GetNextControl(ctl, True)
+            If ctl IsNot Nothing Then
+                If TagMatch="" Or (TagMatch = ctl?.Tag) Then
+                    If TypeOf ctl Is DevExpress.XtraEditors.SimpleButton Then
+                        Dim btnCtl As DevExpress.XtraEditors.SimpleButton = ctl
+                        AddHandler btnCtl.SizeChanged, Func        
+                        btnCtl.BeginInvoke(func, {btnCtl, New EventArgs})
+                    End If
+                End If
+            End If
+        Loop Until ctl Is Nothing
+    End Sub
 
     '// make the project dpi aware.
     Public Sub SetModeDPIAware
@@ -22,6 +38,7 @@ Module DevExpressUtils
         Dim iconImage As Image = DevExpress.Images.ImageResourceCache.Default.GetImage(imageName)
         Return iconImage
     End Function
+
     Public Function GetRandomDevExpressImage() As Image
         Dim image As Image
         Do
@@ -32,17 +49,26 @@ Module DevExpressUtils
         Loop Until image.Width=32
         Return image
     End Function
+    
     '// three overloads. the first doesn't use a scale factor
-    Public Function RescaleImageByScaleFactor(srcImage As Image, targetSize As Size)
+    Public Function RescaleImageByScaleFactor(srcImage As Image, targetSize As Size) As Image
         Return RescaleImageByScaleFactor(srcImage, targetSize.Width, targetSize.Height, New SizeF(1, 1))
     End Function
 
-    Public Function RescaleImageByScaleFactor(srcImage As Image, targetSize As Size, scaleFactor As SizeF)
+    Public Function RescaleImageByScaleFactor(srcImage As Image, targetSize As Size, scaleFactor As SizeF) As Image
         Return RescaleImageByScaleFactor(srcImage, targetSize.Width, targetSize.Height, scaleFactor)
     End Function
 
-    Public Function RescaleImageByScaleFactor(srcImage As Image, width As Integer, height As Integer, scaleFactor As SizeF)
+    Public Function RescaleImageByScaleFactor(srcImage As Image, width As Integer, height As Integer, scaleFactor As SizeF) As Image
         Return New Bitmap((srcImage), New Size(width * scaleFactor.Width, height * scaleFactor.Height))
+    End Function
+
+    Public Function RescaleImageByPadding(srcImage As Image, targetSize As Size, padding As Padding) As Image
+        Return RescaleImageByPadding(srcImage, targetSize.Width, targetSize.Height, padding)
+    End Function
+
+    Public Function RescaleImageByPadding(srcImage As Image, width As Integer, height As Integer, padding As Padding) As Image
+        Return New Bitmap((srcImage), New Size(width - (padding.Left+padding.Right), height - (padding.Top+padding.Bottom)))
     End Function
 
     Public Sub ScaleForm(form As XtraForm, factor As SizeF)
@@ -50,8 +76,34 @@ Module DevExpressUtils
         ' seems to work in the form itself but not in this module! Me.ScaleCore(1.5,1.5)
     End Sub
 
-    Public Sub ScaleFonts()
-        DevExpress.Utils.AppearanceObject.DefaultFont = New Font("Courier New", 14)
+    Public Sub ScaleFonts(form As XtraForm, fontScaleFactor As Single, sizeChildren As Boolean)
+        '// get current Font
+        Dim font As Font = DevExpress.Utils.AppearanceObject.DefaultFont
+        Dim startSize As Single = font.SizeInPoints
+        '// now resize it
+        DevExpress.Utils.AppearanceObject.DefaultFont = New Font(font.FontFamily.Name, startSize * fontScaleFactor, font.Style)
+        '// now check devexpress children
+        If sizeChildren Then ScaleControlFonts(form, fontScaleFactor)
+    End Sub
+
+    Public Sub ScaleControlFonts(TopCtl As Object, fontscaleFactor As Single)
+        For each ctl As Object In TopCtl.Controls
+            Dim type = ctl.GetType
+            If ctl.Name="LabelTPH_L"Then
+                Debug.Print("Ys")
+            End If
+            If type.GetProperty("Appearance", Reflection.BindingFlags.DeclaredOnly Or Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance) IsNot Nothing Then
+                If ctl.Appearance.Options.UseFont Then
+                    Dim font As Font = ctl.Appearance.Font
+                    Dim startSize As Single = font.Size
+                    ctl.Appearance.Font = New Font(font.FontFamily.Name, startSize*fontScaleFactor, font.Style)
+
+                End If
+            End If
+            If ctl.Controls.Count>0 Then
+                ScaleControlFonts(ctl, fontscaleFactor)
+            End If
+        Next
     End Sub
 
     Public Sub ScaleTileViewFonts(View As TileView, scaleFactor As Single)

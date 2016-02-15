@@ -37,8 +37,8 @@ Public Class Form1
         'item.EndUpdate
         Dim tileItem As TileItem = e.DataItem
         Debug.Print("Click:" & e.DataItem.RowHandle)
-        ContextMenu1.Show(Me, System.Windows.Forms.Cursor.Position)
-        'PopupMenu1.ShowPopup(System.Windows.Forms.Cursor.Position)
+        'ContextMenu1.Show(Me, System.Windows.Forms.Cursor.Position)
+        PopupMenu1.ShowPopup(System.Windows.Forms.Cursor.Position)
     End Sub
 
     '// fill in dummy data
@@ -73,7 +73,7 @@ Public Class Form1
     Private Sub SimpleButton2_Click(sender As Object, e As EventArgs) Handles SimpleButton2.Click
         'Me.AutoScaleDimensions = new System.Drawing.SizeF(72F, 72F)
         ScaleForm(Me, New SizeF(1.5,1.5))
-        ScaleFonts
+        ScaleFonts(Me, Me.Font.Size*1.5,False)
         'Me.ForceRefresh
     End Sub 
 
