@@ -10,6 +10,41 @@ Imports DevExpress.XtraGrid.Views.Tile
 
 Module DevExpressUtils
     Public activeLookAndFeel As UserLookAndFeel
+    Public ctlDict As New Dictionary(Of String, ControlInfo)
+
+    Public Structure ControlInfo
+        Property height As Integer
+        Property width As Integer
+        Property originalFontSize As Single
+        Property originalFontLineHeight As Single
+    End Structure
+
+    '// create a dictionary of all DevExpress Controls with a font set in the appearance property
+    Public Sub SetAppControlInfo(topCtl As Object)
+        For each ctl As Object In topCtl.Controls
+            Dim type = ctl.GetType
+            '// if it's a devexpress control with an appearance property
+            If type.GetProperty("Appearance", Reflection.BindingFlags.DeclaredOnly Or Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance) IsNot Nothing Then
+                '// and the font is manually set in the appearance section
+                If ctl.Appearance.Options.UseFont Then
+                    
+                    Dim controlInfo As New ControlInfo
+                    With controlInfo 
+                        .height = ctl.height
+                        .width = ctl.width
+                        .originalFontSize = ctl.Appearance.Font.SizeInPoints
+                        .originalFontLineHeight = ctl.Appearance.Font.Height
+                    End With
+                    If Not ctlDict.ContainsKey(ctl.Name) Then
+                        ctlDict.Add(ctl.Name,controlInfo)
+                    End If
+                End If
+            End If
+            If ctl.Controls.Count>0 Then
+                SetAppControlInfo(ctl)
+            End If
+        Next
+    End Sub
     
     '// add handlers to selected buttons
     Public Sub SetButtonResizing(form As XtraForm, ByRef Func As EventHandler, Optional TagMatch As String="")
@@ -85,6 +120,32 @@ Module DevExpressUtils
         '// now check devexpress children
         If sizeChildren Then ScaleControlFonts(form, fontScaleFactor)
     End Sub
+
+    Public Sub ScaleFonts2(form As XtraForm, baseFont As Font, fontScaleFactor As Single)
+        Dim startSize As Single = baseFont.SizeInPoints
+        DevExpress.Utils.AppearanceObject.DefaultFont = New Font(basefont.FontFamily.Name, startSize * fontScaleFactor, basefont.Style)
+        ScaleIndependentControls(form, fontScaleFactor)
+    End Sub
+
+    Public Sub ScaleIndependentControls(form As XtraForm, fontScaleFactor As Single)
+
+        '// iterate through each affected control and apply the scale factor to the original size
+        For Each item In ctlDict
+            Dim ctl As Object = FindControlByName(form, item.Key)
+            Dim cInfo As ControlInfo = item.Value
+            Dim font As Font = ctl.Appearance.Font
+            ctl.Appearance.Font = New Font(font.FontFamily.Name, cInfo.originalFontSize*fontScaleFactor, font.Style)
+        Next
+    End Sub
+
+    Public Function FindControlByName(ctl As Control, name As String) As Control
+        If ctl.Name=name Then Return ctl
+        For Each ctlKid As Control in ctl.Controls
+            Dim ctlFound As Control = FindControlByName(ctlKid, name)
+            If ctlFound IsNot Nothing Then Return ctlFound
+        Next
+        Return Nothing            
+    End Function
 
     Public Sub ScaleControlFonts(TopCtl As Object, fontscaleFactor As Single)
         For each ctl As Object In TopCtl.Controls

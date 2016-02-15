@@ -7,12 +7,16 @@ Public Class frmSkinUtilities
     Dim commonSkins As New DevExpress.Skins.CommonSkins
     Dim ribbonSkins As New DevExpress.Skins.RibbonSkins
     Dim dicSkins As New Dictionary(Of String, SkinStyler)           'Just convenience, so I can manage reskinning easily
-    Dim currentScaleFactor As SizeF = New SizeF(1F, 1F)             'The scale factor [to deal with HDPI screens]
+
+    Dim windowsScaleFactor As SizeF = New SizeF(1F, 1F)             'The scale factor [to deal with HDPI screens]
     Dim btnImageScaleFactor As SizeF = New SizeF(0.85, 0.85)        'The scale factor applied to button images
     Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSkinUtilities))
     Dim fontToControlRatio As Single=1
     Dim fontInitialSize As Single=10
-    Dim formScaleFactor As Single = 1
+    Dim currentScaleFactor As Single = 1
+    Dim desiredScaleFactor As Single =1
+    Dim baseFont As Font = Me.Font
+    
 
     Class SkinStyler
         Property IsImage As Boolean
@@ -43,7 +47,7 @@ Public Class frmSkinUtilities
         MyBase.ScaleControl(factor, specified)
         Debug.Print("Scale Factor Set:" & factor.Height)
         'Record the running scale factor used
-        Me.currentScaleFactor = New SizeF(Me.currentScaleFactor.Width * factor.Width, Me.currentScaleFactor.Height * factor.Height)
+        Me.windowsScaleFactor = New SizeF(Me.windowsScaleFactor.Width * factor.Width, Me.windowsScaleFactor.Height * factor.Height)
         'RescaleTiles
     End Sub
 
@@ -51,9 +55,13 @@ Public Class frmSkinUtilities
     Private Sub frmSkinUtilities_Load(sender As Object, e As EventArgs) Handles Me.Load
         'SetModeDPIAware
         SetSkinStylingOverrides
+        SetAppControlInfo(Me)
+        baseFont = DevExpress.Utils.AppearanceObject.DefaultFont
     End Sub
 
-#End Region
+    #End Region 
+
+ 
 
 #Region "Panel Painting"
     '// demonstrating overriding paint method and using a skin image 
@@ -121,18 +129,11 @@ Public Class frmSkinUtilities
     Private Sub ButtonResizeFonts_Click(sender As Object, e As EventArgs) Handles ButtonResizeFonts.Click
         Dim s As String = ComboFontSize.SelectedItem
         If s="Auto" Or s="" Then
-            
-            Dim fontScaleFactor As Single = (fontToControlRatio * LabelLPH_C.Height) / fontInitialSize
-            Dim newScaleFactor = (fontInitialSize * formScaleFactor) / DevExpress.Utils.AppearanceObject.DefaultFont.Size
-            'Dim newScaleFactor = (fontInitialSize * fontScaleFactor) / DevExpress.Utils.AppearanceObject.DefaultFont.Size
-            'ScaleFonts(Me,fontScaleFactor, True)
-            ScaleFonts(Me,newScaleFactor, True)
-            
+            ScaleFonts2(Me,baseFont, currentScaleFactor)
         Else
             If s<>"" Then
                 Dim newScaleFactor = (s/DevExpress.Utils.AppearanceObject.DefaultFont.Size)
-                ScaleFonts(Me,newScaleFactor, True)
-                'DevExpress.Utils.AppearanceObject.DefaultFont = New Font("Segoe UI", Cint(s))
+                ScaleFonts2(Me,baseFont, newScaleFactor)
             End If
         End If
         
@@ -142,9 +143,11 @@ Public Class frmSkinUtilities
     Private Sub ButtonScaleForm_Click(sender As Object, e As EventArgs) Handles ButtonScaleForm.Click
         Dim s As String = ComboScaleForm.SelectedItem
         If s>0 Then
-            Dim sf As Single = s/formScaleFactor
-            ScaleForm(Me,New SizeF(sf,sf))
-            formScaleFactor=s
+            Dim desiredScaleFactor As Single = s
+            Dim xFormScaleFactor As Single = desiredScaleFactor/currentScaleFactor
+            ScaleForm(Me,New SizeF(xFormScaleFactor,xFormScaleFactor))
+            '// now the current is equal to the desired
+            currentScaleFactor = desiredScaleFactor
             
         End If
     End Sub
@@ -162,22 +165,39 @@ Public Class frmSkinUtilities
     End Sub
 
     Private Sub ButtonRPH_L_Click(sender As Object, e As EventArgs) Handles ButtonRPH_L.Click
-        formScaleFactor = formScaleFactor*.75
-        ScaleForm(Me,New SizeF(formScaleFactor,formScaleFactor))
-        ScaleFontsToForm
+        DoScaling(-0.25)
+    End Sub
+
+    Private Sub DoScaling(ScaleChange As Single)
+        Debug.Print("================START SCALING=================")
+        Debug.Print("Current Desired/Current [{0},{1}]", desiredScaleFactor, currentScaleFactor)
+        Debug.Print("Current Form x,y & Font Size[{0},{1} : {2}]", Me.Width, Me.Height, DevExpress.Utils.AppearanceObject.DefaultFont.Size)
+        desiredScaleFactor = desiredScaleFactor + ScaleChange
+        If desiredScaleFactor < 0.5 Then desiredScaleFactor = 0.5
+        If desiredScaleFactor>2 Then desiredScaleFactor=2
+        '// the transformation required to get from current to desired
+        Dim xFormScaleFactor As Single = desiredScaleFactor/currentScaleFactor
+        ScaleForm(Me,New SizeF(xFormScaleFactor,xFormScaleFactor))
+        '// now the current is equal to the desired
+        currentScaleFactor = desiredScaleFactor
+        ScaleFonts2(Me,baseFont, desiredScaleFactor)
+        Debug.Print("+++++++++++++TRANSFORMED+++++++++++++++")
+        Debug.Print("New Desired/Current [{0},{1}]", desiredScaleFactor, currentScaleFactor)
+        Debug.Print("New Form x,y & Font Size[{0},{1} : {2}]", Me.Width, Me.Height, DevExpress.Utils.AppearanceObject.DefaultFont.Size)
+        
+
     End Sub
 
     '// using a fixed control element to gauge size changes, scale fonts
     Private Sub ScaleFontsToForm
         Dim fontScaleFactor As Single = (fontToControlRatio * LabelLPH_C.Height) / fontInitialSize
-        Dim newScaleFactor = (fontInitialSize * formScaleFactor) / DevExpress.Utils.AppearanceObject.DefaultFont.Size
+        Dim newScaleFactor = (fontInitialSize * currentScaleFactor) / DevExpress.Utils.AppearanceObject.DefaultFont.Size
         ScaleFonts(Me,newScaleFactor, True)
     End Sub
 
     Private Sub ButtonRPH_R_Click(sender As Object, e As EventArgs) Handles ButtonRPH_R.Click
-        formScaleFactor = formScaleFactor*1.25
-        ScaleForm(Me,New SizeF(formScaleFactor,formScaleFactor))
-        ScaleFontsToForm
+        DoScaling(+0.25)
+
     End Sub
 #End Region
 
