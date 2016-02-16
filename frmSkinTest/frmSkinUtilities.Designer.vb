@@ -31,6 +31,7 @@ Partial Class frmSkinUtilities
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSkinUtilities))
         Me.PanelTop = New DevExpress.XtraEditors.PanelControl()
+        Me.LabelTPH_L = New DevExpress.XtraEditors.LabelControl()
         Me.FormAssistant1 = New DevExpress.XtraBars.FormAssistant()
         Me.DefaultLookAndFeel1 = New DevExpress.LookAndFeel.DefaultLookAndFeel(Me.components)
         Me.PanelLeft = New DevExpress.XtraEditors.PanelControl()
@@ -50,13 +51,16 @@ Partial Class frmSkinUtilities
         Me.ComboFontSize = New DevExpress.XtraEditors.ComboBoxEdit()
         Me.ButtonResizeBtns = New DevExpress.XtraEditors.SimpleButton()
         Me.PanelRightHeader = New DevExpress.XtraEditors.PanelControl()
-        Me.PanelCenter = New DevExpress.XtraEditors.PanelControl()
-        Me.LabelTPH_L = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelCPH_C = New DevExpress.XtraEditors.LabelControl()
-        Me.PanelCenterHeader = New DevExpress.XtraEditors.PanelControl()
-        Me.ButtonRPH_L = New DevExpress.XtraEditors.SimpleButton()
-        Me.ButtonRPH_R = New DevExpress.XtraEditors.SimpleButton()
         Me.LabelRPH_C = New DevExpress.XtraEditors.LabelControl()
+        Me.ButtonRPH_R = New DevExpress.XtraEditors.SimpleButton()
+        Me.ButtonRPH_L = New DevExpress.XtraEditors.SimpleButton()
+        Me.PanelCenter = New DevExpress.XtraEditors.PanelControl()
+        Me.PanelCenterHeader = New DevExpress.XtraEditors.PanelControl()
+        Me.LabelCPH_C = New DevExpress.XtraEditors.LabelControl()
+        Me.PanelLeftXtraHeader = New DevExpress.XtraEditors.PanelControl()
+        Me.LabelXtraItem = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelXtraItemRight = New DevExpress.XtraEditors.LabelControl()
+        Me.ButtonXtraItem = New DevExpress.XtraEditors.SimpleButton()
         CType(Me.PanelTop,System.ComponentModel.ISupportInitialize).BeginInit
         Me.PanelTop.SuspendLayout
         CType(Me.PanelLeft,System.ComponentModel.ISupportInitialize).BeginInit
@@ -77,6 +81,8 @@ Partial Class frmSkinUtilities
         Me.PanelCenter.SuspendLayout
         CType(Me.PanelCenterHeader,System.ComponentModel.ISupportInitialize).BeginInit
         Me.PanelCenterHeader.SuspendLayout
+        CType(Me.PanelLeftXtraHeader,System.ComponentModel.ISupportInitialize).BeginInit
+        Me.PanelLeftXtraHeader.SuspendLayout
         Me.SuspendLayout
         '
         'PanelTop
@@ -88,12 +94,29 @@ Partial Class frmSkinUtilities
         Me.PanelTop.Size = New System.Drawing.Size(1215, 128)
         Me.PanelTop.TabIndex = 0
         '
+        'LabelTPH_L
+        '
+        Me.LabelTPH_L.Appearance.Font = New System.Drawing.Font("Segoe UI Semibold", 14!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.LabelTPH_L.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near
+        Me.LabelTPH_L.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
+        Me.LabelTPH_L.AutoEllipsis = true
+        Me.LabelTPH_L.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
+        Me.LabelTPH_L.Dock = System.Windows.Forms.DockStyle.Left
+        Me.LabelTPH_L.Location = New System.Drawing.Point(3, 3)
+        Me.LabelTPH_L.Margin = New System.Windows.Forms.Padding(6)
+        Me.LabelTPH_L.Name = "LabelTPH_L"
+        Me.LabelTPH_L.Padding = New System.Windows.Forms.Padding(6)
+        Me.LabelTPH_L.Size = New System.Drawing.Size(417, 122)
+        Me.LabelTPH_L.TabIndex = 3
+        Me.LabelTPH_L.Text = "Panel Top Main Header"
+        '
         'DefaultLookAndFeel1
         '
         Me.DefaultLookAndFeel1.LookAndFeel.SkinName = "DevExpress Dark Style"
         '
         'PanelLeft
         '
+        Me.PanelLeft.Controls.Add(Me.PanelLeftXtraHeader)
         Me.PanelLeft.Controls.Add(Me.PanelLeftHeader)
         Me.PanelLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.PanelLeft.Location = New System.Drawing.Point(0, 128)
@@ -114,6 +137,7 @@ Partial Class frmSkinUtilities
         '
         'LabelLPH_C
         '
+        Me.LabelLPH_C.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.LabelLPH_C.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
         Me.LabelLPH_C.AutoEllipsis = true
         Me.LabelLPH_C.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
@@ -127,14 +151,14 @@ Partial Class frmSkinUtilities
         'ButtonLPH_R
         '
         Me.ButtonLPH_R.AllowFocus = false
-        Me.ButtonLPH_R.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.[False]
+        Me.ButtonLPH_R.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.[True]
         Me.ButtonLPH_R.Dock = System.Windows.Forms.DockStyle.Right
         Me.ButtonLPH_R.Image = CType(resources.GetObject("ButtonLPH_R.Image"),System.Drawing.Image)
         Me.ButtonLPH_R.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
         Me.ButtonLPH_R.Location = New System.Drawing.Point(369, 3)
         Me.ButtonLPH_R.Margin = New System.Windows.Forms.Padding(6)
         Me.ButtonLPH_R.Name = "ButtonLPH_R"
-        Me.ButtonLPH_R.Padding = New System.Windows.Forms.Padding(4)
+        Me.ButtonLPH_R.Padding = New System.Windows.Forms.Padding(6)
         Me.ButtonLPH_R.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.[False]
         Me.ButtonLPH_R.Size = New System.Drawing.Size(48, 48)
         Me.ButtonLPH_R.TabIndex = 1
@@ -142,14 +166,14 @@ Partial Class frmSkinUtilities
         'ButtonLPH_L
         '
         Me.ButtonLPH_L.AllowFocus = false
-        Me.ButtonLPH_L.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.[False]
+        Me.ButtonLPH_L.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.[True]
         Me.ButtonLPH_L.Dock = System.Windows.Forms.DockStyle.Left
         Me.ButtonLPH_L.Image = CType(resources.GetObject("ButtonLPH_L.Image"),System.Drawing.Image)
         Me.ButtonLPH_L.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
         Me.ButtonLPH_L.Location = New System.Drawing.Point(3, 3)
         Me.ButtonLPH_L.Margin = New System.Windows.Forms.Padding(6)
         Me.ButtonLPH_L.Name = "ButtonLPH_L"
-        Me.ButtonLPH_L.Padding = New System.Windows.Forms.Padding(4)
+        Me.ButtonLPH_L.Padding = New System.Windows.Forms.Padding(6)
         Me.ButtonLPH_L.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.[False]
         Me.ButtonLPH_L.Size = New System.Drawing.Size(48, 48)
         Me.ButtonLPH_L.TabIndex = 0
@@ -171,6 +195,8 @@ Partial Class frmSkinUtilities
         '
         'SimpleButton4
         '
+        Me.SimpleButton4.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.SimpleButton4.Appearance.Options.UseFont = true
         Me.SimpleButton4.Dock = System.Windows.Forms.DockStyle.Top
         Me.SimpleButton4.Location = New System.Drawing.Point(3, 297)
         Me.SimpleButton4.Name = "SimpleButton4"
@@ -180,6 +206,8 @@ Partial Class frmSkinUtilities
         '
         'SimpleButton3
         '
+        Me.SimpleButton3.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.SimpleButton3.Appearance.Options.UseFont = true
         Me.SimpleButton3.Dock = System.Windows.Forms.DockStyle.Top
         Me.SimpleButton3.Location = New System.Drawing.Point(3, 249)
         Me.SimpleButton3.Name = "SimpleButton3"
@@ -189,6 +217,8 @@ Partial Class frmSkinUtilities
         '
         'ButtonFontMetrics
         '
+        Me.ButtonFontMetrics.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.ButtonFontMetrics.Appearance.Options.UseFont = true
         Me.ButtonFontMetrics.Dock = System.Windows.Forms.DockStyle.Top
         Me.ButtonFontMetrics.Location = New System.Drawing.Point(3, 201)
         Me.ButtonFontMetrics.Name = "ButtonFontMetrics"
@@ -211,6 +241,8 @@ Partial Class frmSkinUtilities
         'ButtonScaleForm
         '
         Me.ButtonScaleForm.AllowFocus = false
+        Me.ButtonScaleForm.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.ButtonScaleForm.Appearance.Options.UseFont = true
         Me.ButtonScaleForm.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ButtonScaleForm.Location = New System.Drawing.Point(0, 0)
         Me.ButtonScaleForm.Name = "ButtonScaleForm"
@@ -245,6 +277,8 @@ Partial Class frmSkinUtilities
         'ButtonResizeFonts
         '
         Me.ButtonResizeFonts.AllowFocus = false
+        Me.ButtonResizeFonts.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.ButtonResizeFonts.Appearance.Options.UseFont = true
         Me.ButtonResizeFonts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ButtonResizeFonts.Location = New System.Drawing.Point(0, 0)
         Me.ButtonResizeFonts.Name = "ButtonResizeFonts"
@@ -266,6 +300,8 @@ Partial Class frmSkinUtilities
         '
         'ButtonResizeBtns
         '
+        Me.ButtonResizeBtns.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.ButtonResizeBtns.Appearance.Options.UseFont = true
         Me.ButtonResizeBtns.Dock = System.Windows.Forms.DockStyle.Top
         Me.ButtonResizeBtns.Location = New System.Drawing.Point(3, 57)
         Me.ButtonResizeBtns.Name = "ButtonResizeBtns"
@@ -284,6 +320,53 @@ Partial Class frmSkinUtilities
         Me.PanelRightHeader.Size = New System.Drawing.Size(299, 54)
         Me.PanelRightHeader.TabIndex = 1
         '
+        'LabelRPH_C
+        '
+        Me.LabelRPH_C.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.LabelRPH_C.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+        Me.LabelRPH_C.AutoEllipsis = true
+        Me.LabelRPH_C.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
+        Me.LabelRPH_C.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelRPH_C.Location = New System.Drawing.Point(51, 3)
+        Me.LabelRPH_C.Name = "LabelRPH_C"
+        Me.LabelRPH_C.Size = New System.Drawing.Size(197, 48)
+        Me.LabelRPH_C.TabIndex = 6
+        Me.LabelRPH_C.Text = "Actions"
+        '
+        'ButtonRPH_R
+        '
+        Me.ButtonRPH_R.AllowFocus = false
+        Me.ButtonRPH_R.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.[True]
+        Me.ButtonRPH_R.Dock = System.Windows.Forms.DockStyle.Right
+        Me.ButtonRPH_R.Image = CType(resources.GetObject("ButtonRPH_R.Image"),System.Drawing.Image)
+        Me.ButtonRPH_R.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.ButtonRPH_R.Location = New System.Drawing.Point(248, 3)
+        Me.ButtonRPH_R.Margin = New System.Windows.Forms.Padding(6)
+        Me.ButtonRPH_R.Name = "ButtonRPH_R"
+        Me.ButtonRPH_R.Padding = New System.Windows.Forms.Padding(6)
+        Me.ButtonRPH_R.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.[False]
+        Me.ButtonRPH_R.Size = New System.Drawing.Size(48, 48)
+        Me.ButtonRPH_R.TabIndex = 5
+        Me.ButtonRPH_R.Tag = "UsePadding"
+        Me.ButtonRPH_R.ToolTip = "Scale Form Up by 25%"
+        '
+        'ButtonRPH_L
+        '
+        Me.ButtonRPH_L.AllowFocus = false
+        Me.ButtonRPH_L.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.[True]
+        Me.ButtonRPH_L.Dock = System.Windows.Forms.DockStyle.Left
+        Me.ButtonRPH_L.Image = CType(resources.GetObject("ButtonRPH_L.Image"),System.Drawing.Image)
+        Me.ButtonRPH_L.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.ButtonRPH_L.Location = New System.Drawing.Point(3, 3)
+        Me.ButtonRPH_L.Margin = New System.Windows.Forms.Padding(6)
+        Me.ButtonRPH_L.Name = "ButtonRPH_L"
+        Me.ButtonRPH_L.Padding = New System.Windows.Forms.Padding(6)
+        Me.ButtonRPH_L.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.[False]
+        Me.ButtonRPH_L.Size = New System.Drawing.Size(48, 48)
+        Me.ButtonRPH_L.TabIndex = 4
+        Me.ButtonRPH_L.Tag = "UsePadding"
+        Me.ButtonRPH_L.ToolTip = "Scale Form Down by 25%"
+        '
         'PanelCenter
         '
         Me.PanelCenter.Controls.Add(Me.PanelCenterHeader)
@@ -292,34 +375,6 @@ Partial Class frmSkinUtilities
         Me.PanelCenter.Name = "PanelCenter"
         Me.PanelCenter.Size = New System.Drawing.Size(484, 621)
         Me.PanelCenter.TabIndex = 3
-        '
-        'LabelTPH_L
-        '
-        Me.LabelTPH_L.Appearance.Font = New System.Drawing.Font("Segoe UI Semibold", 14!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-        Me.LabelTPH_L.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near
-        Me.LabelTPH_L.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
-        Me.LabelTPH_L.AutoEllipsis = true
-        Me.LabelTPH_L.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelTPH_L.Dock = System.Windows.Forms.DockStyle.Left
-        Me.LabelTPH_L.Location = New System.Drawing.Point(3, 3)
-        Me.LabelTPH_L.Margin = New System.Windows.Forms.Padding(6)
-        Me.LabelTPH_L.Name = "LabelTPH_L"
-        Me.LabelTPH_L.Padding = New System.Windows.Forms.Padding(6)
-        Me.LabelTPH_L.Size = New System.Drawing.Size(417, 122)
-        Me.LabelTPH_L.TabIndex = 3
-        Me.LabelTPH_L.Text = "Panel Top Main Header"
-        '
-        'LabelCPH_C
-        '
-        Me.LabelCPH_C.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
-        Me.LabelCPH_C.AutoEllipsis = true
-        Me.LabelCPH_C.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelCPH_C.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LabelCPH_C.Location = New System.Drawing.Point(3, 3)
-        Me.LabelCPH_C.Name = "LabelCPH_C"
-        Me.LabelCPH_C.Size = New System.Drawing.Size(472, 48)
-        Me.LabelCPH_C.TabIndex = 5
-        Me.LabelCPH_C.Text = "Central Panel header"
         '
         'PanelCenterHeader
         '
@@ -330,47 +385,78 @@ Partial Class frmSkinUtilities
         Me.PanelCenterHeader.Size = New System.Drawing.Size(478, 54)
         Me.PanelCenterHeader.TabIndex = 1
         '
-        'ButtonRPH_L
+        'LabelCPH_C
         '
-        Me.ButtonRPH_L.AllowFocus = false
-        Me.ButtonRPH_L.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.[False]
-        Me.ButtonRPH_L.Dock = System.Windows.Forms.DockStyle.Left
-        Me.ButtonRPH_L.Image = CType(resources.GetObject("ButtonRPH_L.Image"),System.Drawing.Image)
-        Me.ButtonRPH_L.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.ButtonRPH_L.Location = New System.Drawing.Point(3, 3)
-        Me.ButtonRPH_L.Margin = New System.Windows.Forms.Padding(6)
-        Me.ButtonRPH_L.Name = "ButtonRPH_L"
-        Me.ButtonRPH_L.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.[False]
-        Me.ButtonRPH_L.Size = New System.Drawing.Size(48, 48)
-        Me.ButtonRPH_L.TabIndex = 4
-        Me.ButtonRPH_L.ToolTip = "Scale Form Down by 25%"
+        Me.LabelCPH_C.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.LabelCPH_C.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+        Me.LabelCPH_C.AutoEllipsis = true
+        Me.LabelCPH_C.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
+        Me.LabelCPH_C.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelCPH_C.Location = New System.Drawing.Point(3, 3)
+        Me.LabelCPH_C.Name = "LabelCPH_C"
+        Me.LabelCPH_C.Size = New System.Drawing.Size(472, 48)
+        Me.LabelCPH_C.TabIndex = 5
+        Me.LabelCPH_C.Text = "Central Panel header"
         '
-        'ButtonRPH_R
+        'PanelLeftXtraHeader
         '
-        Me.ButtonRPH_R.AllowFocus = false
-        Me.ButtonRPH_R.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.[False]
-        Me.ButtonRPH_R.Dock = System.Windows.Forms.DockStyle.Right
-        Me.ButtonRPH_R.Image = CType(resources.GetObject("ButtonRPH_R.Image"),System.Drawing.Image)
-        Me.ButtonRPH_R.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.ButtonRPH_R.Location = New System.Drawing.Point(248, 3)
-        Me.ButtonRPH_R.Margin = New System.Windows.Forms.Padding(6)
-        Me.ButtonRPH_R.Name = "ButtonRPH_R"
-        Me.ButtonRPH_R.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.[False]
-        Me.ButtonRPH_R.Size = New System.Drawing.Size(48, 48)
-        Me.ButtonRPH_R.TabIndex = 5
-        Me.ButtonRPH_R.ToolTip = "Scale Form Up by 25%"
+        Me.PanelLeftXtraHeader.Controls.Add(Me.LabelXtraItem)
+        Me.PanelLeftXtraHeader.Controls.Add(Me.LabelXtraItemRight)
+        Me.PanelLeftXtraHeader.Controls.Add(Me.ButtonXtraItem)
+        Me.PanelLeftXtraHeader.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelLeftXtraHeader.Location = New System.Drawing.Point(3, 57)
+        Me.PanelLeftXtraHeader.Name = "PanelLeftXtraHeader"
+        Me.PanelLeftXtraHeader.Size = New System.Drawing.Size(420, 54)
+        Me.PanelLeftXtraHeader.TabIndex = 2
         '
-        'LabelRPH_C
+        'LabelXtraItem
         '
-        Me.LabelRPH_C.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
-        Me.LabelRPH_C.AutoEllipsis = true
-        Me.LabelRPH_C.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelRPH_C.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LabelRPH_C.Location = New System.Drawing.Point(51, 3)
-        Me.LabelRPH_C.Name = "LabelRPH_C"
-        Me.LabelRPH_C.Size = New System.Drawing.Size(197, 48)
-        Me.LabelRPH_C.TabIndex = 6
-        Me.LabelRPH_C.Text = "Actions"
+        Me.LabelXtraItem.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.LabelXtraItem.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near
+        Me.LabelXtraItem.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.EllipsisCharacter
+        Me.LabelXtraItem.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
+        Me.LabelXtraItem.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap
+        Me.LabelXtraItem.AutoEllipsis = true
+        Me.LabelXtraItem.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
+        Me.LabelXtraItem.Dock = System.Windows.Forms.DockStyle.Top
+        Me.LabelXtraItem.Location = New System.Drawing.Point(51, 3)
+        Me.LabelXtraItem.Name = "LabelXtraItem"
+        Me.LabelXtraItem.Padding = New System.Windows.Forms.Padding(9, 0, 0, 3)
+        Me.LabelXtraItem.Size = New System.Drawing.Size(318, 48)
+        Me.LabelXtraItem.TabIndex = 3
+        Me.LabelXtraItem.Text = "Greatest Hits (11 Tracks)"
+        '
+        'LabelXtraItemRight
+        '
+        Me.LabelXtraItemRight.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.LabelXtraItemRight.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+        Me.LabelXtraItemRight.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.EllipsisCharacter
+        Me.LabelXtraItemRight.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap
+        Me.LabelXtraItemRight.AutoEllipsis = true
+        Me.LabelXtraItemRight.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
+        Me.LabelXtraItemRight.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
+        Me.LabelXtraItemRight.Dock = System.Windows.Forms.DockStyle.Right
+        Me.LabelXtraItemRight.Location = New System.Drawing.Point(369, 3)
+        Me.LabelXtraItemRight.Name = "LabelXtraItemRight"
+        Me.LabelXtraItemRight.Padding = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.LabelXtraItemRight.Size = New System.Drawing.Size(48, 48)
+        Me.LabelXtraItemRight.TabIndex = 7
+        Me.LabelXtraItemRight.Text = "11"
+        '
+        'ButtonXtraItem
+        '
+        Me.ButtonXtraItem.AllowFocus = false
+        Me.ButtonXtraItem.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.[False]
+        Me.ButtonXtraItem.Dock = System.Windows.Forms.DockStyle.Left
+        Me.ButtonXtraItem.Image = CType(resources.GetObject("ButtonXtraItem.Image"),System.Drawing.Image)
+        Me.ButtonXtraItem.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.ButtonXtraItem.Location = New System.Drawing.Point(3, 3)
+        Me.ButtonXtraItem.MaximumSize = New System.Drawing.Size(48, 48)
+        Me.ButtonXtraItem.MinimumSize = New System.Drawing.Size(48, 48)
+        Me.ButtonXtraItem.Name = "ButtonXtraItem"
+        Me.ButtonXtraItem.Size = New System.Drawing.Size(48, 48)
+        Me.ButtonXtraItem.TabIndex = 6
+        Me.ButtonXtraItem.Tag = "UsePadding"
         '
         'frmSkinUtilities
         '
@@ -405,6 +491,8 @@ Partial Class frmSkinUtilities
         Me.PanelCenter.ResumeLayout(false)
         CType(Me.PanelCenterHeader,System.ComponentModel.ISupportInitialize).EndInit
         Me.PanelCenterHeader.ResumeLayout(false)
+        CType(Me.PanelLeftXtraHeader,System.ComponentModel.ISupportInitialize).EndInit
+        Me.PanelLeftXtraHeader.ResumeLayout(false)
         Me.ResumeLayout(false)
 
 End Sub
@@ -436,4 +524,8 @@ End Sub
     Friend WithEvents ButtonRPH_L As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents PanelCenterHeader As DevExpress.XtraEditors.PanelControl
     Friend WithEvents LabelCPH_C As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents PanelLeftXtraHeader As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents LabelXtraItem As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelXtraItemRight As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents ButtonXtraItem As DevExpress.XtraEditors.SimpleButton
 End Class

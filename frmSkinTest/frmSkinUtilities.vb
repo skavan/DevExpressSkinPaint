@@ -15,7 +15,7 @@ Public Class frmSkinUtilities
     Dim currentScaleFactor As Single = 1
     Dim desiredScaleFactor As Single =1
     Dim baseFont As Font = Me.Font
-    Dim DXUtils As DXScaler
+    Dim dxScaler As DXScaler
 
     Class SkinStyler
         Property IsImage As Boolean
@@ -54,7 +54,7 @@ Public Class frmSkinUtilities
         DevExpress.Utils.AppearanceObject.DefaultFont = Me.Font        '// set to form font
         SetSkinStylingOverrides
         baseFont = DevExpress.Utils.AppearanceObject.DefaultFont
-        DXUtils = New DXScaler(Me)
+        dxScaler = New DXScaler(Me)
                 
     End Sub
 
@@ -78,22 +78,22 @@ Public Class frmSkinUtilities
     '// demonstrating overriding paint method and using a skin image 
     Private Sub PanelTop_Paint(sender As Object, e As PaintEventArgs) Handles PanelTop.Paint
         Dim skinStyler As SkinStyler=dicSkins(sender.Name)
-        e.Graphics.DrawImage(DrawButtonSkinGraphic(DXUtils.activeLookAndFeel, sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
+        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel, sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
     End Sub
 
     Private Sub PanelLeftHeader_Paint(sender As Object, e As PaintEventArgs) Handles PanelLeftHeader.Paint
         Dim skinStyler As SkinStyler=dicSkins(sender.Name)
-        e.Graphics.DrawImage(DrawButtonSkinGraphic(DXUtils.activeLookAndFeel,sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
+        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel,sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
     End Sub
 
     Private Sub PanelCenterHeader_Paint(sender As Object, e As PaintEventArgs) Handles PanelCenterHeader.Paint
         Dim skinStyler As SkinStyler=dicSkins(sender.Name)
-        e.Graphics.DrawImage(DrawButtonSkinGraphic(DXUtils.activeLookAndFeel,sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
+        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel,sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
     End Sub
 
     Private Sub PanelRightHeader_Paint(sender As Object, e As PaintEventArgs) Handles PanelRightHeader.Paint
         Dim skinStyler As SkinStyler=dicSkins(sender.Name)
-        e.Graphics.DrawImage(DrawButtonSkinGraphic(DXUtils.activeLookAndFeel,sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
+        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel,sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
     End Sub
 
     '// adjust size of button image based on the button Padding.
@@ -124,11 +124,11 @@ Public Class frmSkinUtilities
     Private Sub ButtonResizeFonts_Click(sender As Object, e As EventArgs) Handles ButtonResizeFonts.Click
         Dim s As String = ComboFontSize.SelectedItem
         If s="Auto" Or s="" Then
-            DXUtils.ScaleFonts2(Me,baseFont, currentScaleFactor)
+            dxScaler.ScaleFonts2(Me,baseFont, currentScaleFactor)
         Else
             If s<>"" Then
-                Dim newScaleFactor = (s/DevExpress.Utils.AppearanceObject.DefaultFont.Size)
-                DXUtils.ScaleFonts2(Me,baseFont, newScaleFactor)
+                Dim newScaleFactor = (s/baseFont.Size)
+                dxScaler.ScaleFonts2(Me,baseFont, newScaleFactor)
             End If
         End If
         
@@ -140,14 +140,14 @@ Public Class frmSkinUtilities
         If s>0 Then
             desiredScaleFactor = s
             Dim xFormScaleFactor As Single = desiredScaleFactor/currentScaleFactor
-            DXUtils.ScaleForm(Me,New SizeF(xFormScaleFactor,xFormScaleFactor))
+            dxScaler.ScaleForm(Me,New SizeF(xFormScaleFactor,xFormScaleFactor))
             '// now the current is equal to the desired
             currentScaleFactor = desiredScaleFactor          
         End If
     End Sub
 
     Private Sub ButtonResizeBtns_Click(sender As Object, e As EventArgs) Handles ButtonResizeBtns.Click
-        DXUtils.SetButtonResizing(CType(Me,XtraForm), AddressOf Button_SizeChanged)      
+        dxScaler.SetButtonResizing(CType(Me,XtraForm), AddressOf Button_SizeChanged)      
     End Sub
 
     Private Sub ButtonFontMetrics_Click(sender As Object, e As EventArgs) Handles ButtonFontMetrics.Click
@@ -171,10 +171,10 @@ Public Class frmSkinUtilities
         If desiredScaleFactor>2 Then desiredScaleFactor=2
         '// the transformation required to get from current to desired
         Dim xFormScaleFactor As Single = desiredScaleFactor/currentScaleFactor
-        DXUtils.ScaleForm(Me,New SizeF(xFormScaleFactor,xFormScaleFactor))
+        dxScaler.ScaleForm(Me,New SizeF(xFormScaleFactor,xFormScaleFactor))
         '// now the current is equal to the desired
         currentScaleFactor = desiredScaleFactor
-        DXUtils.ScaleFonts2(Me,baseFont, desiredScaleFactor)
+        dxScaler.ScaleFonts2(Me,baseFont, desiredScaleFactor)
         Debug.Print("+++++++++++++TRANSFORMED+++++++++++++++")
         Debug.Print("New Desired/Current [{0},{1}]", desiredScaleFactor, currentScaleFactor)
         Debug.Print("New Form x,y & Font Size[{0},{1} : {2}]", Me.Width, Me.Height, DevExpress.Utils.AppearanceObject.DefaultFont.Size)
