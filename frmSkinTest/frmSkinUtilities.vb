@@ -16,7 +16,8 @@ Public Class frmSkinUtilities
     Dim desiredScaleFactor As Single =1
     Dim baseFont As Font = Me.Font
     Dim dxScaler As DXScaler
-
+    Dim dataList As List(Of MusicItem)
+    Dim shadowList As String() 
     Class SkinStyler
         Property IsImage As Boolean
         Property Skins As Object
@@ -68,6 +69,8 @@ Public Class frmSkinUtilities
                                   .Skins = commonSkins, .ElementName="Button", .ImageIndex=1})
         dicSkins.Add(PanelCenterHeader.Name, New SkinStyler With {.IsImage = "True", 
                                   .Skins = commonSkins, .ElementName="Button", .ImageIndex=1})
+        dicSkins.Add(PanelLeftXtraHeader.Name, New SkinStyler With {.IsImage = "True", 
+                                  .Skins = commonSkins, .ElementName="Button", .ImageIndex=0})
         '// use this tag to flag buttons where we want to rescale the images 
         ButtonLPH_L.Tag="UsePadding"
         ButtonLPH_R.Tag="UsePadding"
@@ -92,6 +95,11 @@ Public Class frmSkinUtilities
     End Sub
 
     Private Sub PanelRightHeader_Paint(sender As Object, e As PaintEventArgs) Handles PanelRightHeader.Paint
+        Dim skinStyler As SkinStyler=dicSkins(sender.Name)
+        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel,sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
+    End Sub
+
+    Private Sub PanelLeftXtraHeader_Paint(sender As Object, e As PaintEventArgs) Handles PanelLeftXtraHeader.Paint
         Dim skinStyler As SkinStyler=dicSkins(sender.Name)
         e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel,sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
     End Sub
@@ -185,6 +193,17 @@ Public Class frmSkinUtilities
     Private Sub ButtonRPH_R_Click(sender As Object, e As EventArgs) Handles ButtonRPH_R.Click
         DoScaling(+0.25)
     End Sub
+
+    Private Sub ButtonXtraItem_Click(sender As Object, e As EventArgs) Handles ButtonXtraItem.Click
+        'Dim list As List(Of MusicItem) = DeSerializeMusicItemLibrary("G:\smallList.XML")
+        dataList = DeSerializeMusicItemLibrary(My.Resources.AlbumTrackList, True)
+        
+        ReDim shadowList(dataList.count-1)
+        For i As Integer = 0 To  dataList.Count-1
+            shadowList(i) = dataList(i).ID
+        Next
+    End Sub
+
 #End Region
 
 End Class

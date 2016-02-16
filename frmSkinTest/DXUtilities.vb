@@ -1,12 +1,14 @@
-﻿Imports DevExpress.LookAndFeel
+﻿Imports System.IO
+Imports System.Xml.Serialization
+Imports DevExpress.LookAndFeel
 Imports DevExpress.Skins
 Imports DevExpress.XtraEditors
 Imports DevExpress.XtraGrid.Views.Tile
 
 Module DXUtilities
-    
-#Region "Assorted Methods"
-    
+
+#Region "General Utilities"
+
     '// utility function to recurse through all controls and find one matching a name
     Public Function GetControlByName(ctl As Control, name As String) As Control
         If ctl.Name = name Then Return ctl
@@ -25,7 +27,45 @@ Module DXUtilities
         Return Nothing
     End Function
 
-   
+    '// serialize a MusicItem List
+    Public Sub SerializeMusicItemLibrary(mList As List(Of MusicItem), filepath As String)
+
+        Dim ser As XmlSerializer = New XmlSerializer(GetType(List(Of MusicItem)))
+        Using writer As TextWriter = New StreamWriter(filepath)
+            ser.Serialize(writer, mList)
+        End Using
+    End Sub
+
+    '// deserialize a MusicItem List
+    Public Function DeSerializeMusicItemLibrary(filepath As String) As List(Of MusicItem)
+
+        Dim ser As XmlSerializer = New XmlSerializer(GetType(List(Of MusicItem)))
+        Dim items As New List(Of MusicItem)
+        Try
+            Using reader As TextReader = New StreamReader(filepath)
+                items = ser.Deserialize(reader)
+            End Using
+        Catch ex As Exception
+
+        End Try
+
+        Return items
+    End Function
+     '// deserialize a MusicItem List
+    Public Function DeSerializeMusicItemLibrary(data As String, isResource As Boolean) As List(Of MusicItem)
+        Dim ser As XmlSerializer = New XmlSerializer(GetType(List(Of MusicItem)))
+        Dim items As New List(Of MusicItem)
+        Try
+            Using reader As TextReader = New StringReader(data)
+                items = ser.Deserialize(reader)
+            End Using
+        Catch ex As Exception
+
+        End Try
+
+        Return items
+    End Function
+
 #End Region
 
 #Region "Skin Related"
@@ -35,7 +75,7 @@ Module DXUtilities
     End Sub
 
     '// get the skinImage from a given element. Note: use SkinEditor to find the elementName
-    Public Function GetSkinElementSkinImage(activeLookAndFeel As UserLookAndFeel, skinCategory As Object, elementName As String ) As SkinImage
+    Public Function GetSkinElementSkinImage(activeLookAndFeel As UserLookAndFeel, skinCategory As Object, elementName As String) As SkinImage
         'Dim currentSkin As DevExpress.Skins.Skin = skinCategory.GetSkin(DevExpress.LookAndFeel.UserLookAndFeel.Default)
         Dim currentSkin As DevExpress.Skins.Skin = skinCategory.GetSkin(activeLookAndFeel)
         Dim element As DevExpress.Skins.SkinElement = currentSkin(elementName)
@@ -79,7 +119,7 @@ Module DXUtilities
 #End Region
 
 #Region "Image Retrieval & Rescaling"
-    
+
     '// make the project dpi aware.
     Public Sub SetModeDPIAware
         DevExpress.XtraEditors.WindowsFormsSettings.SetDPIAware
@@ -98,11 +138,11 @@ Module DXUtilities
             Dim numImages As Integer = 32 'DevExpress.Images.ImageResourceCache.Default.GetAllResourceKeys.Count
             Dim X As Integer = CInt(Math.Ceiling(Rnd() * numImages)) + 256
             Dim key As String = DevExpress.Images.ImageResourceCache.Default.GetAllResourceKeys(X)
-            image =  DevExpress.Images.ImageResourceCache.Default.GetImage(key)
-        Loop Until image.Width=32
+            image = DevExpress.Images.ImageResourceCache.Default.GetImage(key)
+        Loop Until image.Width = 32
         Return image
     End Function
-    
+
     '// three overloads. the first doesn't use a scale factor. i.e. it just loads the image
     Public Function RescaleImageByScaleFactor(srcImage As Image, targetSize As Size) As Image
         Return RescaleImageByScaleFactor(srcImage, targetSize.Width, targetSize.Height, New SizeF(1, 1))
@@ -125,20 +165,20 @@ Module DXUtilities
     End Function
 
     Public Function RescaleImageByPadding(srcImage As Image, width As Integer, height As Integer, padding As Padding) As Image
-        Return New Bitmap((srcImage), New Size(width - (padding.Left+padding.Right), height - (padding.Top+padding.Bottom)))
+        Return New Bitmap((srcImage), New Size(width - (padding.Left + padding.Right), height - (padding.Top + padding.Bottom)))
     End Function
 
 #End Region
 
 #Region "Graphics and Painting Related"
-    
+
     '// given a target size, a skinelement and a target image index, construct a graphic
     Public Function DrawButtonSkinGraphic(activeLookAndFeel As UserLookAndFeel, tgtRect As Rectangle, skinCategory As Object, elementName As String, imageIndex As Integer) As Image
-        Dim skinImage As SkinImage = GetSkinElementSkinImage(activeLookAndFeel,skinCategory, elementName)
+        Dim skinImage As SkinImage = GetSkinElementSkinImage(activeLookAndFeel, skinCategory, elementName)
         'Dim image As Image = skinImage.GetImages.Images(imageIndex)
-        Dim image As Image = GetImageFromSkinImage(skinImage,imageIndex)
+        Dim image As Image = GetImageFromSkinImage(skinImage, imageIndex)
         Dim sM As SkinPaddingEdges = skinImage.SizingMargins
-        Dim srcR As Rectangle = New Rectangle(0,0,image.Width, image.Height)
+        Dim srcR As Rectangle = New Rectangle(0, 0, image.Width, image.Height)
         Dim l As Integer = 0
         Dim w As Integer = tgtRect.Width
         Dim t As Integer = 0
@@ -147,37 +187,37 @@ Module DXUtilities
         Dim bmp As New Bitmap(w, h)
         Using g As Graphics = Graphics.FromImage(bmp)
             '// corner squares
-            g.DrawImage(image, New Rectangle(l, t, sM.Left, sM.top), New Rectangle(0, 0, sM.Left, sM.Top), GraphicsUnit.Pixel)
-            g.DrawImage(image, New Rectangle(l, h-sM.Bottom, sM.Left, sM.Bottom), New Rectangle(0, srcR.Bottom-sM.Bottom, sM.Left, sM.Bottom), GraphicsUnit.Pixel)
-            g.DrawImage(image, New Rectangle(w-sM.Right,t,sM.Right,sM.Top), New Rectangle(srcR.Right- sM.right, 0, sM.Right, sM.Top), GraphicsUnit.Pixel)
-            g.DrawImage(image, New Rectangle(w-sM.Right, h-sM.Bottom , sM.Right, sM.Bottom), New Rectangle(srcR.Right-sM.Right, srcR.Bottom - sM.Bottom, sM.Right, sM.Bottom), GraphicsUnit.Pixel)
+            g.DrawImage(image, New Rectangle(l, t, sM.Left, sM.Top), New Rectangle(0, 0, sM.Left, sM.Top), GraphicsUnit.Pixel)
+            g.DrawImage(image, New Rectangle(l, h - sM.Bottom, sM.Left, sM.Bottom), New Rectangle(0, srcR.Bottom - sM.Bottom, sM.Left, sM.Bottom), GraphicsUnit.Pixel)
+            g.DrawImage(image, New Rectangle(w - sM.Right, t, sM.Right, sM.Top), New Rectangle(srcR.Right - sM.Right, 0, sM.Right, sM.Top), GraphicsUnit.Pixel)
+            g.DrawImage(image, New Rectangle(w - sM.Right, h - sM.Bottom, sM.Right, sM.Bottom), New Rectangle(srcR.Right - sM.Right, srcR.Bottom - sM.Bottom, sM.Right, sM.Bottom), GraphicsUnit.Pixel)
 
             '// edges
-            g.DrawImage(image, New Rectangle(l+sM.Left, t, w-l-sM.Width, sM.Top), New Rectangle(sM.Left, 0, image.Width-sM.Width - 1, sM.Top), GraphicsUnit.Pixel)
-            g.DrawImage(image, New Rectangle(l+sM.Left, h-sM.Bottom, w-l-sM.Width, sM.Bottom), New Rectangle(sM.Left, srcR.Bottom-sM.Bottom, image.Width-sM.Width - 1, sM.Bottom), GraphicsUnit.Pixel)
-            g.DrawImage(image, New Rectangle(l, t+sM.Top, sM.Left, h-t-sM.Height), New Rectangle(0, sM.Top, sM.Left, image.Height - sM.Height - 1), GraphicsUnit.Pixel)
-            g.DrawImage(image, New Rectangle(w-sM.Right, t+sM.Top, sM.Right, h-t-sM.Height), New Rectangle(srcR.right - sM.Right, sM.Top, sM.Right, image.Height - sM.Height - 1), GraphicsUnit.Pixel)
+            g.DrawImage(image, New Rectangle(l + sM.Left, t, w - l - sM.Width, sM.Top), New Rectangle(sM.Left, 0, image.Width - sM.Width - 1, sM.Top), GraphicsUnit.Pixel)
+            g.DrawImage(image, New Rectangle(l + sM.Left, h - sM.Bottom, w - l - sM.Width, sM.Bottom), New Rectangle(sM.Left, srcR.Bottom - sM.Bottom, image.Width - sM.Width - 1, sM.Bottom), GraphicsUnit.Pixel)
+            g.DrawImage(image, New Rectangle(l, t + sM.Top, sM.Left, h - t - sM.Height), New Rectangle(0, sM.Top, sM.Left, image.Height - sM.Height - 1), GraphicsUnit.Pixel)
+            g.DrawImage(image, New Rectangle(w - sM.Right, t + sM.Top, sM.Right, h - t - sM.Height), New Rectangle(srcR.Right - sM.Right, sM.Top, sM.Right, image.Height - sM.Height - 1), GraphicsUnit.Pixel)
             '// body
-            g.DrawImage(image, New Rectangle(l+sM.Left, t+sM.Top, w-l-sM.Width, h-t-sM.Height), New Rectangle(sM.Left, sM.Top, image.Width-sM.Width-1, image.Height-sM.Height - 1), GraphicsUnit.Pixel)
+            g.DrawImage(image, New Rectangle(l + sM.Left, t + sM.Top, w - l - sM.Width, h - t - sM.Height), New Rectangle(sM.Left, sM.Top, image.Width - sM.Width - 1, image.Height - sM.Height - 1), GraphicsUnit.Pixel)
         End Using
         Return bmp
     End Function
 
     '// create a colored rectangle in a the provided brush color
-     Private Function DrawFilledRectangle(x As Integer, y As Integer, brush As Brush) As Image
-	    Dim bmp As New Bitmap(x, y)
-	    Using graph As Graphics = Graphics.FromImage(bmp)
-		    Dim ImageSize As New Rectangle(0, 0, x, y)
-		    graph.FillRectangle(brush, ImageSize)
-	    End Using
-	    Return bmp
+    Private Function DrawFilledRectangle(x As Integer, y As Integer, brush As Brush) As Image
+        Dim bmp As New Bitmap(x, y)
+        Using graph As Graphics = Graphics.FromImage(bmp)
+            Dim ImageSize As New Rectangle(0, 0, x, y)
+            graph.FillRectangle(brush, ImageSize)
+        End Using
+        Return bmp
     End Function
 
     '// reskin a panel control by setting its background via the contentImage property
     Public Sub ReskinPanelBackground(activeLookAndFeel As UserLookAndFeel, panel As PanelControl, skinCategory As Object, elementName As String, imageIndex As Integer)
-        Dim image As Image = DrawButtonSkinGraphic(activeLookAndFeel,panel.Bounds, skinCategory, "Button", imageIndex)
+        Dim image As Image = DrawButtonSkinGraphic(activeLookAndFeel, panel.Bounds, skinCategory, "Button", imageIndex)
         '// need to kill the border for the contentimage to fill the entire panel.
-        panel.BorderStyle=DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
+        panel.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         panel.ContentImage = image
     End Sub
 

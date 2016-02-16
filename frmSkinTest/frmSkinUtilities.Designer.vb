@@ -35,6 +35,10 @@ Partial Class frmSkinUtilities
         Me.FormAssistant1 = New DevExpress.XtraBars.FormAssistant()
         Me.DefaultLookAndFeel1 = New DevExpress.LookAndFeel.DefaultLookAndFeel(Me.components)
         Me.PanelLeft = New DevExpress.XtraEditors.PanelControl()
+        Me.PanelLeftXtraHeader = New DevExpress.XtraEditors.PanelControl()
+        Me.LabelXtraItem = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelXtraItemRight = New DevExpress.XtraEditors.LabelControl()
+        Me.ButtonXtraItem = New DevExpress.XtraEditors.SimpleButton()
         Me.PanelLeftHeader = New DevExpress.XtraEditors.PanelControl()
         Me.LabelLPH_C = New DevExpress.XtraEditors.LabelControl()
         Me.ButtonLPH_R = New DevExpress.XtraEditors.SimpleButton()
@@ -43,7 +47,7 @@ Partial Class frmSkinUtilities
         Me.SimpleButton4 = New DevExpress.XtraEditors.SimpleButton()
         Me.SimpleButton3 = New DevExpress.XtraEditors.SimpleButton()
         Me.ButtonFontMetrics = New DevExpress.XtraEditors.SimpleButton()
-        Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
+        Me.PanelScaleForm = New DevExpress.XtraEditors.PanelControl()
         Me.ButtonScaleForm = New DevExpress.XtraEditors.SimpleButton()
         Me.ComboScaleForm = New DevExpress.XtraEditors.ComboBoxEdit()
         Me.PanelResizeFonts = New DevExpress.XtraEditors.PanelControl()
@@ -57,20 +61,18 @@ Partial Class frmSkinUtilities
         Me.PanelCenter = New DevExpress.XtraEditors.PanelControl()
         Me.PanelCenterHeader = New DevExpress.XtraEditors.PanelControl()
         Me.LabelCPH_C = New DevExpress.XtraEditors.LabelControl()
-        Me.PanelLeftXtraHeader = New DevExpress.XtraEditors.PanelControl()
-        Me.LabelXtraItem = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelXtraItemRight = New DevExpress.XtraEditors.LabelControl()
-        Me.ButtonXtraItem = New DevExpress.XtraEditors.SimpleButton()
         CType(Me.PanelTop,System.ComponentModel.ISupportInitialize).BeginInit
         Me.PanelTop.SuspendLayout
         CType(Me.PanelLeft,System.ComponentModel.ISupportInitialize).BeginInit
         Me.PanelLeft.SuspendLayout
+        CType(Me.PanelLeftXtraHeader,System.ComponentModel.ISupportInitialize).BeginInit
+        Me.PanelLeftXtraHeader.SuspendLayout
         CType(Me.PanelLeftHeader,System.ComponentModel.ISupportInitialize).BeginInit
         Me.PanelLeftHeader.SuspendLayout
         CType(Me.PanelRight,System.ComponentModel.ISupportInitialize).BeginInit
         Me.PanelRight.SuspendLayout
-        CType(Me.PanelControl1,System.ComponentModel.ISupportInitialize).BeginInit
-        Me.PanelControl1.SuspendLayout
+        CType(Me.PanelScaleForm,System.ComponentModel.ISupportInitialize).BeginInit
+        Me.PanelScaleForm.SuspendLayout
         CType(Me.ComboScaleForm.Properties,System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.PanelResizeFonts,System.ComponentModel.ISupportInitialize).BeginInit
         Me.PanelResizeFonts.SuspendLayout
@@ -81,8 +83,6 @@ Partial Class frmSkinUtilities
         Me.PanelCenter.SuspendLayout
         CType(Me.PanelCenterHeader,System.ComponentModel.ISupportInitialize).BeginInit
         Me.PanelCenterHeader.SuspendLayout
-        CType(Me.PanelLeftXtraHeader,System.ComponentModel.ISupportInitialize).BeginInit
-        Me.PanelLeftXtraHeader.SuspendLayout
         Me.SuspendLayout
         '
         'PanelTop
@@ -116,6 +116,8 @@ Partial Class frmSkinUtilities
         '
         'PanelLeft
         '
+        Me.PanelLeft.Appearance.BorderColor = System.Drawing.Color.Transparent
+        Me.PanelLeft.Appearance.Options.UseBorderColor = true
         Me.PanelLeft.Controls.Add(Me.PanelLeftXtraHeader)
         Me.PanelLeft.Controls.Add(Me.PanelLeftHeader)
         Me.PanelLeft.Dock = System.Windows.Forms.DockStyle.Left
@@ -123,6 +125,69 @@ Partial Class frmSkinUtilities
         Me.PanelLeft.Name = "PanelLeft"
         Me.PanelLeft.Size = New System.Drawing.Size(426, 621)
         Me.PanelLeft.TabIndex = 1
+        '
+        'PanelLeftXtraHeader
+        '
+        Me.PanelLeftXtraHeader.Controls.Add(Me.LabelXtraItem)
+        Me.PanelLeftXtraHeader.Controls.Add(Me.LabelXtraItemRight)
+        Me.PanelLeftXtraHeader.Controls.Add(Me.ButtonXtraItem)
+        Me.PanelLeftXtraHeader.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelLeftXtraHeader.Location = New System.Drawing.Point(3, 57)
+        Me.PanelLeftXtraHeader.Name = "PanelLeftXtraHeader"
+        Me.PanelLeftXtraHeader.Size = New System.Drawing.Size(420, 64)
+        Me.PanelLeftXtraHeader.TabIndex = 2
+        '
+        'LabelXtraItem
+        '
+        Me.LabelXtraItem.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.LabelXtraItem.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near
+        Me.LabelXtraItem.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.EllipsisCharacter
+        Me.LabelXtraItem.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
+        Me.LabelXtraItem.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap
+        Me.LabelXtraItem.AutoEllipsis = true
+        Me.LabelXtraItem.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
+        Me.LabelXtraItem.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LabelXtraItem.Location = New System.Drawing.Point(51, 3)
+        Me.LabelXtraItem.Name = "LabelXtraItem"
+        Me.LabelXtraItem.Padding = New System.Windows.Forms.Padding(9, 0, 0, 3)
+        Me.LabelXtraItem.Size = New System.Drawing.Size(318, 58)
+        Me.LabelXtraItem.TabIndex = 3
+        Me.LabelXtraItem.Text = "Greatest Hits (11 Tracks)"
+        '
+        'LabelXtraItemRight
+        '
+        Me.LabelXtraItemRight.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.LabelXtraItemRight.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+        Me.LabelXtraItemRight.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.EllipsisCharacter
+        Me.LabelXtraItemRight.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap
+        Me.LabelXtraItemRight.AutoEllipsis = true
+        Me.LabelXtraItemRight.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
+        Me.LabelXtraItemRight.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
+        Me.LabelXtraItemRight.Dock = System.Windows.Forms.DockStyle.Right
+        Me.LabelXtraItemRight.Location = New System.Drawing.Point(369, 3)
+        Me.LabelXtraItemRight.Name = "LabelXtraItemRight"
+        Me.LabelXtraItemRight.Padding = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.LabelXtraItemRight.Size = New System.Drawing.Size(48, 58)
+        Me.LabelXtraItemRight.TabIndex = 7
+        Me.LabelXtraItemRight.Text = "11"
+        '
+        'ButtonXtraItem
+        '
+        Me.ButtonXtraItem.AllowFocus = false
+        Me.ButtonXtraItem.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.[False]
+        Me.ButtonXtraItem.Appearance.BorderColor = System.Drawing.Color.Transparent
+        Me.ButtonXtraItem.Appearance.Options.UseBorderColor = true
+        Me.ButtonXtraItem.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
+        Me.ButtonXtraItem.Dock = System.Windows.Forms.DockStyle.Left
+        Me.ButtonXtraItem.Image = CType(resources.GetObject("ButtonXtraItem.Image"),System.Drawing.Image)
+        Me.ButtonXtraItem.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
+        Me.ButtonXtraItem.Location = New System.Drawing.Point(3, 3)
+        Me.ButtonXtraItem.MinimumSize = New System.Drawing.Size(48, 48)
+        Me.ButtonXtraItem.Name = "ButtonXtraItem"
+        Me.ButtonXtraItem.Padding = New System.Windows.Forms.Padding(6)
+        Me.ButtonXtraItem.Size = New System.Drawing.Size(48, 58)
+        Me.ButtonXtraItem.TabIndex = 6
+        Me.ButtonXtraItem.Tag = "UsePadding"
         '
         'PanelLeftHeader
         '
@@ -183,7 +248,7 @@ Partial Class frmSkinUtilities
         Me.PanelRight.Controls.Add(Me.SimpleButton4)
         Me.PanelRight.Controls.Add(Me.SimpleButton3)
         Me.PanelRight.Controls.Add(Me.ButtonFontMetrics)
-        Me.PanelRight.Controls.Add(Me.PanelControl1)
+        Me.PanelRight.Controls.Add(Me.PanelScaleForm)
         Me.PanelRight.Controls.Add(Me.PanelResizeFonts)
         Me.PanelRight.Controls.Add(Me.ButtonResizeBtns)
         Me.PanelRight.Controls.Add(Me.PanelRightHeader)
@@ -195,48 +260,51 @@ Partial Class frmSkinUtilities
         '
         'SimpleButton4
         '
+        Me.SimpleButton4.AllowFocus = false
         Me.SimpleButton4.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.SimpleButton4.Appearance.Options.UseFont = true
         Me.SimpleButton4.Dock = System.Windows.Forms.DockStyle.Top
-        Me.SimpleButton4.Location = New System.Drawing.Point(3, 297)
+        Me.SimpleButton4.Location = New System.Drawing.Point(3, 327)
         Me.SimpleButton4.Name = "SimpleButton4"
-        Me.SimpleButton4.Size = New System.Drawing.Size(299, 48)
+        Me.SimpleButton4.Size = New System.Drawing.Size(299, 54)
         Me.SimpleButton4.TabIndex = 5
         Me.SimpleButton4.Text = "Resize Button Images"
         '
         'SimpleButton3
         '
+        Me.SimpleButton3.AllowFocus = false
         Me.SimpleButton3.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.SimpleButton3.Appearance.Options.UseFont = true
         Me.SimpleButton3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.SimpleButton3.Location = New System.Drawing.Point(3, 249)
+        Me.SimpleButton3.Location = New System.Drawing.Point(3, 273)
         Me.SimpleButton3.Name = "SimpleButton3"
-        Me.SimpleButton3.Size = New System.Drawing.Size(299, 48)
+        Me.SimpleButton3.Size = New System.Drawing.Size(299, 54)
         Me.SimpleButton3.TabIndex = 4
         Me.SimpleButton3.Text = "Resize Button Images"
         '
         'ButtonFontMetrics
         '
+        Me.ButtonFontMetrics.AllowFocus = false
         Me.ButtonFontMetrics.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.ButtonFontMetrics.Appearance.Options.UseFont = true
         Me.ButtonFontMetrics.Dock = System.Windows.Forms.DockStyle.Top
-        Me.ButtonFontMetrics.Location = New System.Drawing.Point(3, 201)
+        Me.ButtonFontMetrics.Location = New System.Drawing.Point(3, 219)
         Me.ButtonFontMetrics.Name = "ButtonFontMetrics"
-        Me.ButtonFontMetrics.Size = New System.Drawing.Size(299, 48)
+        Me.ButtonFontMetrics.Size = New System.Drawing.Size(299, 54)
         Me.ButtonFontMetrics.TabIndex = 3
         Me.ButtonFontMetrics.Text = "Font Information"
         '
-        'PanelControl1
+        'PanelScaleForm
         '
-        Me.PanelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
-        Me.PanelControl1.Controls.Add(Me.ButtonScaleForm)
-        Me.PanelControl1.Controls.Add(Me.ComboScaleForm)
-        Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelControl1.Location = New System.Drawing.Point(3, 153)
-        Me.PanelControl1.Margin = New System.Windows.Forms.Padding(0)
-        Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(299, 48)
-        Me.PanelControl1.TabIndex = 7
+        Me.PanelScaleForm.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
+        Me.PanelScaleForm.Controls.Add(Me.ButtonScaleForm)
+        Me.PanelScaleForm.Controls.Add(Me.ComboScaleForm)
+        Me.PanelScaleForm.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelScaleForm.Location = New System.Drawing.Point(3, 165)
+        Me.PanelScaleForm.Margin = New System.Windows.Forms.Padding(0)
+        Me.PanelScaleForm.Name = "PanelScaleForm"
+        Me.PanelScaleForm.Size = New System.Drawing.Size(299, 54)
+        Me.PanelScaleForm.TabIndex = 7
         '
         'ButtonScaleForm
         '
@@ -246,7 +314,7 @@ Partial Class frmSkinUtilities
         Me.ButtonScaleForm.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ButtonScaleForm.Location = New System.Drawing.Point(0, 0)
         Me.ButtonScaleForm.Name = "ButtonScaleForm"
-        Me.ButtonScaleForm.Size = New System.Drawing.Size(219, 48)
+        Me.ButtonScaleForm.Size = New System.Drawing.Size(219, 54)
         Me.ButtonScaleForm.TabIndex = 0
         Me.ButtonScaleForm.Text = "Scale Form"
         '
@@ -259,7 +327,7 @@ Partial Class frmSkinUtilities
         Me.ComboScaleForm.Properties.AutoHeight = false
         Me.ComboScaleForm.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.ComboScaleForm.Properties.Items.AddRange(New Object() {"2", "1.5", "1.25", "1", "0.75", "0.5"})
-        Me.ComboScaleForm.Size = New System.Drawing.Size(80, 48)
+        Me.ComboScaleForm.Size = New System.Drawing.Size(80, 54)
         Me.ComboScaleForm.TabIndex = 1
         '
         'PanelResizeFonts
@@ -268,10 +336,10 @@ Partial Class frmSkinUtilities
         Me.PanelResizeFonts.Controls.Add(Me.ButtonResizeFonts)
         Me.PanelResizeFonts.Controls.Add(Me.ComboFontSize)
         Me.PanelResizeFonts.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelResizeFonts.Location = New System.Drawing.Point(3, 105)
+        Me.PanelResizeFonts.Location = New System.Drawing.Point(3, 111)
         Me.PanelResizeFonts.Margin = New System.Windows.Forms.Padding(0)
         Me.PanelResizeFonts.Name = "PanelResizeFonts"
-        Me.PanelResizeFonts.Size = New System.Drawing.Size(299, 48)
+        Me.PanelResizeFonts.Size = New System.Drawing.Size(299, 54)
         Me.PanelResizeFonts.TabIndex = 6
         '
         'ButtonResizeFonts
@@ -282,7 +350,7 @@ Partial Class frmSkinUtilities
         Me.ButtonResizeFonts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ButtonResizeFonts.Location = New System.Drawing.Point(0, 0)
         Me.ButtonResizeFonts.Name = "ButtonResizeFonts"
-        Me.ButtonResizeFonts.Size = New System.Drawing.Size(219, 48)
+        Me.ButtonResizeFonts.Size = New System.Drawing.Size(219, 54)
         Me.ButtonResizeFonts.TabIndex = 0
         Me.ButtonResizeFonts.Text = "Resize Fonts"
         '
@@ -295,17 +363,18 @@ Partial Class frmSkinUtilities
         Me.ComboFontSize.Properties.AutoHeight = false
         Me.ComboFontSize.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.ComboFontSize.Properties.Items.AddRange(New Object() {"Auto", "8", "10", "12", "14", "16", "18", "20"})
-        Me.ComboFontSize.Size = New System.Drawing.Size(80, 48)
+        Me.ComboFontSize.Size = New System.Drawing.Size(80, 54)
         Me.ComboFontSize.TabIndex = 1
         '
         'ButtonResizeBtns
         '
+        Me.ButtonResizeBtns.AllowFocus = false
         Me.ButtonResizeBtns.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.ButtonResizeBtns.Appearance.Options.UseFont = true
         Me.ButtonResizeBtns.Dock = System.Windows.Forms.DockStyle.Top
         Me.ButtonResizeBtns.Location = New System.Drawing.Point(3, 57)
         Me.ButtonResizeBtns.Name = "ButtonResizeBtns"
-        Me.ButtonResizeBtns.Size = New System.Drawing.Size(299, 48)
+        Me.ButtonResizeBtns.Size = New System.Drawing.Size(299, 54)
         Me.ButtonResizeBtns.TabIndex = 2
         Me.ButtonResizeBtns.Text = "Resize LPH Button Images"
         '
@@ -398,66 +467,6 @@ Partial Class frmSkinUtilities
         Me.LabelCPH_C.TabIndex = 5
         Me.LabelCPH_C.Text = "Central Panel header"
         '
-        'PanelLeftXtraHeader
-        '
-        Me.PanelLeftXtraHeader.Controls.Add(Me.LabelXtraItem)
-        Me.PanelLeftXtraHeader.Controls.Add(Me.LabelXtraItemRight)
-        Me.PanelLeftXtraHeader.Controls.Add(Me.ButtonXtraItem)
-        Me.PanelLeftXtraHeader.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelLeftXtraHeader.Location = New System.Drawing.Point(3, 57)
-        Me.PanelLeftXtraHeader.Name = "PanelLeftXtraHeader"
-        Me.PanelLeftXtraHeader.Size = New System.Drawing.Size(420, 54)
-        Me.PanelLeftXtraHeader.TabIndex = 2
-        '
-        'LabelXtraItem
-        '
-        Me.LabelXtraItem.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-        Me.LabelXtraItem.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near
-        Me.LabelXtraItem.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.EllipsisCharacter
-        Me.LabelXtraItem.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
-        Me.LabelXtraItem.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap
-        Me.LabelXtraItem.AutoEllipsis = true
-        Me.LabelXtraItem.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelXtraItem.Dock = System.Windows.Forms.DockStyle.Top
-        Me.LabelXtraItem.Location = New System.Drawing.Point(51, 3)
-        Me.LabelXtraItem.Name = "LabelXtraItem"
-        Me.LabelXtraItem.Padding = New System.Windows.Forms.Padding(9, 0, 0, 3)
-        Me.LabelXtraItem.Size = New System.Drawing.Size(318, 48)
-        Me.LabelXtraItem.TabIndex = 3
-        Me.LabelXtraItem.Text = "Greatest Hits (11 Tracks)"
-        '
-        'LabelXtraItemRight
-        '
-        Me.LabelXtraItemRight.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-        Me.LabelXtraItemRight.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
-        Me.LabelXtraItemRight.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.EllipsisCharacter
-        Me.LabelXtraItemRight.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap
-        Me.LabelXtraItemRight.AutoEllipsis = true
-        Me.LabelXtraItemRight.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelXtraItemRight.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
-        Me.LabelXtraItemRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.LabelXtraItemRight.Location = New System.Drawing.Point(369, 3)
-        Me.LabelXtraItemRight.Name = "LabelXtraItemRight"
-        Me.LabelXtraItemRight.Padding = New System.Windows.Forms.Padding(3, 0, 3, 3)
-        Me.LabelXtraItemRight.Size = New System.Drawing.Size(48, 48)
-        Me.LabelXtraItemRight.TabIndex = 7
-        Me.LabelXtraItemRight.Text = "11"
-        '
-        'ButtonXtraItem
-        '
-        Me.ButtonXtraItem.AllowFocus = false
-        Me.ButtonXtraItem.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.[False]
-        Me.ButtonXtraItem.Dock = System.Windows.Forms.DockStyle.Left
-        Me.ButtonXtraItem.Image = CType(resources.GetObject("ButtonXtraItem.Image"),System.Drawing.Image)
-        Me.ButtonXtraItem.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.ButtonXtraItem.Location = New System.Drawing.Point(3, 3)
-        Me.ButtonXtraItem.MaximumSize = New System.Drawing.Size(48, 48)
-        Me.ButtonXtraItem.MinimumSize = New System.Drawing.Size(48, 48)
-        Me.ButtonXtraItem.Name = "ButtonXtraItem"
-        Me.ButtonXtraItem.Size = New System.Drawing.Size(48, 48)
-        Me.ButtonXtraItem.TabIndex = 6
-        Me.ButtonXtraItem.Tag = "UsePadding"
-        '
         'frmSkinUtilities
         '
         Me.Appearance.Options.UseFont = true
@@ -475,12 +484,14 @@ Partial Class frmSkinUtilities
         Me.PanelTop.ResumeLayout(false)
         CType(Me.PanelLeft,System.ComponentModel.ISupportInitialize).EndInit
         Me.PanelLeft.ResumeLayout(false)
+        CType(Me.PanelLeftXtraHeader,System.ComponentModel.ISupportInitialize).EndInit
+        Me.PanelLeftXtraHeader.ResumeLayout(false)
         CType(Me.PanelLeftHeader,System.ComponentModel.ISupportInitialize).EndInit
         Me.PanelLeftHeader.ResumeLayout(false)
         CType(Me.PanelRight,System.ComponentModel.ISupportInitialize).EndInit
         Me.PanelRight.ResumeLayout(false)
-        CType(Me.PanelControl1,System.ComponentModel.ISupportInitialize).EndInit
-        Me.PanelControl1.ResumeLayout(false)
+        CType(Me.PanelScaleForm,System.ComponentModel.ISupportInitialize).EndInit
+        Me.PanelScaleForm.ResumeLayout(false)
         CType(Me.ComboScaleForm.Properties,System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.PanelResizeFonts,System.ComponentModel.ISupportInitialize).EndInit
         Me.PanelResizeFonts.ResumeLayout(false)
@@ -491,8 +502,6 @@ Partial Class frmSkinUtilities
         Me.PanelCenter.ResumeLayout(false)
         CType(Me.PanelCenterHeader,System.ComponentModel.ISupportInitialize).EndInit
         Me.PanelCenterHeader.ResumeLayout(false)
-        CType(Me.PanelLeftXtraHeader,System.ComponentModel.ISupportInitialize).EndInit
-        Me.PanelLeftXtraHeader.ResumeLayout(false)
         Me.ResumeLayout(false)
 
 End Sub
@@ -515,7 +524,7 @@ End Sub
     Friend WithEvents PanelResizeFonts As DevExpress.XtraEditors.PanelControl
     Friend WithEvents ButtonResizeFonts As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents ComboFontSize As DevExpress.XtraEditors.ComboBoxEdit
-    Friend WithEvents PanelControl1 As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents PanelScaleForm As DevExpress.XtraEditors.PanelControl
     Friend WithEvents ButtonScaleForm As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents ComboScaleForm As DevExpress.XtraEditors.ComboBoxEdit
     Friend WithEvents LabelTPH_L As DevExpress.XtraEditors.LabelControl
