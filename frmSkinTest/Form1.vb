@@ -13,8 +13,10 @@ Public Class Form1
     Dim WithEvents skinEditorButtonPainter As SkinEditorButtonPainter
     Dim WithEvents activeContextItem As ContextItem
     Dim WithEvents ContextMenu1 As New ContextMenu
+    Dim baseFont As Font = DevExpress.Utils.AppearanceObject.DefaultFont
+    Dim Utils As DXScaler
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
-        SetActiveSkin(Me)
+        Utils = New DXScaler(Me)
         GridControl1.DataSource = GetData(10)
     End Sub
 
@@ -71,33 +73,31 @@ Public Class Form1
 
       '// resize form
     Private Sub SimpleButton2_Click(sender As Object, e As EventArgs) Handles SimpleButton2.Click
-        'Me.AutoScaleDimensions = new System.Drawing.SizeF(72F, 72F)
-        ScaleForm(Me, New SizeF(1.5,1.5))
-        ScaleFonts(Me, Me.Font.Size*1.5,False)
-        'Me.ForceRefresh
+        Utils.ScaleForm(Me, New SizeF(1.5,1.5))
+        Utils.ScaleFonts2(Me,baseFont,1.5)
     End Sub 
 
     '// force load of replacement skin element image
     Private Sub SimpleButton3_Click(sender As Object, e As EventArgs) Handles SimpleButton3.Click
-        SetSkinElementImage(commonSkins,"Button","D:\Skin.png")
+        SetSkinElementImage(Utils.activeLookAndFeel, commonSkins,"Button","D:\Skin.png")
         ForceDefaultLookAndFeelChanged
     End Sub
 
     '// show the full skinImage
     Private Sub SimpleButton4_Click(sender As Object, e As EventArgs) Handles SimpleButton4.Click
-        Dim skinImage As SkinImage = GetSkinElementSkinImage(commonSkins,"Button")
+        Dim skinImage As SkinImage = GetSkinElementSkinImage(Utils.activeLookAndFeel, commonSkins,"Button")
         PE1.Image = skinImage.Image
     End Sub
 
     '// demonstrate the extract image from skinimage method
     Private Sub SimpleButton5_Click(sender As Object, e As EventArgs) Handles SimpleButton5.Click
-        Dim skinImage As SkinImage = GetSkinElementSkinImage(commonSkins,"Button")
+        Dim skinImage As SkinImage = GetSkinElementSkinImage(Utils.activeLookAndFeel, commonSkins,"Button")
         PE1.Image = GetImageFromSkinImage(skinImage, 0)
     End Sub
 
     '// reskin a panel control by setting its background via the contentImage property
     Private Sub SimpleButton6_Click(sender As Object, e As EventArgs) Handles SimpleButton6.Click
-        ReskinPanelBackground(PanelControl3, commonSkins, "Button", 0)
+        ReskinPanelBackground(Utils.activeLookAndFeel, PanelControl3, commonSkins, "Button", 0)
     End Sub
 
 #End Region
@@ -106,7 +106,7 @@ Public Class Form1
 
     '// example showing the painting of an element from a specified skinelement image
     Private Sub PanelControl2_Paint(sender As Object, e As PaintEventArgs) Handles PanelControl2.Paint
-        e.Graphics.DrawImage(DrawButtonSkinGraphic(PanelControl2.Bounds, commonSkins, "Button", 0),0,0)       
+        e.Graphics.DrawImage(DrawButtonSkinGraphic(Utils.activeLookAndFeel, PanelControl2.Bounds, commonSkins, "Button", 0),0,0)       
     End Sub
 
     Private Sub PanelControl3_MouseHover(sender As Object, e As EventArgs) Handles PanelControl3.MouseHover
@@ -114,25 +114,25 @@ Public Class Form1
     End Sub
 
     Private Sub PanelControl3_MouseLeave(sender As Object, e As EventArgs) Handles PanelControl3.MouseLeave
-        ReskinPanelBackground(PanelControl3, commonSkins, "Button", 0)
+        ReskinPanelBackground(Utils.activeLookAndFeel, PanelControl3, commonSkins, "Button", 0)
     End Sub
 
     Private Sub PanelControl3_MouseMove(sender As Object, e As MouseEventArgs) Handles PanelControl3.MouseMove
         
         If e.Button= MouseButtons.None Then
-            ReskinPanelBackground(PanelControl3, commonSkins, "Button", 1)
+            ReskinPanelBackground(Utils.activeLookAndFeel, PanelControl3, commonSkins, "Button", 1)
         Debug.Print("Panel Move")
         End If
         
     End Sub
 
     Private Sub PanelControl3_Click(sender As Object, e As EventArgs) Handles PanelControl3.Click
-        ReskinPanelBackground(PanelControl3, commonSkins, "Button", 4)
+        ReskinPanelBackground(Utils.activeLookAndFeel, PanelControl3, commonSkins, "Button", 4)
         Debug.Print("Panel Click")
     End Sub
 
     Private Sub PanelControl3_MouseDown(sender As Object, e As MouseEventArgs) Handles PanelControl3.MouseDown
-        ReskinPanelBackground(PanelControl3, commonSkins, "Button", 4)
+        ReskinPanelBackground(Utils.activeLookAndFeel, PanelControl3, commonSkins, "Button", 4)
         Debug.Print("Panel MouseDown")
     End Sub
 

@@ -83,7 +83,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DevExpressUtils.vb" />
+    <Compile Include="DXScaler.vb" />
+    <Compile Include="DXUtilities.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
