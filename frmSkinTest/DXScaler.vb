@@ -129,10 +129,9 @@ Class DXScaler
     End Sub
 
     '//Rescale Tile Items
-    Public Sub ResizeTileItems(grid As GridControl, tileView As TileView, panel As PanelControl, scrollBar As VCrkScrollBar, currentScaleFactor As Single, winScaleFactor As sizeF)
-        'Dim font As Font = TileView1.Appearance.ItemNormal.Font        '// Not used right now, but we could resize the TileHeight based on the Font Size?
-
+    Public Sub ResizeTileItems(grid As GridControl, tileView As TileView, panel As PanelControl, scrollBar As VCrkScrollBar)
         
+        '// get scrollbar width, if present
         Dim scrollBarAdjustment As Single = 0
         If scrollBar IsNot Nothing Then
             If scrollBar.Visible Then
@@ -140,50 +139,25 @@ Class DXScaler
             End If
         End If
 
+        '// get tile view padding (external margins) if present
         Dim paddingAdjustment As Single = (tileView.OptionsTiles.Padding.Left-tileView.OptionsTiles.Padding.Right)
+
+        '// get grid margins by inspecting a hidden property via reflection
+        '// because the normal grid.margins class is all srewed up when the form is scaled
         Dim x = ExposedObject.From(grid)
         Dim gridMarginAdjustment As Single = (x.DefaultMargin.Left+x.DefaultMargin.Right)
-        
+
+        '// apply the settings
         Dim size As New SizeF
-        
-        
-        size.Width = ((grid.Width-scrollBarAdjustment-paddingAdjustment-gridMarginAdjustment)/grid.ScaleFactor.Width)
-        'size.Width = (((grid.width))-tileView.OptionsTiles.Padding.Left-tileView.OptionsTiles.Padding.Right)/grid.ScaleFactor.Width
-        'Dim tVI As TileViewItem = tileView.GetRow(0)
-        'Dim x = TileView.TileTemplate.
-        'Dim x As Dynamic = New ExposedObjectSimple(grid)
-        
-
+        size.Width = ((grid.Width-scrollBarAdjustment-paddingAdjustment-gridMarginAdjustment)/grid.ScaleFactor.Width)   
         size.Height = panel.Height / grid.ScaleFactor.Height
-        'Debug.Print("Loc: , Size: {0}, TileV: {5}, GridW: {1}, GridSFW: {2}, ScaleFactor: {3}, Adj Width: {4}", size.Width, grid.Width, grid.ScaleFactor.Width, currentScaleFactor, size.Width * grid.ScaleFactor.Width, tileView.ViewRect.Width)
         tileView.OptionsTiles.ItemSize = size.ToSize      '// Set the Height
-        Dim adjWidth As Single = size.Width * grid.ScaleFactor.Width
 
-        Debug.Print("adj Width: {0}, gridMargin: {1}, adjMargin: {2}, actualMargin: {3}", adjWidth, gridMarginAdjustment, gridMarginAdjustment*grid.ScaleFactor.Width, grid.Width-adjWidth)
-        Debug.Print("Loc: , Size: {0}, PanelW: {5}, GridW: {1}, GridSFW: {2}, ScaleFactor: {3}, Adj Width: {4}", size.Width, grid.Width, grid.ScaleFactor.Width, currentScaleFactor, size.Width * grid.ScaleFactor.Width, Panel.Width)
+        Dim adjWidth As Single = size.Width * grid.ScaleFactor.Width
+        'Debug.Print("adj Width: {0}, gridMargin: {1}, adjMargin: {2}, actualMargin: {3}", adjWidth, gridMarginAdjustment, gridMarginAdjustment*grid.ScaleFactor.Width, grid.Width-adjWidth)
+        'Debug.Print("Loc: , Size: {0}, PanelW: {5}, GridW: {1}, GridSFW: {2}, ScaleFactor: {3}, Adj Width: {4}", size.Width, grid.Width, grid.ScaleFactor.Width, currentScaleFactor, size.Width * grid.ScaleFactor.Width, Panel.Width)
         Exit Sub
 
-        '// Trap for ScrollBar
-        'Dim scrollBarAdjustment As Single = 0
-        If scrollBar IsNot Nothing Then
-            If scrollBar.Visible Then
-                scrollBarAdjustment = scrollBar.Width
-            End If
-        End If
-        Debug.Print("START TViewW: {0}, GridW: {1}, ScrollBarW: {2}, ScaleFactor: {3}, WinScaleFactor: {4}", size.Width, grid.Width, scrollBarAdjustment, currentScaleFactor, winScaleFactor.Width)
-        If scrollBarAdjustment = 0 Then scrollBarAdjustment = 1
-        size.Height = tileView.OptionsTiles.ItemSize.Height
-        If currentScaleFactor=1 Then
-            size.Width = ((grid.Width - tileView.OptionsTiles.Padding.Left-tileView.OptionsTiles.Padding.Right)/winScaleFactor.Width)
-        Else
-            size.Width = ((tileView.ViewRect.Width - tileView.OptionsTiles.Padding.Left-tileView.OptionsTiles.Padding.Right)/currentScaleFactor)
-        End If
-        'size.Width = 355
-        size.Width = ((tileView.ViewRect.Width - tileView.OptionsTiles.Padding.Left-tileView.OptionsTiles.Padding.Right)/currentScaleFactor)
-        Debug.Print("Size: {0}, TileV: {5}, GridW: {1}, ScrollBarW: {2}, ScaleFactor: {3}, WinScaleFactor: {4}", size.Width, grid.Width, scrollBarAdjustment, currentScaleFactor, winScaleFactor.Width, tileView.ViewRect.Width)
-        tileView.OptionsTiles.ItemSize = size.ToSize      '// Set the Height
-        grid.Refresh
-        
     End Sub
 
     '// go find a vertical scrollbar in the grid/tileview and attach it.

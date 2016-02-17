@@ -128,6 +128,16 @@ Public Class frmSkinUtilities
                                                                      btnCtl.Size, btnImageScaleFactor)
 
     End Sub
+
+    '// when the Grid is resized, change the Tile Item Size
+    Private Sub Grid1_SizeChanged(sender As Object, e As EventArgs) Handles Grid1.SizeChanged
+        If tileScrollBar IsNot Nothing Then dxScaler.ResizeTileItems(Grid1, TileView1, PanelLeftXtraHeader,  tileScrollBar)
+    End Sub
+
+    Private Sub tileScrollBar_VisibleChanged(sender As Object, e As EventArgs) Handles tileScrollBar.VisibleChanged
+        If tileScrollBar IsNot Nothing Then dxScaler.ResizeTileItems(Grid1, TileView1, PanelLeftXtraHeader,  tileScrollBar)
+    End Sub
+
 #End Region
 
 #Region "Main Demo Button Methods"
@@ -211,16 +221,11 @@ Public Class frmSkinUtilities
         Grid1.DataSource = shadowList
     End Sub
 
-    Private Sub ButtonScaleTiles_Click(sender As Object, e As EventArgs) Handles ButtonScaleTiles.Click
-        
-        dxScaler.ResizeTileItems(Grid1, TileView1, PanelLeftXtraHeader,  tileScrollBar, currentScaleFactor, windowsScaleFactor)
+    Private Sub ButtonScaleTiles_Click(sender As Object, e As EventArgs) Handles ButtonScaleTiles.Click       
+        dxScaler.ResizeTileItems(Grid1, TileView1, PanelLeftXtraHeader,  tileScrollBar)
     End Sub
 
-
-
-    Private Sub SimpleButton4_Click(sender As Object, e As EventArgs) Handles SimpleButton4.Click
-        
-    End Sub
+    
 
 #End Region
 
@@ -235,5 +240,9 @@ Public Class frmSkinUtilities
             End Select
         End If
     End Sub
+
+
+
+
 #End Region
 End Class
