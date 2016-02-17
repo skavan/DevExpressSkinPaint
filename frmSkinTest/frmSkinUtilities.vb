@@ -1,8 +1,10 @@
 ﻿'// note: form autoscalemode is set to DPI
 '// form font is set to Segoe UI, 10 pt.
 '// Devexpress is 
+Imports DevExpress.Utils
 Imports DevExpress.XtraEditors
 Imports DevExpress.XtraGrid.Views.Base
+Imports DevExpress.XtraGrid.Views.Tile
 
 Public Class frmSkinUtilities
     Dim commonSkins As New DevExpress.Skins.CommonSkins
@@ -131,11 +133,11 @@ Public Class frmSkinUtilities
 
     '// when the Grid is resized, change the Tile Item Size
     Private Sub Grid1_SizeChanged(sender As Object, e As EventArgs) Handles Grid1.SizeChanged
-        If tileScrollBar IsNot Nothing Then dxScaler.ResizeTileItems(Grid1, TileView1, PanelLeftXtraHeader,  tileScrollBar)
+        If tileScrollBar IsNot Nothing Then dxScaler.ResizeTileItems(Grid1, TileView1, PanelLeftXtraHeader, tileScrollBar)
     End Sub
 
     Private Sub tileScrollBar_VisibleChanged(sender As Object, e As EventArgs) Handles tileScrollBar.VisibleChanged
-        If tileScrollBar IsNot Nothing Then dxScaler.ResizeTileItems(Grid1, TileView1, PanelLeftXtraHeader,  tileScrollBar)
+        If tileScrollBar IsNot Nothing Then dxScaler.ResizeTileItems(Grid1, TileView1, PanelLeftXtraHeader, tileScrollBar)
     End Sub
 
 #End Region
@@ -221,11 +223,11 @@ Public Class frmSkinUtilities
         Grid1.DataSource = shadowList
     End Sub
 
-    Private Sub ButtonScaleTiles_Click(sender As Object, e As EventArgs) Handles ButtonScaleTiles.Click       
-        dxScaler.ResizeTileItems(Grid1, TileView1, PanelLeftXtraHeader,  tileScrollBar)
+    Private Sub ButtonScaleTiles_Click(sender As Object, e As EventArgs) Handles ButtonScaleTiles.Click
+        dxScaler.ResizeTileItems(Grid1, TileView1, PanelLeftXtraHeader, tileScrollBar)
     End Sub
 
-    
+
 
 #End Region
 
@@ -239,6 +241,14 @@ Public Class frmSkinUtilities
                     e.Value = data(e.Row.ToString).Title
             End Select
         End If
+    End Sub
+
+    Private Sub TileView1_ContextButtonClick(sender As Object, e As ContextItemClickEventArgs) Handles TileView1.ContextButtonClick
+
+    End Sub
+
+    Private Sub TileView1_ContextButtonCustomize(sender As Object, e As TileViewContextButtonCustomizeEventArgs) Handles TileView1.ContextButtonCustomize
+
     End Sub
 
 

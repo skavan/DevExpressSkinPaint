@@ -29,10 +29,13 @@ Partial Class frmSkinUtilities
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim TileViewItemElement1 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
+        Dim ContextButton1 As DevExpress.Utils.ContextButton = New DevExpress.Utils.ContextButton()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSkinUtilities))
+        Dim ContextButton2 As DevExpress.Utils.ContextButton = New DevExpress.Utils.ContextButton()
+        Dim TileViewItemElement1 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
         Dim TileViewItemElement2 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
         Me.colArt = New DevExpress.XtraGrid.Columns.TileViewColumn()
+        Me.colTitle = New DevExpress.XtraGrid.Columns.TileViewColumn()
         Me.RepositoryItemImageEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemImageEdit()
         Me.PanelTop = New DevExpress.XtraEditors.PanelControl()
         Me.LabelTPH_L = New DevExpress.XtraEditors.LabelControl()
@@ -43,7 +46,6 @@ Partial Class frmSkinUtilities
         Me.TileView1 = New DevExpress.XtraGrid.Views.Tile.TileView()
         Me.PanelLeftXtraHeader = New DevExpress.XtraEditors.PanelControl()
         Me.LabelXtraItem = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelXtraItemRight = New DevExpress.XtraEditors.LabelControl()
         Me.ButtonXtraItem = New DevExpress.XtraEditors.SimpleButton()
         Me.PanelLeftHeader = New DevExpress.XtraEditors.PanelControl()
         Me.LabelLPH_C = New DevExpress.XtraEditors.LabelControl()
@@ -67,7 +69,6 @@ Partial Class frmSkinUtilities
         Me.PanelCenter = New DevExpress.XtraEditors.PanelControl()
         Me.PanelCenterHeader = New DevExpress.XtraEditors.PanelControl()
         Me.LabelCPH_C = New DevExpress.XtraEditors.LabelControl()
-        Me.colTitle = New DevExpress.XtraGrid.Columns.TileViewColumn()
         CType(Me.RepositoryItemImageEdit1,System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.PanelTop,System.ComponentModel.ISupportInitialize).BeginInit
         Me.PanelTop.SuspendLayout
@@ -102,6 +103,15 @@ Partial Class frmSkinUtilities
         Me.colArt.UnboundType = DevExpress.Data.UnboundColumnType.[String]
         Me.colArt.Visible = true
         Me.colArt.VisibleIndex = 0
+        '
+        'colTitle
+        '
+        Me.colTitle.Caption = "A Slight Case  of Overbombing"
+        Me.colTitle.FieldName = "colTitle"
+        Me.colTitle.Name = "colTitle"
+        Me.colTitle.UnboundType = DevExpress.Data.UnboundColumnType.[String]
+        Me.colTitle.Visible = true
+        Me.colTitle.VisibleIndex = 1
         '
         'RepositoryItemImageEdit1
         '
@@ -166,6 +176,21 @@ Partial Class frmSkinUtilities
         '
         Me.TileView1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
         Me.TileView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colArt, Me.colTitle})
+        ContextButton1.Alignment = DevExpress.Utils.ContextItemAlignment.CenterFar
+        ContextButton1.Glyph = CType(resources.GetObject("ContextButton1.Glyph"),System.Drawing.Image)
+        ContextButton1.Id = New System.Guid("4ccc96d6-c66d-45fc-9d18-006b3ff7c731")
+        ContextButton1.Name = "ContextButton1"
+        ContextButton1.Padding = New System.Windows.Forms.Padding(0, 0, 6, 0)
+        ContextButton1.Visibility = DevExpress.Utils.ContextItemVisibility.Visible
+        ContextButton2.Alignment = DevExpress.Utils.ContextItemAlignment.CenterFar
+        ContextButton2.AnchorAlignment = DevExpress.Utils.AnchorAlignment.Left
+        ContextButton2.AnchorElementId = New System.Guid("4ccc96d6-c66d-45fc-9d18-006b3ff7c731")
+        ContextButton2.Glyph = CType(resources.GetObject("ContextButton2.Glyph"),System.Drawing.Image)
+        ContextButton2.Id = New System.Guid("703b944f-511b-43ea-95f8-0de66a54235c")
+        ContextButton2.Name = "ContextButton2"
+        ContextButton2.Visibility = DevExpress.Utils.ContextItemVisibility.Visible
+        Me.TileView1.ContextButtons.Add(ContextButton1)
+        Me.TileView1.ContextButtons.Add(ContextButton2)
         Me.TileView1.GridControl = Me.Grid1
         Me.TileView1.Name = "TileView1"
         Me.TileView1.OptionsTiles.HorizontalContentAlignment = DevExpress.Utils.HorzAlignment.Near
@@ -184,14 +209,13 @@ Partial Class frmSkinUtilities
         TileViewItemElement2.Column = Me.colTitle
         TileViewItemElement2.Text = "colTitle"
         TileViewItemElement2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft
-        TileViewItemElement2.TextLocation = New System.Drawing.Point(60, 0)
+        TileViewItemElement2.TextLocation = New System.Drawing.Point(54, 0)
         Me.TileView1.TileTemplate.Add(TileViewItemElement1)
         Me.TileView1.TileTemplate.Add(TileViewItemElement2)
         '
         'PanelLeftXtraHeader
         '
         Me.PanelLeftXtraHeader.Controls.Add(Me.LabelXtraItem)
-        Me.PanelLeftXtraHeader.Controls.Add(Me.LabelXtraItemRight)
         Me.PanelLeftXtraHeader.Controls.Add(Me.ButtonXtraItem)
         Me.PanelLeftXtraHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelLeftXtraHeader.Location = New System.Drawing.Point(3, 57)
@@ -203,35 +227,17 @@ Partial Class frmSkinUtilities
         '
         Me.LabelXtraItem.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.LabelXtraItem.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near
-        Me.LabelXtraItem.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.EllipsisCharacter
         Me.LabelXtraItem.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
-        Me.LabelXtraItem.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap
+        Me.LabelXtraItem.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap
         Me.LabelXtraItem.AutoEllipsis = true
-        Me.LabelXtraItem.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
+        Me.LabelXtraItem.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Vertical
         Me.LabelXtraItem.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LabelXtraItem.Location = New System.Drawing.Point(51, 3)
         Me.LabelXtraItem.Name = "LabelXtraItem"
         Me.LabelXtraItem.Padding = New System.Windows.Forms.Padding(9, 0, 0, 3)
-        Me.LabelXtraItem.Size = New System.Drawing.Size(332, 58)
+        Me.LabelXtraItem.Size = New System.Drawing.Size(380, 59)
         Me.LabelXtraItem.TabIndex = 3
-        Me.LabelXtraItem.Text = "Greatest Hits (11 Tracks)"
-        '
-        'LabelXtraItemRight
-        '
-        Me.LabelXtraItemRight.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-        Me.LabelXtraItemRight.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
-        Me.LabelXtraItemRight.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.EllipsisCharacter
-        Me.LabelXtraItemRight.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap
-        Me.LabelXtraItemRight.AutoEllipsis = true
-        Me.LabelXtraItemRight.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelXtraItemRight.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
-        Me.LabelXtraItemRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.LabelXtraItemRight.Location = New System.Drawing.Point(383, 3)
-        Me.LabelXtraItemRight.Name = "LabelXtraItemRight"
-        Me.LabelXtraItemRight.Padding = New System.Windows.Forms.Padding(3, 0, 3, 3)
-        Me.LabelXtraItemRight.Size = New System.Drawing.Size(48, 58)
-        Me.LabelXtraItemRight.TabIndex = 7
-        Me.LabelXtraItemRight.Text = "11"
+        Me.LabelXtraItem.Text = "The Sisters of Mercy>A slight case of overbombing"
         '
         'ButtonXtraItem
         '
@@ -249,7 +255,7 @@ Partial Class frmSkinUtilities
         Me.ButtonXtraItem.Padding = New System.Windows.Forms.Padding(6)
         Me.ButtonXtraItem.Size = New System.Drawing.Size(48, 58)
         Me.ButtonXtraItem.TabIndex = 6
-        Me.ButtonXtraItem.Tag = "UsePadding"
+        Me.ButtonXtraItem.Tag = ""
         '
         'PanelLeftHeader
         '
@@ -529,15 +535,6 @@ Partial Class frmSkinUtilities
         Me.LabelCPH_C.TabIndex = 5
         Me.LabelCPH_C.Text = "Central Panel header"
         '
-        'colTitle
-        '
-        Me.colTitle.Caption = "A Slight Case  of Overbombing"
-        Me.colTitle.FieldName = "colTitle"
-        Me.colTitle.Name = "colTitle"
-        Me.colTitle.UnboundType = DevExpress.Data.UnboundColumnType.[String]
-        Me.colTitle.Visible = true
-        Me.colTitle.VisibleIndex = 1
-        '
         'frmSkinUtilities
         '
         Me.Appearance.Options.UseFont = true
@@ -609,7 +606,6 @@ End Sub
     Friend WithEvents LabelCPH_C As DevExpress.XtraEditors.LabelControl
     Friend WithEvents PanelLeftXtraHeader As DevExpress.XtraEditors.PanelControl
     Friend WithEvents LabelXtraItem As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents LabelXtraItemRight As DevExpress.XtraEditors.LabelControl
     Friend WithEvents ButtonXtraItem As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Grid1 As DevExpress.XtraGrid.GridControl
     Friend WithEvents TileView1 As DevExpress.XtraGrid.Views.Tile.TileView
