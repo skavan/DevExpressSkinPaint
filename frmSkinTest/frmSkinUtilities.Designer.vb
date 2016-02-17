@@ -29,12 +29,18 @@ Partial Class frmSkinUtilities
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim TileViewItemElement1 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSkinUtilities))
+        Dim TileViewItemElement2 As DevExpress.XtraGrid.Views.Tile.TileViewItemElement = New DevExpress.XtraGrid.Views.Tile.TileViewItemElement()
+        Me.colArt = New DevExpress.XtraGrid.Columns.TileViewColumn()
+        Me.RepositoryItemImageEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemImageEdit()
         Me.PanelTop = New DevExpress.XtraEditors.PanelControl()
         Me.LabelTPH_L = New DevExpress.XtraEditors.LabelControl()
         Me.FormAssistant1 = New DevExpress.XtraBars.FormAssistant()
         Me.DefaultLookAndFeel1 = New DevExpress.LookAndFeel.DefaultLookAndFeel(Me.components)
         Me.PanelLeft = New DevExpress.XtraEditors.PanelControl()
+        Me.Grid1 = New DevExpress.XtraGrid.GridControl()
+        Me.TileView1 = New DevExpress.XtraGrid.Views.Tile.TileView()
         Me.PanelLeftXtraHeader = New DevExpress.XtraEditors.PanelControl()
         Me.LabelXtraItem = New DevExpress.XtraEditors.LabelControl()
         Me.LabelXtraItemRight = New DevExpress.XtraEditors.LabelControl()
@@ -45,7 +51,7 @@ Partial Class frmSkinUtilities
         Me.ButtonLPH_L = New DevExpress.XtraEditors.SimpleButton()
         Me.PanelRight = New DevExpress.XtraEditors.PanelControl()
         Me.SimpleButton4 = New DevExpress.XtraEditors.SimpleButton()
-        Me.SimpleButton3 = New DevExpress.XtraEditors.SimpleButton()
+        Me.ButtonScaleTiles = New DevExpress.XtraEditors.SimpleButton()
         Me.ButtonFontMetrics = New DevExpress.XtraEditors.SimpleButton()
         Me.PanelScaleForm = New DevExpress.XtraEditors.PanelControl()
         Me.ButtonScaleForm = New DevExpress.XtraEditors.SimpleButton()
@@ -61,10 +67,14 @@ Partial Class frmSkinUtilities
         Me.PanelCenter = New DevExpress.XtraEditors.PanelControl()
         Me.PanelCenterHeader = New DevExpress.XtraEditors.PanelControl()
         Me.LabelCPH_C = New DevExpress.XtraEditors.LabelControl()
+        Me.colTitle = New DevExpress.XtraGrid.Columns.TileViewColumn()
+        CType(Me.RepositoryItemImageEdit1,System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.PanelTop,System.ComponentModel.ISupportInitialize).BeginInit
         Me.PanelTop.SuspendLayout
         CType(Me.PanelLeft,System.ComponentModel.ISupportInitialize).BeginInit
         Me.PanelLeft.SuspendLayout
+        CType(Me.Grid1,System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.TileView1,System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.PanelLeftXtraHeader,System.ComponentModel.ISupportInitialize).BeginInit
         Me.PanelLeftXtraHeader.SuspendLayout
         CType(Me.PanelLeftHeader,System.ComponentModel.ISupportInitialize).BeginInit
@@ -85,13 +95,27 @@ Partial Class frmSkinUtilities
         Me.PanelCenterHeader.SuspendLayout
         Me.SuspendLayout
         '
+        'colArt
+        '
+        Me.colArt.FieldName = "colArt"
+        Me.colArt.Name = "colArt"
+        Me.colArt.UnboundType = DevExpress.Data.UnboundColumnType.[String]
+        Me.colArt.Visible = true
+        Me.colArt.VisibleIndex = 0
+        '
+        'RepositoryItemImageEdit1
+        '
+        Me.RepositoryItemImageEdit1.AutoHeight = false
+        Me.RepositoryItemImageEdit1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.RepositoryItemImageEdit1.Name = "RepositoryItemImageEdit1"
+        '
         'PanelTop
         '
         Me.PanelTop.Controls.Add(Me.LabelTPH_L)
         Me.PanelTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelTop.Location = New System.Drawing.Point(0, 0)
         Me.PanelTop.Name = "PanelTop"
-        Me.PanelTop.Size = New System.Drawing.Size(1215, 128)
+        Me.PanelTop.Size = New System.Drawing.Size(1215, 97)
         Me.PanelTop.TabIndex = 0
         '
         'LabelTPH_L
@@ -106,7 +130,7 @@ Partial Class frmSkinUtilities
         Me.LabelTPH_L.Margin = New System.Windows.Forms.Padding(6)
         Me.LabelTPH_L.Name = "LabelTPH_L"
         Me.LabelTPH_L.Padding = New System.Windows.Forms.Padding(6)
-        Me.LabelTPH_L.Size = New System.Drawing.Size(417, 122)
+        Me.LabelTPH_L.Size = New System.Drawing.Size(417, 91)
         Me.LabelTPH_L.TabIndex = 3
         Me.LabelTPH_L.Text = "Panel Top Main Header"
         '
@@ -118,13 +142,51 @@ Partial Class frmSkinUtilities
         '
         Me.PanelLeft.Appearance.BorderColor = System.Drawing.Color.Transparent
         Me.PanelLeft.Appearance.Options.UseBorderColor = true
+        Me.PanelLeft.Controls.Add(Me.Grid1)
         Me.PanelLeft.Controls.Add(Me.PanelLeftXtraHeader)
         Me.PanelLeft.Controls.Add(Me.PanelLeftHeader)
         Me.PanelLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.PanelLeft.Location = New System.Drawing.Point(0, 128)
+        Me.PanelLeft.Location = New System.Drawing.Point(0, 97)
         Me.PanelLeft.Name = "PanelLeft"
-        Me.PanelLeft.Size = New System.Drawing.Size(426, 621)
+        Me.PanelLeft.Size = New System.Drawing.Size(440, 652)
         Me.PanelLeft.TabIndex = 1
+        '
+        'Grid1
+        '
+        Me.Grid1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Grid1.Location = New System.Drawing.Point(3, 121)
+        Me.Grid1.MainView = Me.TileView1
+        Me.Grid1.Name = "Grid1"
+        Me.Grid1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemImageEdit1})
+        Me.Grid1.Size = New System.Drawing.Size(434, 528)
+        Me.Grid1.TabIndex = 3
+        Me.Grid1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.TileView1})
+        '
+        'TileView1
+        '
+        Me.TileView1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat
+        Me.TileView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colArt, Me.colTitle})
+        Me.TileView1.GridControl = Me.Grid1
+        Me.TileView1.Name = "TileView1"
+        Me.TileView1.OptionsTiles.HorizontalContentAlignment = DevExpress.Utils.HorzAlignment.Near
+        Me.TileView1.OptionsTiles.IndentBetweenItems = 3
+        Me.TileView1.OptionsTiles.ItemPadding = New System.Windows.Forms.Padding(6)
+        Me.TileView1.OptionsTiles.ItemSize = New System.Drawing.Size(300, 64)
+        Me.TileView1.OptionsTiles.Orientation = System.Windows.Forms.Orientation.Vertical
+        Me.TileView1.OptionsTiles.Padding = New System.Windows.Forms.Padding(3)
+        Me.TileView1.OptionsTiles.ShowGroupText = false
+        TileViewItemElement1.Column = Me.colArt
+        TileViewItemElement1.Image = CType(resources.GetObject("TileViewItemElement1.Image"),System.Drawing.Image)
+        TileViewItemElement1.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft
+        TileViewItemElement1.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Stretch
+        TileViewItemElement1.ImageSize = New System.Drawing.Size(48, 48)
+        TileViewItemElement1.Text = "colArt"
+        TileViewItemElement2.Column = Me.colTitle
+        TileViewItemElement2.Text = "colTitle"
+        TileViewItemElement2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft
+        TileViewItemElement2.TextLocation = New System.Drawing.Point(60, 0)
+        Me.TileView1.TileTemplate.Add(TileViewItemElement1)
+        Me.TileView1.TileTemplate.Add(TileViewItemElement2)
         '
         'PanelLeftXtraHeader
         '
@@ -134,7 +196,7 @@ Partial Class frmSkinUtilities
         Me.PanelLeftXtraHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelLeftXtraHeader.Location = New System.Drawing.Point(3, 57)
         Me.PanelLeftXtraHeader.Name = "PanelLeftXtraHeader"
-        Me.PanelLeftXtraHeader.Size = New System.Drawing.Size(420, 64)
+        Me.PanelLeftXtraHeader.Size = New System.Drawing.Size(434, 64)
         Me.PanelLeftXtraHeader.TabIndex = 2
         '
         'LabelXtraItem
@@ -150,7 +212,7 @@ Partial Class frmSkinUtilities
         Me.LabelXtraItem.Location = New System.Drawing.Point(51, 3)
         Me.LabelXtraItem.Name = "LabelXtraItem"
         Me.LabelXtraItem.Padding = New System.Windows.Forms.Padding(9, 0, 0, 3)
-        Me.LabelXtraItem.Size = New System.Drawing.Size(318, 58)
+        Me.LabelXtraItem.Size = New System.Drawing.Size(332, 58)
         Me.LabelXtraItem.TabIndex = 3
         Me.LabelXtraItem.Text = "Greatest Hits (11 Tracks)"
         '
@@ -164,7 +226,7 @@ Partial Class frmSkinUtilities
         Me.LabelXtraItemRight.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
         Me.LabelXtraItemRight.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         Me.LabelXtraItemRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.LabelXtraItemRight.Location = New System.Drawing.Point(369, 3)
+        Me.LabelXtraItemRight.Location = New System.Drawing.Point(383, 3)
         Me.LabelXtraItemRight.Name = "LabelXtraItemRight"
         Me.LabelXtraItemRight.Padding = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.LabelXtraItemRight.Size = New System.Drawing.Size(48, 58)
@@ -197,7 +259,7 @@ Partial Class frmSkinUtilities
         Me.PanelLeftHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelLeftHeader.Location = New System.Drawing.Point(3, 3)
         Me.PanelLeftHeader.Name = "PanelLeftHeader"
-        Me.PanelLeftHeader.Size = New System.Drawing.Size(420, 54)
+        Me.PanelLeftHeader.Size = New System.Drawing.Size(434, 54)
         Me.PanelLeftHeader.TabIndex = 0
         '
         'LabelLPH_C
@@ -209,7 +271,7 @@ Partial Class frmSkinUtilities
         Me.LabelLPH_C.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LabelLPH_C.Location = New System.Drawing.Point(51, 3)
         Me.LabelLPH_C.Name = "LabelLPH_C"
-        Me.LabelLPH_C.Size = New System.Drawing.Size(318, 48)
+        Me.LabelLPH_C.Size = New System.Drawing.Size(332, 48)
         Me.LabelLPH_C.TabIndex = 2
         Me.LabelLPH_C.Text = "Left Panel header"
         '
@@ -220,7 +282,7 @@ Partial Class frmSkinUtilities
         Me.ButtonLPH_R.Dock = System.Windows.Forms.DockStyle.Right
         Me.ButtonLPH_R.Image = CType(resources.GetObject("ButtonLPH_R.Image"),System.Drawing.Image)
         Me.ButtonLPH_R.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter
-        Me.ButtonLPH_R.Location = New System.Drawing.Point(369, 3)
+        Me.ButtonLPH_R.Location = New System.Drawing.Point(383, 3)
         Me.ButtonLPH_R.Margin = New System.Windows.Forms.Padding(6)
         Me.ButtonLPH_R.Name = "ButtonLPH_R"
         Me.ButtonLPH_R.Padding = New System.Windows.Forms.Padding(6)
@@ -246,16 +308,16 @@ Partial Class frmSkinUtilities
         'PanelRight
         '
         Me.PanelRight.Controls.Add(Me.SimpleButton4)
-        Me.PanelRight.Controls.Add(Me.SimpleButton3)
+        Me.PanelRight.Controls.Add(Me.ButtonScaleTiles)
         Me.PanelRight.Controls.Add(Me.ButtonFontMetrics)
         Me.PanelRight.Controls.Add(Me.PanelScaleForm)
         Me.PanelRight.Controls.Add(Me.PanelResizeFonts)
         Me.PanelRight.Controls.Add(Me.ButtonResizeBtns)
         Me.PanelRight.Controls.Add(Me.PanelRightHeader)
         Me.PanelRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.PanelRight.Location = New System.Drawing.Point(910, 128)
+        Me.PanelRight.Location = New System.Drawing.Point(910, 97)
         Me.PanelRight.Name = "PanelRight"
-        Me.PanelRight.Size = New System.Drawing.Size(305, 621)
+        Me.PanelRight.Size = New System.Drawing.Size(305, 652)
         Me.PanelRight.TabIndex = 2
         '
         'SimpleButton4
@@ -270,17 +332,17 @@ Partial Class frmSkinUtilities
         Me.SimpleButton4.TabIndex = 5
         Me.SimpleButton4.Text = "Resize Button Images"
         '
-        'SimpleButton3
+        'ButtonScaleTiles
         '
-        Me.SimpleButton3.AllowFocus = false
-        Me.SimpleButton3.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-        Me.SimpleButton3.Appearance.Options.UseFont = true
-        Me.SimpleButton3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.SimpleButton3.Location = New System.Drawing.Point(3, 273)
-        Me.SimpleButton3.Name = "SimpleButton3"
-        Me.SimpleButton3.Size = New System.Drawing.Size(299, 54)
-        Me.SimpleButton3.TabIndex = 4
-        Me.SimpleButton3.Text = "Resize Button Images"
+        Me.ButtonScaleTiles.AllowFocus = false
+        Me.ButtonScaleTiles.Appearance.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.ButtonScaleTiles.Appearance.Options.UseFont = true
+        Me.ButtonScaleTiles.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ButtonScaleTiles.Location = New System.Drawing.Point(3, 273)
+        Me.ButtonScaleTiles.Name = "ButtonScaleTiles"
+        Me.ButtonScaleTiles.Size = New System.Drawing.Size(299, 54)
+        Me.ButtonScaleTiles.TabIndex = 4
+        Me.ButtonScaleTiles.Text = "Resize Grid Tiles"
         '
         'ButtonFontMetrics
         '
@@ -440,9 +502,9 @@ Partial Class frmSkinUtilities
         '
         Me.PanelCenter.Controls.Add(Me.PanelCenterHeader)
         Me.PanelCenter.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelCenter.Location = New System.Drawing.Point(426, 128)
+        Me.PanelCenter.Location = New System.Drawing.Point(440, 97)
         Me.PanelCenter.Name = "PanelCenter"
-        Me.PanelCenter.Size = New System.Drawing.Size(484, 621)
+        Me.PanelCenter.Size = New System.Drawing.Size(470, 652)
         Me.PanelCenter.TabIndex = 3
         '
         'PanelCenterHeader
@@ -451,7 +513,7 @@ Partial Class frmSkinUtilities
         Me.PanelCenterHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelCenterHeader.Location = New System.Drawing.Point(3, 3)
         Me.PanelCenterHeader.Name = "PanelCenterHeader"
-        Me.PanelCenterHeader.Size = New System.Drawing.Size(478, 54)
+        Me.PanelCenterHeader.Size = New System.Drawing.Size(464, 54)
         Me.PanelCenterHeader.TabIndex = 1
         '
         'LabelCPH_C
@@ -463,9 +525,18 @@ Partial Class frmSkinUtilities
         Me.LabelCPH_C.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LabelCPH_C.Location = New System.Drawing.Point(3, 3)
         Me.LabelCPH_C.Name = "LabelCPH_C"
-        Me.LabelCPH_C.Size = New System.Drawing.Size(472, 48)
+        Me.LabelCPH_C.Size = New System.Drawing.Size(458, 48)
         Me.LabelCPH_C.TabIndex = 5
         Me.LabelCPH_C.Text = "Central Panel header"
+        '
+        'colTitle
+        '
+        Me.colTitle.Caption = "A Slight Case  of Overbombing"
+        Me.colTitle.FieldName = "colTitle"
+        Me.colTitle.Name = "colTitle"
+        Me.colTitle.UnboundType = DevExpress.Data.UnboundColumnType.[String]
+        Me.colTitle.Visible = true
+        Me.colTitle.VisibleIndex = 1
         '
         'frmSkinUtilities
         '
@@ -479,11 +550,14 @@ Partial Class frmSkinUtilities
         Me.Controls.Add(Me.PanelTop)
         Me.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Name = "frmSkinUtilities"
-        Me.Text = "frmSkinUtilities"
+        Me.Text = "DX Skin Utilities"
+        CType(Me.RepositoryItemImageEdit1,System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.PanelTop,System.ComponentModel.ISupportInitialize).EndInit
         Me.PanelTop.ResumeLayout(false)
         CType(Me.PanelLeft,System.ComponentModel.ISupportInitialize).EndInit
         Me.PanelLeft.ResumeLayout(false)
+        CType(Me.Grid1,System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.TileView1,System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.PanelLeftXtraHeader,System.ComponentModel.ISupportInitialize).EndInit
         Me.PanelLeftXtraHeader.ResumeLayout(false)
         CType(Me.PanelLeftHeader,System.ComponentModel.ISupportInitialize).EndInit
@@ -518,7 +592,7 @@ End Sub
     Friend WithEvents ButtonLPH_R As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents ButtonLPH_L As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents SimpleButton4 As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents SimpleButton3 As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents ButtonScaleTiles As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents ButtonFontMetrics As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents ButtonResizeBtns As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents PanelResizeFonts As DevExpress.XtraEditors.PanelControl
@@ -537,4 +611,9 @@ End Sub
     Friend WithEvents LabelXtraItem As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelXtraItemRight As DevExpress.XtraEditors.LabelControl
     Friend WithEvents ButtonXtraItem As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents Grid1 As DevExpress.XtraGrid.GridControl
+    Friend WithEvents TileView1 As DevExpress.XtraGrid.Views.Tile.TileView
+    Friend WithEvents colArt As DevExpress.XtraGrid.Columns.TileViewColumn
+    Friend WithEvents RepositoryItemImageEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemImageEdit
+    Friend WithEvents colTitle As DevExpress.XtraGrid.Columns.TileViewColumn
 End Class

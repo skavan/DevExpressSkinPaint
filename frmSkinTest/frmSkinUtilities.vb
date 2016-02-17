@@ -2,6 +2,7 @@
 '// form font is set to Segoe UI, 10 pt.
 '// Devexpress is 
 Imports DevExpress.XtraEditors
+Imports DevExpress.XtraGrid.Views.Base
 
 Public Class frmSkinUtilities
     Dim commonSkins As New DevExpress.Skins.CommonSkins
@@ -11,13 +12,17 @@ Public Class frmSkinUtilities
     Dim windowsScaleFactor As SizeF = New SizeF(1F, 1F)             'The scale factor [to deal with HDPI screens]
     Dim btnImageScaleFactor As SizeF = New SizeF(0.85, 0.85)        'The scale factor applied to button images
     Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSkinUtilities))
-    
+
     Dim currentScaleFactor As Single = 1
-    Dim desiredScaleFactor As Single =1
+    Dim desiredScaleFactor As Single = 1
     Dim baseFont As Font = Me.Font
     Dim dxScaler As DXScaler
-    Dim dataList As List(Of MusicItem)
-    Dim shadowList As String() 
+
+    Dim data As Dictionary(Of String, MusicItem)
+    Dim shadowList As String()
+
+    Dim WithEvents tileScrollBar As DevExpress.XtraGrid.Scrolling.VCrkScrollBar 'The grid/TileView scrollbar
+
     Class SkinStyler
         Property IsImage As Boolean
         Property Skins As Object
@@ -26,7 +31,7 @@ Public Class frmSkinUtilities
     End Class
 
 #Region "Startup and Initialization"
-    
+
     '// Used to set Font
     Public Sub New()
         '// set all devexpress fonts to specific font, before initialization
@@ -35,8 +40,7 @@ Public Class frmSkinUtilities
         ' This call is required by the designer.
         InitializeComponent()
 
-        ' Add any initialization after the InitializeComponent() call.
-              
+        ' Add any initialization after the InitializeComponent() call.              
     End Sub
 
     '// used to grab the scalefactor (useful, when DevExpress is Not SetModeDPIAware)
@@ -50,58 +54,58 @@ Public Class frmSkinUtilities
 
     '// initial Skin Setup
     Private Sub frmSkinUtilities_Load(sender As Object, e As EventArgs) Handles Me.Load
-        'SetModeDPIAware
+        SetModeDPIAware
         '// set afterwards (at cost of extra refresh, but form font is now set
         DevExpress.Utils.AppearanceObject.DefaultFont = Me.Font        '// set to form font
         SetSkinStylingOverrides
         baseFont = DevExpress.Utils.AppearanceObject.DefaultFont
         dxScaler = New DXScaler(Me)
-                
+        tileScrollBar = dxScaler.GetTileViewVScrollBar(grid1)
     End Sub
 
-        '// a central place to setup skinning overrides.
+    '// a central place to setup skinning overrides.
     Private Sub SetSkinStylingOverrides
-        dicSkins.Add(PanelTop.Name, New SkinStyler With {.IsImage = "True", 
-                                  .Skins = commonSkins, .ElementName="Button", .ImageIndex=4})
-        dicSkins.Add(PanelLeftHeader.Name, New SkinStyler With {.IsImage = "True", 
-                                  .Skins = commonSkins, .ElementName="Button", .ImageIndex=1})
-        dicSkins.Add(PanelRightHeader.Name, New SkinStyler With {.IsImage = "True", 
-                                  .Skins = commonSkins, .ElementName="Button", .ImageIndex=1})
-        dicSkins.Add(PanelCenterHeader.Name, New SkinStyler With {.IsImage = "True", 
-                                  .Skins = commonSkins, .ElementName="Button", .ImageIndex=1})
-        dicSkins.Add(PanelLeftXtraHeader.Name, New SkinStyler With {.IsImage = "True", 
-                                  .Skins = commonSkins, .ElementName="Button", .ImageIndex=0})
+        dicSkins.Add(PanelTop.Name, New SkinStyler With {.IsImage = "True",
+                                  .Skins = commonSkins, .ElementName = "Button", .ImageIndex = 4})
+        dicSkins.Add(PanelLeftHeader.Name, New SkinStyler With {.IsImage = "True",
+                                  .Skins = commonSkins, .ElementName = "Button", .ImageIndex = 1})
+        dicSkins.Add(PanelRightHeader.Name, New SkinStyler With {.IsImage = "True",
+                                  .Skins = commonSkins, .ElementName = "Button", .ImageIndex = 1})
+        dicSkins.Add(PanelCenterHeader.Name, New SkinStyler With {.IsImage = "True",
+                                  .Skins = commonSkins, .ElementName = "Button", .ImageIndex = 1})
+        dicSkins.Add(PanelLeftXtraHeader.Name, New SkinStyler With {.IsImage = "True",
+                                  .Skins = commonSkins, .ElementName = "Button", .ImageIndex = 0})
         '// use this tag to flag buttons where we want to rescale the images 
-        ButtonLPH_L.Tag="UsePadding"
-        ButtonLPH_R.Tag="UsePadding"
+        ButtonLPH_L.Tag = "UsePadding"
+        ButtonLPH_R.Tag = "UsePadding"
     End Sub
-#End Region 
+#End Region
 
 #Region "Panel Painting and Button Resizing"
     '// demonstrating overriding paint method and using a skin image 
     Private Sub PanelTop_Paint(sender As Object, e As PaintEventArgs) Handles PanelTop.Paint
-        Dim skinStyler As SkinStyler=dicSkins(sender.Name)
-        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel, sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
+        Dim skinStyler As SkinStyler = dicSkins(sender.Name)
+        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel, sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex), 0, 0)
     End Sub
 
     Private Sub PanelLeftHeader_Paint(sender As Object, e As PaintEventArgs) Handles PanelLeftHeader.Paint
-        Dim skinStyler As SkinStyler=dicSkins(sender.Name)
-        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel,sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
+        Dim skinStyler As SkinStyler = dicSkins(sender.Name)
+        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel, sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex), 0, 0)
     End Sub
 
     Private Sub PanelCenterHeader_Paint(sender As Object, e As PaintEventArgs) Handles PanelCenterHeader.Paint
-        Dim skinStyler As SkinStyler=dicSkins(sender.Name)
-        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel,sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
+        Dim skinStyler As SkinStyler = dicSkins(sender.Name)
+        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel, sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex), 0, 0)
     End Sub
 
     Private Sub PanelRightHeader_Paint(sender As Object, e As PaintEventArgs) Handles PanelRightHeader.Paint
-        Dim skinStyler As SkinStyler=dicSkins(sender.Name)
-        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel,sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
+        Dim skinStyler As SkinStyler = dicSkins(sender.Name)
+        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel, sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex), 0, 0)
     End Sub
 
     Private Sub PanelLeftXtraHeader_Paint(sender As Object, e As PaintEventArgs) Handles PanelLeftXtraHeader.Paint
-        Dim skinStyler As SkinStyler=dicSkins(sender.Name)
-        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel,sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex),0,0)       
+        Dim skinStyler As SkinStyler = dicSkins(sender.Name)
+        e.Graphics.DrawImage(DrawButtonSkinGraphic(dxScaler.activeLookAndFeel, sender.Bounds, skinStyler.Skins, skinStyler.ElementName, skinStyler.ImageIndex), 0, 0)
     End Sub
 
     '// adjust size of button image based on the button Padding.
@@ -119,43 +123,43 @@ Public Class frmSkinUtilities
         Dim btnCtl = sender
         btnCtl.Width = btnCtl.Height
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(form))
-                            'If resources.GetObject(btnCtl.Name & ".Image") Is Nothing Then Exit Sub
+        'If resources.GetObject(btnCtl.Name & ".Image") Is Nothing Then Exit Sub
         btnCtl.Image = RescaleImageByScaleFactor(resources.GetObject(btnCtl.Name & ".Image"),
                                                                      btnCtl.Size, btnImageScaleFactor)
 
     End Sub
 #End Region
- 
+
 #Region "Main Demo Button Methods"
-    
+
     '// set all DevExpress fonts to specific size or auto-size
     Private Sub ButtonResizeFonts_Click(sender As Object, e As EventArgs) Handles ButtonResizeFonts.Click
         Dim s As String = ComboFontSize.SelectedItem
-        If s="Auto" Or s="" Then
-            dxScaler.ScaleFonts2(Me,baseFont, currentScaleFactor)
+        If s = "Auto" Or s = "" Then
+            dxScaler.ScaleFonts2(Me, baseFont, currentScaleFactor)
         Else
-            If s<>"" Then
-                Dim newScaleFactor = (s/baseFont.Size)
-                dxScaler.ScaleFonts2(Me,baseFont, newScaleFactor)
+            If s <> "" Then
+                Dim newScaleFactor = (s / baseFont.Size)
+                dxScaler.ScaleFonts2(Me, baseFont, newScaleFactor)
             End If
         End If
-        
+
     End Sub
 
     '// Scale Form by a factor
     Private Sub ButtonScaleForm_Click(sender As Object, e As EventArgs) Handles ButtonScaleForm.Click
         Dim s As String = ComboScaleForm.SelectedItem
-        If s>0 Then
+        If s > 0 Then
             desiredScaleFactor = s
-            Dim xFormScaleFactor As Single = desiredScaleFactor/currentScaleFactor
-            dxScaler.ScaleForm(Me,New SizeF(xFormScaleFactor,xFormScaleFactor))
+            Dim xFormScaleFactor As Single = desiredScaleFactor / currentScaleFactor
+            dxScaler.ScaleForm(Me, Grid1, New SizeF(xFormScaleFactor, xFormScaleFactor))
             '// now the current is equal to the desired
-            currentScaleFactor = desiredScaleFactor          
+            currentScaleFactor = desiredScaleFactor
         End If
     End Sub
 
     Private Sub ButtonResizeBtns_Click(sender As Object, e As EventArgs) Handles ButtonResizeBtns.Click
-        dxScaler.SetButtonResizing(CType(Me,XtraForm), AddressOf Button_SizeChanged)      
+        dxScaler.SetButtonResizing(CType(Me, XtraForm), AddressOf Button_SizeChanged)
     End Sub
 
     Private Sub ButtonFontMetrics_Click(sender As Object, e As EventArgs) Handles ButtonFontMetrics.Click
@@ -176,34 +180,60 @@ Public Class frmSkinUtilities
         Debug.Print("Current Form x,y & Font Size[{0},{1} : {2}]", Me.Width, Me.Height, DevExpress.Utils.AppearanceObject.DefaultFont.Size)
         desiredScaleFactor = desiredScaleFactor + ScaleChange
         If desiredScaleFactor < 0.5 Then desiredScaleFactor = 0.5
-        If desiredScaleFactor>2 Then desiredScaleFactor=2
+        If desiredScaleFactor > 2 Then desiredScaleFactor = 2
         '// the transformation required to get from current to desired
-        Dim xFormScaleFactor As Single = desiredScaleFactor/currentScaleFactor
-        dxScaler.ScaleForm(Me,New SizeF(xFormScaleFactor,xFormScaleFactor))
+        Dim xFormScaleFactor As Single = desiredScaleFactor / currentScaleFactor
+        dxScaler.ScaleForm(Me, grid1, New SizeF(xFormScaleFactor, xFormScaleFactor))
         '// now the current is equal to the desired
         currentScaleFactor = desiredScaleFactor
-        dxScaler.ScaleFonts2(Me,baseFont, desiredScaleFactor)
+        dxScaler.ScaleFonts2(Me, baseFont, desiredScaleFactor)
+
         Debug.Print("+++++++++++++TRANSFORMED+++++++++++++++")
         Debug.Print("New Desired/Current [{0},{1}]", desiredScaleFactor, currentScaleFactor)
         Debug.Print("New Form x,y & Font Size[{0},{1} : {2}]", Me.Width, Me.Height, DevExpress.Utils.AppearanceObject.DefaultFont.Size)
-        
+
 
     End Sub
 
     Private Sub ButtonRPH_R_Click(sender As Object, e As EventArgs) Handles ButtonRPH_R.Click
         DoScaling(+0.25)
+
     End Sub
 
     Private Sub ButtonXtraItem_Click(sender As Object, e As EventArgs) Handles ButtonXtraItem.Click
         'Dim list As List(Of MusicItem) = DeSerializeMusicItemLibrary("G:\smallList.XML")
-        dataList = DeSerializeMusicItemLibrary(My.Resources.AlbumTrackList, True)
-        
-        ReDim shadowList(dataList.count-1)
-        For i As Integer = 0 To  dataList.Count-1
-            shadowList(i) = dataList(i).ID
+        data = DeSerializeMusicItemLibrary(My.Resources.AlbumTrackList, True)
+
+        ReDim shadowList(data.count - 1)
+        For i As Integer = 0 To data.Count - 1
+            shadowList(i) = data.Values(i).id
         Next
+        Grid1.DataSource = shadowList
+    End Sub
+
+    Private Sub ButtonScaleTiles_Click(sender As Object, e As EventArgs) Handles ButtonScaleTiles.Click
+        
+        dxScaler.ResizeTileItems(Grid1, TileView1, PanelLeftXtraHeader,  tileScrollBar, currentScaleFactor, windowsScaleFactor)
+    End Sub
+
+
+
+    Private Sub SimpleButton4_Click(sender As Object, e As EventArgs) Handles SimpleButton4.Click
+        
     End Sub
 
 #End Region
 
+#Region "Data Handling"
+    Private Sub TileView1_CustomUnboundColumnData(sender As Object, e As CustomColumnDataEventArgs) Handles TileView1.CustomUnboundColumnData
+        If e.IsGetData Then
+            Select Case e.Column.Name
+                Case "colArt"
+                    e.Value = data(e.Row.ToString).ArtWork
+                Case "colTitle"
+                    e.Value = data(e.Row.ToString).Title
+            End Select
+        End If
+    End Sub
+#End Region
 End Class

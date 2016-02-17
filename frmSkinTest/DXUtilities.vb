@@ -1,9 +1,13 @@
-﻿Imports System.IO
+﻿Imports System.Dynamic
+Imports System.IO
+Imports System.Reflection
 Imports System.Xml.Serialization
 Imports DevExpress.LookAndFeel
 Imports DevExpress.Skins
 Imports DevExpress.XtraEditors
 Imports DevExpress.XtraGrid.Views.Tile
+
+
 
 Module DXUtilities
 
@@ -52,7 +56,7 @@ Module DXUtilities
         Return items
     End Function
      '// deserialize a MusicItem List
-    Public Function DeSerializeMusicItemLibrary(data As String, isResource As Boolean) As List(Of MusicItem)
+    Public Function DeSerializeMusicItemLibrary(data As String, isResource As Boolean) As Dictionary(Of String, MusicItem)
         Dim ser As XmlSerializer = New XmlSerializer(GetType(List(Of MusicItem)))
         Dim items As New List(Of MusicItem)
         Try
@@ -62,8 +66,13 @@ Module DXUtilities
         Catch ex As Exception
 
         End Try
+        Dim dic As New Dictionary(Of String, MusicItem)
 
-        Return items
+        For Each item As MusicItem In items
+            dic.Add(item.ID, item)
+        Next
+
+        Return dic
     End Function
 
 #End Region
@@ -225,3 +234,5 @@ Module DXUtilities
 
 
 End Module
+
+

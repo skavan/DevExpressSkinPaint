@@ -64,15 +64,31 @@ Namespace My.Resources
         '''  Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         '''&lt;ArrayOfMusicItem xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
         '''  &lt;MusicItem&gt;
-        '''    &lt;ID&gt;_dklxfo-EJPpqKnqPFOa6mLkEGMktzscNPVY9-Qv6HZqq_G1d-DJP2pu9kMX67aH&lt;/ID&gt;
-        '''    &lt;Title&gt;Maybellene&lt;/Title&gt;
-        '''    &lt;Artist&gt;Chuck Berry&lt;/Artist&gt;
-        '''    &lt;Album&gt;21 Greatest Hits&lt;/Album&gt;
-        '''    &lt;ArtWork&gt;Qk02AAwAAAAAADYAAAAoAAAAAAIAAAACAAABABgAAAAAAAAAAADEDgAAxA4AAAAAAAAAAAAAcnN3cnN3cnN3cnN3cnN3cnN3cnN3cnN3cHF1b3B0b3B0b3B0b3B0b3B0b3B0b3B0a2xwamtv [rest of string was truncated]&quot;;.
+        '''    &lt;ID&gt;_dklxfo-EJM48pY_jdHranOj1X60pyq8hB2XLIDNJgG3K8efE_4YQ54ibwcK9NdC&lt;/ID&gt;
+        '''    &lt;Title&gt;Under the Gun&lt;/Title&gt;
+        '''    &lt;Artist&gt;The Sisters of Mercy&lt;/Artist&gt;
+        '''    &lt;Album&gt;A Slight Case of Overbombing: Greatest Hits, Vol. 1&lt;/Album&gt;
+        '''    &lt;ArtWork&gt;/9j/4AAQSkZJRgABAQEAAAAAAAD/2wBDAAMCAggICAgICAgICAgICAgICAgICAgHBwcIBwgIBwcHBwcHBwcHBwcHBwcHBwoHB [rest of string was truncated]&quot;;.
         '''</summary>
         Friend ReadOnly Property AlbumTrackList() As String
             Get
                 Return ResourceManager.GetString("AlbumTrackList", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        '''&lt;ArrayOfMusicItem xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        '''  &lt;MusicItem&gt;
+        '''    &lt;ID&gt;_dklxfo-EJM48pY_jdHranOj1X60pyq8hB2XLIDNJgG3K8efE_4YQ54ibwcK9NdC&lt;/ID&gt;
+        '''    &lt;Title&gt;Under the Gun&lt;/Title&gt;
+        '''    &lt;Artist&gt;The Sisters of Mercy&lt;/Artist&gt;
+        '''    &lt;Album&gt;A Slight Case of Overbombing: Greatest Hits, Vol. 1&lt;/Album&gt;
+        '''    &lt;ArtWork&gt;/9j/4AAQSkZJRgABAQEAAAAAAAD/2wBDAAMCAggICAgICAgICAgICAgICAgICAgHBwcIBwgIBwcHBwcHBwcHBwcHBwcHBwoHB [rest of string was truncated]&quot;;.
+        '''</summary>
+        Friend ReadOnly Property ShortAlbumTrackList() As String
+            Get
+                Return ResourceManager.GetString("ShortAlbumTrackList", resourceCulture)
             End Get
         End Property
     End Module

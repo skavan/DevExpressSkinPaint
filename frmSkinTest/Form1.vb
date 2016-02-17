@@ -73,7 +73,7 @@ Public Class Form1
 
       '// resize form
     Private Sub SimpleButton2_Click(sender As Object, e As EventArgs) Handles SimpleButton2.Click
-        Utils.ScaleForm(Me, New SizeF(1.5,1.5))
+        Utils.ScaleForm(Me, GridControl1, New SizeF(1.5,1.5))
         Utils.ScaleFonts2(Me,baseFont,1.5)
     End Sub 
 
