@@ -1,10 +1,13 @@
 ﻿'// note: form autoscalemode is set to DPI
 '// form font is set to Segoe UI, 10 pt.
 '// Devexpress is 
+Imports DevExpress.Data
 Imports DevExpress.Utils
 Imports DevExpress.XtraEditors
+Imports DevExpress.XtraGrid
 Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraGrid.Views.Tile
+Imports DevExpress.XtraGrid.Views.Tile.ViewInfo
 
 Public Class frmSkinUtilities
     Dim commonSkins As New DevExpress.Skins.CommonSkins
@@ -24,7 +27,9 @@ Public Class frmSkinUtilities
     Dim shadowList As String()
 
     Dim WithEvents tileScrollBar As DevExpress.XtraGrid.Scrolling.VCrkScrollBar 'The grid/TileView scrollbar
-
+    Dim HotTrackRow As Integer = GridControl.InvalidRowHandle
+    Dim FocusRow As Integer = GridControl.InvalidRowHandle
+    
     Class SkinStyler
         Property IsImage As Boolean
         Property Skins As Object
@@ -62,7 +67,8 @@ Public Class frmSkinUtilities
         SetSkinStylingOverrides
         baseFont = DevExpress.Utils.AppearanceObject.DefaultFont
         dxScaler = New DXScaler(Me)
-        tileScrollBar = dxScaler.GetTileViewVScrollBar(grid1)
+        tileScrollBar = dxScaler.GetTileViewVScrollBar(Grid1)
+        ButtonXtraItem.PerformClick
     End Sub
 
     '// a central place to setup skinning overrides.
@@ -80,6 +86,7 @@ Public Class frmSkinUtilities
         '// use this tag to flag buttons where we want to rescale the images 
         ButtonLPH_L.Tag = "UsePadding"
         ButtonLPH_R.Tag = "UsePadding"
+        'TileView1.
     End Sub
 #End Region
 
@@ -124,7 +131,7 @@ Public Class frmSkinUtilities
     Private Sub Button_SizeChangedByFactor(sender As Object, e As EventArgs)
         Dim btnCtl = sender
         btnCtl.Width = btnCtl.Height
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(form))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form))
         'If resources.GetObject(btnCtl.Name & ".Image") Is Nothing Then Exit Sub
         btnCtl.Image = RescaleImageByScaleFactor(resources.GetObject(btnCtl.Name & ".Image"),
                                                                      btnCtl.Size, btnImageScaleFactor)
@@ -195,7 +202,7 @@ Public Class frmSkinUtilities
         If desiredScaleFactor > 2 Then desiredScaleFactor = 2
         '// the transformation required to get from current to desired
         Dim xFormScaleFactor As Single = desiredScaleFactor / currentScaleFactor
-        dxScaler.ScaleForm(Me, grid1, New SizeF(xFormScaleFactor, xFormScaleFactor))
+        dxScaler.ScaleForm(Me, Grid1, New SizeF(xFormScaleFactor, xFormScaleFactor))
         '// now the current is equal to the desired
         currentScaleFactor = desiredScaleFactor
         dxScaler.ScaleFonts2(Me, baseFont, desiredScaleFactor)
@@ -216,9 +223,9 @@ Public Class frmSkinUtilities
         'Dim list As List(Of MusicItem) = DeSerializeMusicItemLibrary("G:\smallList.XML")
         data = DeSerializeMusicItemLibrary(My.Resources.AlbumTrackList, True)
 
-        ReDim shadowList(data.count - 1)
+        ReDim shadowList(data.Count - 1)
         For i As Integer = 0 To data.Count - 1
-            shadowList(i) = data.Values(i).id
+            shadowList(i) = data.Values(i).ID
         Next
         Grid1.DataSource = shadowList
     End Sub
@@ -249,6 +256,112 @@ Public Class frmSkinUtilities
 
     Private Sub TileView1_ContextButtonCustomize(sender As Object, e As TileViewContextButtonCustomizeEventArgs) Handles TileView1.ContextButtonCustomize
 
+    End Sub
+
+    Private Sub TileView1_MouseMove(sender As Object, e As MouseEventArgs) Handles TileView1.MouseMove
+        'Dictionary(Of Integer, DevExpress.XtraGrid.Views.Tile.TileViewItem)
+        
+
+        Dim view As TileView = sender
+        Dim info As TileViewHitInfo = view.CalcHitInfo(New Point(e.X, e.Y))
+        If info.InItem Then
+            Dim item = info.Item
+            If Not (HotTrackRow = item.RowHandle) Then
+                '// new row
+                Dim pRow As Integer = HotTrackRow
+                HotTrackRow = item.RowHandle
+                '// refresh previous to normal
+                If pRow <> GridControl.InvalidRowHandle Then TileView1.RefreshRow(pRow)
+                'If pRow <> GridControl.InvalidRowHandle Then PaintFocusTile2(pRow, False)
+                '// refresh the new hotTrackrow
+                'PaintFocusTile2(HotTrackRow, True)
+                TileView1.RefreshRow(HotTrackRow)
+            End If
+        Else
+            'HotTrackRow = GridControl.InvalidRowHandle
+        End If
+    End Sub
+
+    Private Sub Grid1_MouseLeave(sender As Object, e As EventArgs) Handles Grid1.MouseLeave
+        Debug.Print("Mouse Left Grid")
+        '// invalidate previous hottrackrow if any.
+        Dim pRow As Integer = HotTrackRow
+        HotTrackRow=GridControl.InvalidRowHandle
+        If pRow<> GridControl.InvalidRowHandle Then TileView1.RefreshRow(pRow)
+    End Sub
+
+    '// is fired both by mouse click and enter key
+    Private Sub TileView1_ItemClick(sender As Object, e As TileViewItemClickEventArgs) Handles TileView1.ItemClick
+        Debug.Print("ItemClick")
+        '// DO ACTIONS HERE
+
+    End Sub
+
+    Private Sub TileView1_FocusedRowChanged(sender As Object, e As FocusedRowChangedEventArgs) Handles TileView1.FocusedRowChanged
+        Debug.Print("Prev: {0}, New: {1}", e.PrevFocusedRowHandle, e.FocusedRowHandle)
+        'TileView1.RefreshRow(e.FocusedRowHandle)
+    End Sub
+
+    Private Sub TileView1_CustomDrawEmptyForeground(sender As Object, e As CustomDrawEventArgs) Handles TileView1.CustomDrawEmptyForeground
+        Debug.Print("Paint Row: ", sender.GetType.Name)
+    End Sub
+
+    Private Sub Grid1_Paint(sender As Object, e As PaintEventArgs) Handles Grid1.Paint
+        'Debug.Print("Grid Paint eType: {0}, senderType: {1}", e.GetType.Name, sender.GetType.Name)
+
+    End Sub
+
+    Private Sub PaintFocusTile2(rowHandle As Integer, isFocus As Boolean)
+        If rowHandle = GridControl.InvalidRowHandle Then Exit Sub
+        Dim vItem As TileViewItem = TryCast(TryCast(tileView1.GetViewInfo(), ITileControl).ViewInfo, TileViewInfoCore).VisibleItems(rowHandle)
+        If vItem Is Nothing Then Exit Sub
+        If isFocus Then
+            Debug.Print ("Painting Row:" & vItem.RowHandle)
+            vItem.BackgroundImage = DrawButtonSkinGraphic(dxScaler.activeLookAndFeel, New Rectangle(0, 0, vItem.View.OptionsTiles.ItemSize.Width, vItem.View.OptionsTiles.ItemSize.Height), commonSkins, "HighlightedItem", 0)
+            TileView1.RefreshRow(vItem.RowHandle)
+        Else
+            Debug.Print ("Unpainting Row:" & vItem.RowHandle)
+            vItem.BackgroundImage=Nothing
+            Grid1.Refresh
+        End If
+    End Sub
+
+    Private Sub PaintFocusTile(rowHandle As Integer)
+        Dim visibleItems As Dictionary(Of Integer, TileViewItem) = GetVisibleRows(TileView1)
+        For each vItem In visibleItems.Values
+            If vItem.RowHandle = HotTrackRow Then
+                Debug.Print ("Filling Row:" & vItem.RowHandle)
+                vItem.BackgroundImage = DrawButtonSkinGraphic(dxScaler.activeLookAndFeel, New Rectangle(0, 0, vItem.View.OptionsTiles.ItemSize.Width, vItem.View.OptionsTiles.ItemSize.Height), commonSkins, "HighlightedItem", 1)
+            Else
+                Debug.Print ("Erasing Row:" & vItem.RowHandle)
+                vItem.BackgroundImage=Nothing
+                    
+            End If
+        Next
+    End Sub
+    Private Sub TileView1_ItemCustomize(sender As Object, e As TileViewItemCustomizeEventArgs) Handles TileView1.ItemCustomize
+        Debug.Print("TileView Customize: {0}, row: {1}", sender.GetType.Name, e.RowHandle)
+        Dim item As TileViewItem = e.Item
+        If HotTrackRow = item.RowHandle Then
+            Item.BackgroundImage = DrawButtonSkinGraphic(dxScaler.activeLookAndFeel, New Rectangle(0, 0, Item.View.OptionsTiles.ItemSize.Width, Item.View.OptionsTiles.ItemSize.Height), commonSkins, "HighlightedItem", 0)
+        Else
+            item.BackgroundImage=Nothing
+        End If
+        
+        'Else
+        '    item.BackgroundImage=Nothing
+
+        'End If
+
+    End Sub
+
+    Private Sub SimpleButton4_Click(sender As Object, e As EventArgs) Handles SimpleButton4.Click
+        Dim visibleItems As Dictionary(Of Integer, TileViewItem) = GetVisibleRows(TileView1)
+            For each vItem In visibleItems.Values
+                
+                    vItem.BackgroundImage = Nothing
+                
+            Next
     End Sub
 
 

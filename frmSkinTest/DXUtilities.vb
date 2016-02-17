@@ -6,7 +6,7 @@ Imports DevExpress.LookAndFeel
 Imports DevExpress.Skins
 Imports DevExpress.XtraEditors
 Imports DevExpress.XtraGrid.Views.Tile
-
+Imports DevExpress.XtraGrid.Views.Tile.ViewInfo
 
 
 Module DXUtilities
@@ -232,6 +232,12 @@ Module DXUtilities
 
 #End Region
 
+#Region "TileView Specific"
+    Public Function GetVisibleRows(view As TileView) As Dictionary(Of Integer, DevExpress.XtraGrid.Views.Tile.TileViewItem)
+        Dim x As TileViewInfoCore = TryCast(TryCast(view.GetViewInfo(), ITileControl).ViewInfo, TileViewInfoCore)
+        Return x.VisibleItems
+    End Function
+#End Region
 
 End Module
 
