@@ -10,9 +10,9 @@ Partial Class frmSkinUtilities
                 If components IsNot Nothing Then
                     components.Dispose()
                 End If
-                If baseFont IsNot Nothing Then
-                    baseFont.Dispose()
-                    baseFont = Nothing
+                If appBaseFont IsNot Nothing Then
+                    appBaseFont.Dispose()
+                    appBaseFont = Nothing
                 End If
             End If
         Finally
@@ -42,8 +42,8 @@ Partial Class frmSkinUtilities
         Me.FormAssistant1 = New DevExpress.XtraBars.FormAssistant()
         Me.DefaultLookAndFeel1 = New DevExpress.LookAndFeel.DefaultLookAndFeel(Me.components)
         Me.PanelLeft = New DevExpress.XtraEditors.PanelControl()
-        Me.Grid1 = New DevExpress.XtraGrid.GridControl()
-        Me.TileView1 = New DevExpress.XtraGrid.Views.Tile.TileView()
+        Me.Grid1 = New frmSkinTest.MyGridControl()
+        Me.TileView1 = New frmSkinTest.MyTileView()
         Me.PanelLeftXtraHeader = New DevExpress.XtraEditors.PanelControl()
         Me.LabelXtraItem = New DevExpress.XtraEditors.LabelControl()
         Me.ButtonXtraItem = New DevExpress.XtraEditors.SimpleButton()
@@ -155,8 +155,9 @@ Partial Class frmSkinUtilities
         Me.PanelLeft.Controls.Add(Me.Grid1)
         Me.PanelLeft.Controls.Add(Me.PanelLeftXtraHeader)
         Me.PanelLeft.Controls.Add(Me.PanelLeftHeader)
-        Me.PanelLeft.Dock = System.Windows.Forms.DockStyle.Left
+        Me.PanelLeft.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelLeft.Location = New System.Drawing.Point(0, 97)
+        Me.PanelLeft.MinimumSize = New System.Drawing.Size(440, 0)
         Me.PanelLeft.Name = "PanelLeft"
         Me.PanelLeft.Size = New System.Drawing.Size(440, 652)
         Me.PanelLeft.TabIndex = 1
@@ -192,6 +193,8 @@ Partial Class frmSkinUtilities
         Me.TileView1.ContextButtons.Add(ContextButton1)
         Me.TileView1.ContextButtons.Add(ContextButton2)
         Me.TileView1.GridControl = Me.Grid1
+        Me.TileView1.HotTrackRow = -2147483648
+        Me.TileView1.MyBorderWidth = 1
         Me.TileView1.Name = "TileView1"
         Me.TileView1.OptionsTiles.HorizontalContentAlignment = DevExpress.Utils.HorzAlignment.Near
         Me.TileView1.OptionsTiles.IndentBetweenItems = 3
@@ -210,6 +213,7 @@ Partial Class frmSkinUtilities
         TileViewItemElement2.Text = "colTitle"
         TileViewItemElement2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft
         TileViewItemElement2.TextLocation = New System.Drawing.Point(54, 0)
+        TileViewItemElement2.Width = 200
         Me.TileView1.TileTemplate.Add(TileViewItemElement1)
         Me.TileView1.TileTemplate.Add(TileViewItemElement2)
         '
@@ -507,7 +511,7 @@ Partial Class frmSkinUtilities
         'PanelCenter
         '
         Me.PanelCenter.Controls.Add(Me.PanelCenterHeader)
-        Me.PanelCenter.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelCenter.Dock = System.Windows.Forms.DockStyle.Right
         Me.PanelCenter.Location = New System.Drawing.Point(440, 97)
         Me.PanelCenter.Name = "PanelCenter"
         Me.PanelCenter.Size = New System.Drawing.Size(470, 652)
@@ -541,11 +545,12 @@ Partial Class frmSkinUtilities
         Me.AutoScaleDimensions = New System.Drawing.SizeF(144!, 144!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(1215, 749)
+        Me.Controls.Add(Me.PanelLeft)
         Me.Controls.Add(Me.PanelCenter)
         Me.Controls.Add(Me.PanelRight)
-        Me.Controls.Add(Me.PanelLeft)
         Me.Controls.Add(Me.PanelTop)
         Me.Font = New System.Drawing.Font("Segoe UI", 10!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.MinimumSize = New System.Drawing.Size(460, 300)
         Me.Name = "frmSkinUtilities"
         Me.Text = "DX Skin Utilities"
         CType(Me.RepositoryItemImageEdit1,System.ComponentModel.ISupportInitialize).EndInit
@@ -607,9 +612,9 @@ End Sub
     Friend WithEvents PanelLeftXtraHeader As DevExpress.XtraEditors.PanelControl
     Friend WithEvents LabelXtraItem As DevExpress.XtraEditors.LabelControl
     Friend WithEvents ButtonXtraItem As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents Grid1 As DevExpress.XtraGrid.GridControl
-    Friend WithEvents TileView1 As DevExpress.XtraGrid.Views.Tile.TileView
+    Friend WithEvents Grid1 As MyGridControl 'DevExpress.XtraGrid.GridControl
     Friend WithEvents colArt As DevExpress.XtraGrid.Columns.TileViewColumn
     Friend WithEvents RepositoryItemImageEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemImageEdit
     Friend WithEvents colTitle As DevExpress.XtraGrid.Columns.TileViewColumn
+    Friend WithEvents TileView1 As MyTileView
 End Class

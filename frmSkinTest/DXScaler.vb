@@ -77,7 +77,7 @@ Class DXScaler
 
 #Region "Event Assignment and Handling"
     '// add handlers to selected buttons
-    Public Sub SetButtonResizing(form As XtraForm, ByRef Func As EventHandler)
+    Public Sub SetButtonSizeChangedHandlers(form As XtraForm, ByRef Func As EventHandler)
         For each item In ctlDict
             Dim ctlInfo As ControlInfo = item.Value
             If ctlInfo.useImagePadding Then
@@ -92,14 +92,20 @@ Class DXScaler
     
 #Region "Font, Form and Tile Scaling"
 
+    '// scale a form by taking the desired scale abnd the current scale. work out the transform and apply it. Return what is the new resultant (=desired) scale.
+    Public Function ScaleForm(form As XtraForm, desiredScaleFactor As Single, currentScaleFactor As Single) As Single
+        Dim xFormScaleFactor As Single = desiredScaleFactor / currentScaleFactor
+        ScaleFormByFactor(form, New SizeF(xFormScaleFactor, xFormScaleFactor))
+        Return desiredScaleFactor
+    End Function
+
     '// scale everything on a form by a factor
-    Public Sub ScaleForm(form As XtraForm, grid As GridControl, factor As SizeF)
+    Public Sub ScaleFormByFactor(form As XtraForm, factor As SizeF)
         form.Scale(factor)
-        'grid.Scale(factor)
     End Sub
 
     '// given a basefont (the starting font size, family and style), rescale it by a factor and set all Devexpress controls to this, then process individually overridden children
-    Public Sub ScaleFonts2(form As XtraForm, baseFont As Font, fontScaleFactor As Single)
+    Public Sub ScaleFonts(form As XtraForm, baseFont As Font, fontScaleFactor As Single)
         Dim startSize As Single = baseFont.SizeInPoints
         DevExpress.Utils.AppearanceObject.DefaultFont = New Font(basefont.FontFamily.Name, startSize * fontScaleFactor, basefont.Style)
         ScaleIndependentControls(form, fontScaleFactor)
@@ -118,58 +124,6 @@ Class DXScaler
         Next
     End Sub
     
-    Public Sub ScaleTileViewFonts(View As TileView, scaleFactor As Single)
-        Dim ap As AppearanceObject
-        'Dim font As Font
-        For Each ap In View.Appearance
-            'font = ap.Font
-            ap.FontSizeDelta = 1.5
-            'ap.Font = font
-        Next
-    End Sub
-
-    '//Rescale Tile Items
-    Public Sub ResizeTileItems(grid As GridControl, tileView As TileView, panel As PanelControl, scrollBar As VCrkScrollBar)
-        
-        '// get scrollbar width, if present
-        Dim scrollBarAdjustment As Single = 0
-        If scrollBar IsNot Nothing Then
-            If scrollBar.Visible Then
-                scrollBarAdjustment = scrollBar.Width
-            End If
-        End If
-
-        '// get tile view padding (external margins) if present
-        Dim paddingAdjustment As Single = (tileView.OptionsTiles.Padding.Left-tileView.OptionsTiles.Padding.Right)
-
-        '// get grid margins by inspecting a hidden property via reflection
-        '// because the normal grid.margins class is all srewed up when the form is scaled
-        Dim x = ExposedObject.From(grid)
-        Dim gridMarginAdjustment As Single = (x.DefaultMargin.Left+x.DefaultMargin.Right)
-
-        '// apply the settings
-        Dim size As New SizeF
-        size.Width = ((grid.Width-scrollBarAdjustment-paddingAdjustment-gridMarginAdjustment)/grid.ScaleFactor.Width)   
-        size.Height = panel.Height / grid.ScaleFactor.Height
-        tileView.OptionsTiles.ItemSize = size.ToSize      '// Set the Height
-
-        Dim adjWidth As Single = size.Width * grid.ScaleFactor.Width
-        'Debug.Print("adj Width: {0}, gridMargin: {1}, adjMargin: {2}, actualMargin: {3}", adjWidth, gridMarginAdjustment, gridMarginAdjustment*grid.ScaleFactor.Width, grid.Width-adjWidth)
-        'Debug.Print("Loc: , Size: {0}, PanelW: {5}, GridW: {1}, GridSFW: {2}, ScaleFactor: {3}, Adj Width: {4}", size.Width, grid.Width, grid.ScaleFactor.Width, currentScaleFactor, size.Width * grid.ScaleFactor.Width, Panel.Width)
-        Exit Sub
-
-    End Sub
-
-    '// go find a vertical scrollbar in the grid/tileview and attach it.
-    Public Function GetTileViewVScrollBar(grid As GridControl) As VCrkScrollBar
-        For Each ctl In grid.Controls
-            If TypeOf (ctl) Is DevExpress.XtraGrid.Scrolling.VCrkScrollBar Then
-                Return ctl             
-            End If
-        Next
-        Return Nothing
-    End Function
-
 #End Region
 
 #Region "WIP"
