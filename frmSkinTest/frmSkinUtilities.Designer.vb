@@ -204,7 +204,6 @@ Partial Class frmSkinUtilities
         Me.TileView1.OptionsTiles.Padding = New System.Windows.Forms.Padding(3)
         Me.TileView1.OptionsTiles.ShowGroupText = false
         TileViewItemElement1.Column = Me.colArt
-        TileViewItemElement1.Image = CType(resources.GetObject("TileViewItemElement1.Image"),System.Drawing.Image)
         TileViewItemElement1.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleLeft
         TileViewItemElement1.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Stretch
         TileViewItemElement1.ImageSize = New System.Drawing.Size(48, 48)

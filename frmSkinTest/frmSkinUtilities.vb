@@ -72,6 +72,7 @@ Public Class frmSkinUtilities
         AppBasefont = DevExpress.Utils.AppearanceObject.DefaultFont
         dxScaler = New DXScaler(Me)
         tileScrollBar = TileView1.VScrollBar            '// uses MyTileView, otherwise have to peek inside the Grid or the TileView
+        
         GetInitialDataset(false)
     End Sub
 
@@ -344,6 +345,10 @@ Public Class frmSkinUtilities
         
     End Sub
 
-    
+    Private Sub frmSkinUtilities_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        Dim tileItemElement As TileItemElement = TileView1.SpringTileItemElementWidth(colTitle, True)
+    End Sub
+
+
 #End Region
 End Class
